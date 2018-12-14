@@ -5,15 +5,9 @@
     <item
         android:id="@+id/menu_activity_main_search"
         android:icon="@drawable/baseline_search_white"
-        app:showAsAction="ifRoom"
+        android:orderInCategory="100"
+        app:showAsAction="always"
         android:title="Rechercher">
-    </item>
-
-    <item
-        android:id="@+id/menu_activity_main_params"
-        android:icon="@drawable/baseline_search_white"
-        app:showAsAction="ifRoom"
-        android:title="Paramètres">
     </item>
 
 </menu>
