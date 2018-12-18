@@ -64,7 +64,7 @@ public class BusinessFragmentPage extends Fragment{
 
         Log.d(TAG, "onCreate: entrée ");
 
-        NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
+   /*     NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
         Call<NYTSearchArticles> call = apiService.loadBusiness(ApiKey.NYT_API_KEY, BUSINESS_SEARCH, getContext().getString(R.string.sort_by_newest));
 
         call.enqueue(new Callback<NYTSearchArticles>() {
@@ -88,6 +88,6 @@ public class BusinessFragmentPage extends Fragment{
 
                 Log.e(TAG, t.toString());
             }
-        });
+        });*/
     }
 }

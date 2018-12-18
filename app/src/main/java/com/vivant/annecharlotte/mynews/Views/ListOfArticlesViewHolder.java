@@ -25,7 +25,6 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.fragment_item_image) ImageView imageView;
 
 
-
     public ListOfArticlesViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -36,6 +35,6 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         this.dateTextView.setText(NYTArticle.getPublishedDate());
         this.sectionTextView.setText((NYTArticle.getSection()));
 
-        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).apply(RequestOptions.circleCropTransform()).into(imageView);
+        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);
     }
 }
