@@ -3,6 +3,8 @@ package com.vivant.annecharlotte.mynews;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +13,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
+import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.annotations.Nullable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,9 +36,11 @@ import retrofit2.Response;
 
 public class TopStoriesPageFragment extends Fragment {
 
-   // @BindView(R.id.fragment_topstories_textview) TextView textViewTS;
-    TextView textViewTS;
+    RecyclerView mRecyclerView;
     public static final String TAG = "topstories_zut";
+
+    private ListOfArticlesAdapter adapter;
+    private List<ResultTopStories> mListArticles;
 
     public TopStoriesPageFragment() {
         // Required empty public constructor
@@ -41,15 +54,13 @@ public class TopStoriesPageFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_top_stories_page, container, false);
-        textViewTS = view.findViewById(R.id.fragment_topstories_textview);
+        mRecyclerView = view.findViewById(R.id.fragment_topstories_recyclerview);
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //this.textViewTS.setText("il est passé par ici");
 
         Log.d(TAG, "onCreate: entrée ");
 
@@ -66,14 +77,12 @@ public class TopStoriesPageFragment extends Fragment {
                 }
 
                 NYTTopStoriesArticles posts = response.body();
+                mListArticles = posts.getResults();
                 Toast.makeText(getContext(), "Victoire code: " + response.code(), Toast.LENGTH_LONG).show();
 
-                String affichage="";
-                for (int i = 0; i<10; i++) {
-                    affichage += "Title: " + posts.getResults().get(i).getTitle() + "\n";
-                    affichage += "Abstract: " + posts.getResults().get(i).getAbstract() + "\n\n";
-                }
-                textViewTS.append(affichage); ;
+                adapter = new ListOfArticlesAdapter(mListArticles, Glide.with(mRecyclerView));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -84,4 +93,6 @@ public class TopStoriesPageFragment extends Fragment {
             }
         });
     }
+
+
 }
