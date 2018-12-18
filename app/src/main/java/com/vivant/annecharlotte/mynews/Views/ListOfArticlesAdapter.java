@@ -23,7 +23,8 @@ public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesVi
     private RequestManager glide;
 
     // CONSTRUCTOR
-    public ListOfArticlesAdapter(List<ResultTopStories> listOfArticles, RequestManager glide) {
+    //public ListOfArticlesAdapter(List<ResultTopStories> listOfArticles) {
+        public ListOfArticlesAdapter(List<ResultTopStories> listOfArticles, RequestManager glide) {
         this.listOfArticles = listOfArticles;
         this.glide = glide;
     }
@@ -41,6 +42,7 @@ public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesVi
     @Override
     public void onBindViewHolder(ListOfArticlesViewHolder viewHolder, int position) {
         viewHolder.updateWithNYTArticles(this.listOfArticles.get(position), this.glide);
+        //viewHolder.updateWithNYTArticles(this.listOfArticles.get(position));
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST

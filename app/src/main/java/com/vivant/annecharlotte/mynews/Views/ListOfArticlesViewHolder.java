@@ -1,5 +1,6 @@
 package com.vivant.annecharlotte.mynews.Views;
 
+import android.graphics.drawable.Icon;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,11 +31,21 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithNYTArticles(ResultTopStories NYTArticle, RequestManager glide){
+    //public void updateWithNYTArticles(ResultTopStories NYTArticle){
+       public void updateWithNYTArticles(ResultTopStories NYTArticle, RequestManager glide){
         this.titleTextView.setText(NYTArticle.getTitle());
-        this.dateTextView.setText(NYTArticle.getPublishedDate());
-        this.sectionTextView.setText((NYTArticle.getSection()));
 
-        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);
+        String date = NYTArticle.getPublishedDate().substring(0,9);
+        this.dateTextView.setText(date);
+
+        String section = NYTArticle.getSection() ;
+        if(NYTArticle.getSubsection().length()> 0){
+                section += ">" +NYTArticle.getSubsection();}
+        this.sectionTextView.setText(section);
+
+        if (NYTArticle.getMultimedia().size()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
+        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);}
+        else this.imageView.setImageResource(R.drawable.ic_menu_camera);
+
     }
 }

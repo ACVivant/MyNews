@@ -78,8 +78,8 @@ public class TopStoriesPageFragment extends Fragment {
 
                 NYTTopStoriesArticles posts = response.body();
                 mListArticles = posts.getResults();
-                Toast.makeText(getContext(), "Victoire code: " + response.code(), Toast.LENGTH_LONG).show();
 
+                //adapter = new ListOfArticlesAdapter(mListArticles);
                 adapter = new ListOfArticlesAdapter(mListArticles, Glide.with(mRecyclerView));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
