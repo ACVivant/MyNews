@@ -1,7 +1,54 @@
 package com.vivant.annecharlotte.mynews.Models;
 
-/**
- * Created by Anne-Charlotte Vivant on 17/12/2018.
- */
-public class NYTMostPopularArticles {
+import java.util.List;
+        import com.google.gson.annotations.Expose;
+        import com.google.gson.annotations.SerializedName;
+
+public class  NYTMostPopularArticles {
+
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("copyright")
+    @Expose
+    private String copyright;
+    @SerializedName("num_results")
+    @Expose
+    private Integer numResults;
+    @SerializedName("results")
+    @Expose
+    private List<ResultMostPopular> results = null;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCopyright() {
+        return copyright;
+    }
+
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
+    }
+
+    public Integer getNumResults() {
+        return numResults;
+    }
+
+    public void setNumResults(Integer numResults) {
+        this.numResults = numResults;
+    }
+
+    public List<ResultMostPopular> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ResultMostPopular> results) {
+        this.results = results;
+    }
+
 }

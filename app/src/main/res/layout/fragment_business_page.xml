@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BusinessFragmentPage">
+    tools:context=".MostPopularPageFragment">
 
     <TextView
+        android:id="@+id/fragment_business_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Business"
         android:textSize="24sp"
-        android:gravity="center"/>
+        android:gravity="center" />
+
 
 </FrameLayout>

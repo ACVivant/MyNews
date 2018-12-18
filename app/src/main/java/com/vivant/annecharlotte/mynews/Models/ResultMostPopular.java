@@ -6,7 +6,7 @@ package com.vivant.annecharlotte.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class ResultMostPopular {
 
     @SerializedName("url")
     @Expose
@@ -32,18 +32,6 @@ public class Result {
     @SerializedName("source")
     @Expose
     private String source;
-    @SerializedName("des_facet")
-    @Expose
-    private DesFacet desFacet;
-    @SerializedName("org_facet")
-    @Expose
-    private OrgFacet orgFacet;
-    @SerializedName("per_facet")
-    @Expose
-    private PerFacet perFacet;
-    @SerializedName("geo_facet")
-    @Expose
-    private GeoFacet geoFacet;
 
     public String getUrl() {
         return url;
@@ -107,38 +95,6 @@ public class Result {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public DesFacet getDesFacet() {
-        return desFacet;
-    }
-
-    public void setDesFacet(DesFacet desFacet) {
-        this.desFacet = desFacet;
-    }
-
-    public OrgFacet getOrgFacet() {
-        return orgFacet;
-    }
-
-    public void setOrgFacet(OrgFacet orgFacet) {
-        this.orgFacet = orgFacet;
-    }
-
-    public PerFacet getPerFacet() {
-        return perFacet;
-    }
-
-    public void setPerFacet(PerFacet perFacet) {
-        this.perFacet = perFacet;
-    }
-
-    public GeoFacet getGeoFacet() {
-        return geoFacet;
-    }
-
-    public void setGeoFacet(GeoFacet geoFacet) {
-        this.geoFacet = geoFacet;
     }
 
 }

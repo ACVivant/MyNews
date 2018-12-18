@@ -14,11 +14,14 @@
     <string name="tabs_title_popular">Most Popular</string>
     <string name="tabs_title_business">Business</string>
 
-    <!-- Array of colors that will be used by ViewPager as background colors -->
+    <!-- Array with entries of welcome page -->
 
     <array name="TabTitles">
         <item>"Top Stories"</item>
         <item>"Most Popular"</item>
         <item>"Business"</item>
     </array>
+
+    <!-- informations for API -->
+    <string name="sort_by_newest">newest</string>
 </resources>
