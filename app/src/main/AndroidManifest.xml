@@ -27,25 +27,31 @@
         <activity
             android:name=".SearchActivity"
             android:label="Detail"
-            android:parentActivityName=".MainActivity" >
-
-           <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".NotificationActivity"
-            android:label="Detail"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".NotificationActivity"
+            android:label="Detail"
+            android:parentActivityName=".MainActivity">
 
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ResultsSearchActivity"
+            android:label="@string/title_activity_results_search"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

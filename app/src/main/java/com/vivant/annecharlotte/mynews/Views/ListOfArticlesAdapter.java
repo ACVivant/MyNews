@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.TopStoriesPageFragment;
@@ -19,14 +20,24 @@ import java.util.List;
  */
 public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesViewHolder> {
 
-    private List<ResultTopStories> listOfArticles;
+    private List<ResultArticles> listOfArticles;
     private RequestManager glide;
+    private OnItemClickedListener mListener;
+    private String apiTag;
+
+    public interface OnItemClickedListener{
+        void OnItemClicked(int position);
+    }
+
+    public void setOnItemClickedListener(OnItemClickedListener listener) {
+        mListener = listener;
+    }
 
     // CONSTRUCTOR
-    //public ListOfArticlesAdapter(List<ResultTopStories> listOfArticles) {
-        public ListOfArticlesAdapter(List<ResultTopStories> listOfArticles, RequestManager glide) {
+        public ListOfArticlesAdapter(List<ResultArticles> listOfArticles, RequestManager glide, String apiTag) {
         this.listOfArticles = listOfArticles;
         this.glide = glide;
+        this.apiTag =  apiTag;
     }
 
     @Override
@@ -35,7 +46,7 @@ public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesVi
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_item, parent, false);
-        return new ListOfArticlesViewHolder(view);
+        return new ListOfArticlesViewHolder(view, mListener, apiTag);
     }
 
     // UPDATE VIEW HOLDER

@@ -10,33 +10,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
-import com.vivant.annecharlotte.mynews.Models.ApiKey;
+import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.annotations.Nullable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class TopStoriesPageFragment extends Fragment  {
+/// complètement bidon pour le momnet
+public class SearchPageFragment extends Fragment  {
 
     private RecyclerView mRecyclerView;
     private LinearLayout mArticleItem;
@@ -53,7 +46,7 @@ public class TopStoriesPageFragment extends Fragment  {
     private ListOfArticlesAdapter adapter;
     private List<ResultTopStories> mListArticles;
 
-    public TopStoriesPageFragment() {
+    public SearchPageFragment() {
         // Required empty public constructor
     }
 
@@ -64,8 +57,8 @@ public class TopStoriesPageFragment extends Fragment  {
         Log.d(TAG, "onCreateView ");
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_top_stories_page, container, false);
-        mRecyclerView = view.findViewById(R.id.fragment_topstories_recyclerview);
+        View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
+        mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
         mArticleItem = view.findViewById(R.id.article_item);
 
         return view;
@@ -77,7 +70,7 @@ public class TopStoriesPageFragment extends Fragment  {
 
         Log.d(TAG, "onCreate: entrée ");
 
-        NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
+        /*NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
         Call<NYTTopStoriesArticles> call = apiService.loadTopStories(ApiKey.NYT_API_KEY);
 
         call.enqueue(new Callback<NYTTopStoriesArticles>() {
@@ -115,6 +108,6 @@ public class TopStoriesPageFragment extends Fragment  {
 
                 Log.e(TAG, t.toString());
             }
-        });
+        });*/
     }
 }

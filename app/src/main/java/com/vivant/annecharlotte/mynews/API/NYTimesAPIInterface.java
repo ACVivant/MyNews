@@ -1,5 +1,6 @@
 package com.vivant.annecharlotte.mynews.API;
 
+import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTMostPopularArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
@@ -15,14 +16,23 @@ public interface NYTimesAPIInterface {
 
     // Most Popular
     @GET("svc/mostpopular/v2/mostviewed/all-sections/7.json")
-    Call<NYTMostPopularArticles> loadMostPopular(@Query("api-key") String apiKey);
+    Call<NYTArticles> loadMostPopular(@Query("api-key") String apiKey);
 
     // Top Stories
     @GET("svc/topstories/v2/home.json")
-    Call<NYTTopStoriesArticles> loadTopStories(@Query("api-key") String apiKey);
+    Call<NYTArticles> loadTopStories(@Query("api-key") String apiKey);
 
 
     // Business Tab (Search API on Business)
     @GET("svc/search/v2/articlesearch.json")
     Call<NYTSearchArticles> loadBusiness(@Query("api-key") String apiKey, @Query("fq") String fQuery, @Query("sort") String sort);
+
+    // Search API
+    @GET("svc/search/v2/articlesearch.json")
+    Call<NYTSearchArticles> loadSearch(@Query("api-key") String apiKey,
+                                     @Query("q") String query,
+                                     @Query("fq") String fQuery,
+                                     @Query("sort") String sort,
+                                     @Query("begin_date") String beginDate,
+                                     @Query("end_date") String endDate);
 }

@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Media {
+public class MediaPhoto {
 
-    @SerializedName("media-metadata")
+    @SerializedName("url")
     @Expose
-    private List<MediaPhoto> mediametadata;
+    private String url;
 
 
-    public List<MediaPhoto> getMediametadata() {
-        return mediametadata;
+    public String getUrl() {
+        return url;
     }
 
-    public void setMediametadata(List<MediaPhoto> mediametadata) {
-        this.mediametadata = mediametadata;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

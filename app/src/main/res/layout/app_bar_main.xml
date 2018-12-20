@@ -13,13 +13,10 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:background="#5C6BC0">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <include
+            layout="@layout/app_bar_search_only"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:background="@android:color/holo_orange_dark"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="match_parent"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

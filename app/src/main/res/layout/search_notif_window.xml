@@ -20,7 +20,7 @@
         app:titleTextColor="@android:color/white"/>
 
         <EditText
-            android:id="@+id/search_edittext"
+            android:id="@+id/search_query_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_toolbar"
@@ -32,7 +32,7 @@
         android:id="@+id/begin_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_edittext"
+        android:layout_below="@+id/search_query_edittext"
         android:layout_margin="10dp"
         android:orientation="vertical"
         android:layout_weight="1.5"
