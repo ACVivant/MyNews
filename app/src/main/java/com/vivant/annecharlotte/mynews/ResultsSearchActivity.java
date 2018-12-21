@@ -1,17 +1,69 @@
 package com.vivant.annecharlotte.mynews;
 
+import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.vivant.annecharlotte.mynews.API.ApiKey;
+import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
+import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
+import com.vivant.annecharlotte.mynews.Models.Doc;
+import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResultsSearchActivity extends AppCompatActivity {
 
     private ResultSearchFragment mResultSearchFragment;
 
+    private String mFQuery ;
+    private String mQuery;
+    private String mBeginDate ;
+    private String mEndDate ;
+
     private String TAG= "resultsearchactivity_zut";
+    private String TAG_API= "SEARCH";
+
+    private ResultSearchFragment fragobj;
+
+    private RecyclerView mRecyclerView;
+    private LinearLayout mArticleItem;
+    private TopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
+    private String articleUrl;
+    private WebViewActivity mArticleWebView = new WebViewActivity();
+
+    private ListOfSearchedArticlesAdapter adapter;
+    private List<Doc> mListArticles;
+
+    public interface OnArticleClickedListener {
+        void onArticletClicked(int position);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +72,26 @@ public class ResultsSearchActivity extends AppCompatActivity {
         this.configureSearchToolbar();
         this.configureAndShowResultSearchFragment();
 
+
         Log.d(TAG, "onCreate: ");
 
+       // configureRecyclerView();
     }
+
 
     private void configureAndShowResultSearchFragment() {
         Log.d(TAG, "configureAndShowResultSearchFragment: ");
+        Bundle bundle = new Bundle();
+        bundle.putString("q", getIntent().getStringExtra("q"));
+        bundle.putString("fq", getIntent().getStringExtra("fq"));
+        bundle.putString("begin_date", getIntent().getStringExtra("begin_date"));
+        bundle.putString("end_date", getIntent().getStringExtra("end_date"));
+
         mResultSearchFragment = (ResultSearchFragment) getSupportFragmentManager().findFragmentById(R.id.container_search_recyclerview);
 
         if (mResultSearchFragment == null) {
             mResultSearchFragment = new ResultSearchFragment();
+            mResultSearchFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container_search_recyclerview, mResultSearchFragment)
                     .commit();

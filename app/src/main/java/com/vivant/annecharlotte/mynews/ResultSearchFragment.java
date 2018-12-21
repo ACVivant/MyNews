@@ -59,6 +59,11 @@ public class ResultSearchFragment extends Fragment {
     private ListOfSearchedArticlesAdapter adapter;
     private List<Doc> mListArticles;
 
+    private String mFQuery ;
+    private String mQuery;
+    private String mBeginDate ;
+    private String mEndDate ;
+
     public interface OnArticleClickedListener {
         void onArticletClicked(int position);
     }
@@ -78,6 +83,16 @@ public class ResultSearchFragment extends Fragment {
         mArticleItem = view.findViewById(R.id.article_item);
         Log.d(TAG, "onCreateView: ");
 
+        if (getArguments()!=null) {
+
+            mQuery = getArguments().getString("q");
+            mFQuery = getArguments().getString("fq");
+            mBeginDate = getArguments().getString("begin_date");
+            mEndDate = getArguments().getString("end_date");
+        }
+
+        Log.d(TAG, "onCreateView: mFQuery: " + mFQuery + ", mQuery: "+ mQuery+ ", mBeginDate: " + mBeginDate + ", mEndDate: " + mEndDate );
+        Log.d(TAG, "onCreateView: BUSINESS: " +BUSINESS_SEARCH);
         this.configureRecyclerView();
         return view;
     }
@@ -88,21 +103,17 @@ public class ResultSearchFragment extends Fragment {
     }
 
     private void configureRecyclerView() {
-        Log.d(TAG, "onCreate: entrée ");
-
-/*        String mFQuery = getArguments().getString("q");
-        String mQuery = getArguments().getString("fq");
-        String mBeginDate = getArguments().getString("begin_date");
-        String mEndDate = getArguments().getString("end_date");*/
+        Log.d(TAG, "configureRecyclerView: entrée ");
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        //Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY, mFQuery,mQuery, getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
-        Call<NYTSearchArticles> call = apiService.loadBusiness(ApiKey.NYT_API_KEY, BUSINESS_SEARCH, getContext().getString(R.string.sort_by_newest));
+        //Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY, ("love children"), "news_desk: (\"arts\" \"entrepreneurs\")",  getContext().getString(R.string.sort_by_newest), "20181001", "20181220");
+        Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY,mQuery, mFQuery,  getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
+        //Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery,  getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
-                Log.d(TAG, "onCreate: onResponse ");
+                Log.d(TAG, "configureRecyclerView: onResponse ");
                 if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;

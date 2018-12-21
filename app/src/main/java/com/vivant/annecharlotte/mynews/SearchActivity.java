@@ -205,8 +205,24 @@ public class SearchActivity extends AppCompatActivity {
                                      @Query("end_date") String endDate)*/
 
     private void launchResultsSearchActivity() {
-        String keywordsResults = mEditText_keywords.getText().toString();
-        keywordsResults = "\"" + keywordsResults + "\")";
+
+        String keywordsResults1 = mEditText_keywords.getText().toString();
+        String keywordsResults = "(" ;
+
+        String[] splitArray = null; //tableau de chaînes
+        //la chaîne à traiter
+        String str = keywordsResults1;
+        // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
+        splitArray = str.split(" ");
+
+        for(int i = 0; i< splitArray.length;i++){
+            // On affiche chaque élément du tableau
+            System.out.println("élement n° " + i + "=[" + splitArray[i]+"]");
+            keywordsResults += "\"" + splitArray[i] +"\" ";
+        }
+        keywordsResults += ")";
+
+        //keywordsResults = "(\"" + keywordsResults + "\")";
 
         checkboxResult();
 
@@ -214,40 +230,38 @@ public class SearchActivity extends AppCompatActivity {
         Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
         myIntent.putExtra("q", keywordsResults);
         myIntent.putExtra("fq", checkboxResults);
-        myIntent.putExtra("begin_date","\"" + mBeginDate+ "\")");
-        myIntent.putExtra("end_date","\"" + mEndDate+ "\")");
+       myIntent.putExtra("begin_date",mBeginDate);
+       myIntent.putExtra("end_date",mEndDate);
         startActivity(myIntent);
     }
 
     private void checkboxResult() {
-        checkboxResults = "news_desk:(\"";
+        checkboxResults = "news_desk:(";
 
         if (mPolitics.isChecked()) {
-            checkboxResults += "politics";
+            checkboxResults += "\"politics\" ";
         }
 
         if (mArts.isChecked()) {
-            checkboxResults += "arts";
+            checkboxResults += "\"arts\" ";
         }
 
         if (mBusiness.isChecked()) {
-            checkboxResults += "business";
+            checkboxResults += "\"business\" ";
         }
 
         if (mSport.isChecked()) {
-            checkboxResults += "sports";
+            checkboxResults += "\"sports\" ";
         }
 
         if (mEntrepreneurs.isChecked()) {
-            checkboxResults += "entrepreneurs";
+            checkboxResults += "\"entrepreneurs\" ";
         }
 
         if (mTravel.isChecked()) {
-            checkboxResults += "travel";
+            checkboxResults += "\"travel\" ";
         }
 
-        checkboxResults += "\")";
+        checkboxResults += ")";
     }
 }
-
-//"source:(\"The New York Times\")" + " AND" + " news_desk:(\"Business\")"
