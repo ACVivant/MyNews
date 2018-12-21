@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,7 +47,10 @@ public class SearchActivity extends AppCompatActivity {
     private Button mSearchButton;
 
     private String checkboxResults;
+    private String keywordsResults;
     private String TAG = "searchactivity_zut";
+
+    boolean launch;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -205,63 +209,85 @@ public class SearchActivity extends AppCompatActivity {
                                      @Query("end_date") String endDate)*/
 
     private void launchResultsSearchActivity() {
+            keywordResult();
+            checkboxResult();
 
+            if (launch) {
+                Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
+                myIntent.putExtra("q", keywordsResults);
+                myIntent.putExtra("fq", checkboxResults);
+                myIntent.putExtra("begin_date", mBeginDate);
+                myIntent.putExtra("end_date", mEndDate);
+                startActivity(myIntent);
+            }
+        }
+
+
+    private void keywordResult() {
+        launch = true;
         String keywordsResults1 = mEditText_keywords.getText().toString();
-        String keywordsResults = "(" ;
+        if (keywordsResults1.length() < 1) {
+            Toast.makeText(this, "Il faut saisir au moins un mot clé", Toast.LENGTH_LONG).show();
+            launch = false;
+        } else {
+            keywordsResults = "(";
+            String[] splitArray = null; //tableau de chaînes
+            //la chaîne à traiter
+            String str = keywordsResults1;
+            // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
+            splitArray = str.split(" ");
 
-        String[] splitArray = null; //tableau de chaînes
-        //la chaîne à traiter
-        String str = keywordsResults1;
-        // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
-        splitArray = str.split(" ");
-
-        for(int i = 0; i< splitArray.length;i++){
-            // On affiche chaque élément du tableau
-            System.out.println("élement n° " + i + "=[" + splitArray[i]+"]");
-            keywordsResults += "\"" + splitArray[i] +"\" ";
+            for (int i = 0; i < splitArray.length; i++) {
+                // On affiche chaque élément du tableau
+                System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
+                keywordsResults += "\"" + splitArray[i] + "\" ";
+            }
+            keywordsResults += ")";
         }
-        keywordsResults += ")";
-
-        //keywordsResults = "(\"" + keywordsResults + "\")";
-
-        checkboxResult();
-
-
-        Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
-        myIntent.putExtra("q", keywordsResults);
-        myIntent.putExtra("fq", checkboxResults);
-       myIntent.putExtra("begin_date",mBeginDate);
-       myIntent.putExtra("end_date",mEndDate);
-        startActivity(myIntent);
     }
 
-    private void checkboxResult() {
-        checkboxResults = "news_desk:(";
+        private void checkboxResult () {
+            checkboxResults = "news_desk:(";
+            int index = 0;
 
-        if (mPolitics.isChecked()) {
-            checkboxResults += "\"politics\" ";
+
+
+                if (mPolitics.isChecked()) {
+                    checkboxResults += "\"politics\" ";
+                    index+=1;
+                }
+
+                if (mArts.isChecked()) {
+                    checkboxResults += "\"arts\" ";
+                    index+=1;
+                }
+
+                if (mBusiness.isChecked()) {
+                    checkboxResults += "\"business\" ";
+                    index+=1;
+                }
+
+                if (mSport.isChecked()) {
+                    checkboxResults += "\"sports\" ";
+                    index+=1;
+                }
+
+                if (mEntrepreneurs.isChecked()) {
+                    checkboxResults += "\"entrepreneurs\" ";
+                    index+=1;
+                }
+
+                if (mTravel.isChecked()) {
+                    checkboxResults += "\"travel\" ";
+                    index+=1;
+                }
+
+                checkboxResults += ")";
+
+                if(index==0){
+                    launch = false;
+                Toast.makeText(this, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
+            }
         }
 
-        if (mArts.isChecked()) {
-            checkboxResults += "\"arts\" ";
-        }
-
-        if (mBusiness.isChecked()) {
-            checkboxResults += "\"business\" ";
-        }
-
-        if (mSport.isChecked()) {
-            checkboxResults += "\"sports\" ";
-        }
-
-        if (mEntrepreneurs.isChecked()) {
-            checkboxResults += "\"entrepreneurs\" ";
-        }
-
-        if (mTravel.isChecked()) {
-            checkboxResults += "\"travel\" ";
-        }
-
-        checkboxResults += ")";
-    }
 }
