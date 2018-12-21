@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     private Button mSearchButton;
 
     private String checkboxResults;
+    private String TAG = "searchactivity_zut";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         initializeOnClickBeginDateListener();
         initializeOnClickEndDateListener();
         configureLayoutLinks();
+        Log.d(TAG, "onCreate: ");
     }
 
     private void configureLayoutLinks() {
@@ -76,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchResultsSearchAcitivty();
+                launchResultsSearchActivity();
             }
         });
     }
@@ -201,7 +204,7 @@ public class SearchActivity extends AppCompatActivity {
                                      @Query("begin_date") String beginDate,
                                      @Query("end_date") String endDate)*/
 
-    private void launchResultsSearchAcitivty() {
+    private void launchResultsSearchActivity() {
         String keywordsResults = mEditText_keywords.getText().toString();
         keywordsResults = "\"" + keywordsResults + "\")";
 

@@ -49,7 +49,7 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
        public void updateWithNYTArticles(ResultArticles NYTArticle, RequestManager glide){
         this.titleTextView.setText(NYTArticle.getTitle());
 
-        String date = NYTArticle.getPublishedDate().substring(0,9);
+        String date = NYTArticle.getPublishedDate().substring(0,10);
         this.dateTextView.setText(date);
 
         String section = NYTArticle.getSection() ;

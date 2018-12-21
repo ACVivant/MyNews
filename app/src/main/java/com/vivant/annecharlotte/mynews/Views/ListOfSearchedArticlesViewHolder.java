@@ -1,16 +1,15 @@
 package com.vivant.annecharlotte.mynews.Views;
 
-import android.graphics.drawable.Icon;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+import com.vivant.annecharlotte.mynews.Models.Doc;
+import com.vivant.annecharlotte.mynews.Models.Response;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
 
 import butterknife.BindView;
@@ -19,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Anne-Charlotte Vivant on 18/12/2018.
  */
-public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
+public class ListOfSearchedArticlesViewHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.fragment_item_title) TextView titleTextView;
     @BindView(R.id.fragment_item_date) TextView dateTextView;
@@ -28,7 +27,7 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
 
     String apiTag;
 
-    public ListOfArticlesViewHolder(View itemView, final ListOfArticlesAdapter.OnItemClickedListener listener, String apiTag) {
+    public ListOfSearchedArticlesViewHolder(View itemView, final ListOfSearchedArticlesAdapter.OnItemClickedListener listener, String apiTag) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -45,34 +44,20 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         this.apiTag = apiTag;
     }
 
+    public void updateWithNYTArticles(Doc NYTArticle, RequestManager glide){
+        this.titleTextView.setText(NYTArticle.getSnippet());
 
-       public void updateWithNYTArticles(ResultArticles NYTArticle, RequestManager glide){
-        this.titleTextView.setText(NYTArticle.getTitle());
-
-        String date = NYTArticle.getPublishedDate().substring(0,9);
+        String date = NYTArticle.getPubDate().substring(0,10);
         this.dateTextView.setText(date);
 
-        String section = NYTArticle.getSection() ;
-
-        if (apiTag=="TOPSTORIES") {  // ici on gère le fait qu'il n'y a pas de subsection dans MostPopular
-        if(NYTArticle.getSubsection().length()> 0){
-                section += ">" +NYTArticle.getSubsection();
-        }
-        }
+        String section = NYTArticle.getSectionName() ;
         this.sectionTextView.setText(section);
 
-           if (apiTag=="TOPSTORIES") {
-        if (NYTArticle.getMultimedia().size()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
-        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);}
-        else
-               this.imageView.setImageResource(R.drawable.ic_menu_camera);
-           }
+        if (NYTArticle.getMultimedia().get(2).getUrl().length()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
+              glide.load("https://static01.nyt.com/"+NYTArticle.getMultimedia().get(2).getUrl()).into(imageView);}
 
-           if (apiTag=="MOSTPOPULAR") {
-               if (NYTArticle.getMedia().size()>0){  // ici il faut gérer les cas où Media est un tableau vide
-                   glide.load(NYTArticle.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);}
-               else
-                   this.imageView.setImageResource(R.drawable.ic_menu_camera);
-           }
+        else
+            this.imageView.setImageResource(R.drawable.ic_menu_camera);
+
     }
 }

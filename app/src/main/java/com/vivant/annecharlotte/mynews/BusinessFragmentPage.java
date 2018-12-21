@@ -1,19 +1,32 @@
 package com.vivant.annecharlotte.mynews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
+import com.vivant.annecharlotte.mynews.Models.Doc;
+import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+import com.vivant.annecharlotte.mynews.Models.ResultArticles;
+import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
+import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
+import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesViewHolder;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,12 +35,23 @@ import retrofit2.Response;
 
 public class BusinessFragmentPage extends Fragment{
 
+    private RecyclerView mRecyclerView;
+    private LinearLayout mArticleItem;
+    private TopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
+    private String articleUrl;
+    private WebViewActivity mArticleWebView = new WebViewActivity();
 
-   private TextView textView;
    private static final String BUSINESS_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Business\")";
+   public static final String TAG = "business_zut";
+    public static final String TAG_API = "BUSINESS";
+    public String getTagApi() { return TAG_API;}
 
+    private ListOfSearchedArticlesAdapter adapter;
+    private List<Doc> mListArticles;
 
-    public static final String TAG = "business_zut";
+    public interface OnArticleClickedListener {
+        void onArticletClicked(int position);
+    }
 
    public BusinessFragmentPage() {
         // Required empty public constructor
@@ -37,18 +61,19 @@ public class BusinessFragmentPage extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_business_page, container, false);
-        textView = view.findViewById(R.id.fragment_business_textview);
         Log.d(TAG, "onCreateView ");
+
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
+        mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
+        mArticleItem = view.findViewById(R.id.article_item);
+
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //this.textView.setText("il est passé par ici");
 
         Log.d(TAG, "onCreate: entrée ");
 
@@ -65,9 +90,21 @@ public class BusinessFragmentPage extends Fragment{
                 }
 
                 NYTSearchArticles posts = response.body();
-                Log.d(TAG, "onCreate: onResponse TV ");
-                String affichage ="section: " +  posts.getResponse().getDocs().get(0).getSectionName() +"\nsujet: " + posts.getResponse().getDocs().get(0).getSnippet();
-                textView.setText(affichage);
+                mListArticles = posts.getResponse().getDocs();
+
+                adapter = new ListOfSearchedArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickedListener(new ListOfSearchedArticlesAdapter.OnItemClickedListener() {
+                    @Override
+                    public void OnItemClicked(int position) {
+                        articleUrl = mListArticles.get(position).getWebUrl();
+                        Intent WVIntent = new Intent(getContext(), WebViewActivity.class);
+                        WVIntent.putExtra("ArticleURL", articleUrl);
+                        startActivity(WVIntent);
+                    }
+                });
             }
 
             @Override

@@ -7,20 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+import com.vivant.annecharlotte.mynews.Models.Doc;
+import com.vivant.annecharlotte.mynews.Models.Response;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
-import com.vivant.annecharlotte.mynews.TopStoriesPageFragment;
 
 import java.util.List;
 
 /**
  * Created by Anne-Charlotte Vivant on 18/12/2018.
  */
-public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesViewHolder> {
+public class ListOfSearchedArticlesAdapter extends RecyclerView.Adapter<ListOfSearchedArticlesViewHolder> {
 
-    private List<ResultArticles> listOfArticles;
+    private List<Doc> listOfArticles;
     private RequestManager glide;
     private OnItemClickedListener mListener;
     private String apiTag;
@@ -34,26 +33,25 @@ public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesVi
     }
 
     // CONSTRUCTOR
-        public ListOfArticlesAdapter(List<ResultArticles> listOfArticles, RequestManager glide, String apiTag) {
+        public ListOfSearchedArticlesAdapter(List<Doc> listOfArticles, RequestManager glide, String apiTag) {
         this.listOfArticles = listOfArticles;
         this.glide = glide;
         this.apiTag =  apiTag;
     }
 
     @Override
-    public ListOfArticlesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListOfSearchedArticlesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_item, parent, false);
-        return new ListOfArticlesViewHolder(view, mListener, apiTag);
+        return new ListOfSearchedArticlesViewHolder(view, mListener, apiTag);
     }
 
     // UPDATE VIEW HOLDER
     @Override
-    public void onBindViewHolder(ListOfArticlesViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ListOfSearchedArticlesViewHolder viewHolder, int position) {
         viewHolder.updateWithNYTArticles(this.listOfArticles.get(position), this.glide);
-        //viewHolder.updateWithNYTArticles(this.listOfArticles.get(position));
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST

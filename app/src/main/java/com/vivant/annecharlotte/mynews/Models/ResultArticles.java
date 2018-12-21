@@ -12,7 +12,7 @@ public class ResultArticles {
     private String section;
     @SerializedName("subsection")
     @Expose
-    private String subsection; // no subseciton in Most Popular Articles
+    private String subsection; // no subsection in Most Popular Articles
     @SerializedName("title")
     @Expose
     private String title;

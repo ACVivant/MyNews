@@ -21,13 +21,5 @@ import com.google.gson.annotations.SerializedName;
             this.docs = docs;
         }
 
-        /*public Meta getMeta() {
-            return meta;
-        }
-
-        public void setMeta(Meta meta) {
-            this.meta = meta;
-        }*/
-
     }
 
