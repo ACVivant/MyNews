@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
+
+import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
 
 import java.util.Calendar;
 
@@ -68,6 +71,8 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
     private boolean sportOnOff;
     private boolean travelOnOff;
 
+    private NotificationHelper mNotificationHelper;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +94,12 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
     protected void onDestroy() {
         super.onDestroy();
         saveData();
+        sendOnChannel("Bravo", textNotif.getText().toString());
     }
+
+    //---------------------------------------------------------------------------------------------------------
+    // about notification window
+    //---------------------------------------------------------------------------------------------------------
 
     private void configureSearchToolbar() {
         //Get the toolbar (Serialise)
@@ -124,7 +134,25 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
 
         textNotif = (EditText) findViewById(R.id.search_query_edittext);
 
+        mNotificationHelper = new NotificationHelper(this);
+
     }
+    //--------------------------------------------------------------------------------------------------------------
+    // about notification channel
+    //--------------------------------------------------------------------------------------------------------------
+    public void sendOnChannel(String title, String message) {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification(title, message);
+        mNotificationHelper.getManager().notify(1, nb.build());
+
+    }
+
+    /* Quelque part il va falloir mettre:
+    sendOnChannel(title, message)
+
+     */
+    //--------------------------------------------------------------------------------------------------------------
+    // about Alarm Manager
+    //---------------------------------------------------------------------------------------------------------------
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -141,10 +169,9 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
     }
 
-    public void sendOnChannel(String title, String message) {
-
-    }
-
+    //---------------------------------------------------------------------------------------------------------------
+    // restore and save notification criterion
+    //--------------------------------------------------------------------------------------------------------------
     public void saveData() {
         Log.d(TAG, "saveData: ");
 
