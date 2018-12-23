@@ -1,8 +1,10 @@
 package com.vivant.annecharlotte.mynews;
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
 import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
 
 import java.util.Calendar;
@@ -167,6 +170,18 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
 
     public void startAlarm(Calendar calendar) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void cancelAlarm() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        alarmManager.cancel(pendingIntent);
     }
 
     //---------------------------------------------------------------------------------------------------------------
