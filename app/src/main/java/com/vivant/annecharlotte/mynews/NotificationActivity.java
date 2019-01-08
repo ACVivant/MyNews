@@ -3,6 +3,7 @@ package com.vivant.annecharlotte.mynews;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
 import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
@@ -29,9 +32,12 @@ import java.util.Calendar;
 /**
  * Created by Anne-Charlotte Vivant on 14/12/2018.
  */
-public class NotificationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+public class NotificationActivity extends AppCompatActivity {
+    //public class NotificationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     
     final static String TAG = "notif_zut";
+
+    private Toolbar searchToolbar;
 
     private Button searchButton;
     private Switch switchButton;
@@ -76,6 +82,12 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
 
     private NotificationHelper mNotificationHelper;
 
+    private boolean launch;
+    private String keywordsResults;
+    private String checkboxResults;
+
+    private View toolbar;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,16 +100,14 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     protected void onDestroy() {
+
+        Log.d(TAG, "onDestroy: launch" + launch);
+
+       /* if (switchButton.isChecked()) {
+            sendOnChannel("Bravo", textNotif.getText().toString());
+        }*/
         super.onDestroy();
-        saveData();
-        sendOnChannel("Bravo", textNotif.getText().toString());
     }
 
     //---------------------------------------------------------------------------------------------------------
@@ -106,13 +116,32 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
 
     private void configureSearchToolbar() {
         //Get the toolbar (Serialise)
-        Toolbar searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        searchToolbar.setTitle("Notifications");
         //Set the toolbar
         setSupportActionBar(searchToolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        searchToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                keywordResult();
+                checkboxResult();
+
+                if (launch) {
+                    saveData();
+                    if (switchButton.isChecked()) {
+                        startAlarm();
+                    } else {
+                        cancelAlarm();
+                    }
+                finish();
+                }
+            }
+        });
     }
 
     private void configureWindow() {
@@ -138,26 +167,23 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
         textNotif = (EditText) findViewById(R.id.search_query_edittext);
 
         mNotificationHelper = new NotificationHelper(this);
-
-    }
+        }
     //--------------------------------------------------------------------------------------------------------------
     // about notification channel
     //--------------------------------------------------------------------------------------------------------------
-    public void sendOnChannel(String title, String message) {
+  /*  public void sendOnChannel(String title, String message) {
         NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification(title, message);
         mNotificationHelper.getManager().notify(1, nb.build());
-
     }
 
-    /* Quelque part il va falloir mettre:
-    sendOnChannel(title, message)
+
 
      */
     //--------------------------------------------------------------------------------------------------------------
     // about Alarm Manager
     //---------------------------------------------------------------------------------------------------------------
 
-    @Override
+ /*   @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 24);
@@ -166,9 +192,15 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
 
         //makeAResearch(calendar);
         startAlarm(calendar);
-    }
+    }*/
 
-    public void startAlarm(Calendar calendar) {
+    public void startAlarm() {
+       // public void startAlarm(Calendar calendar) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 56);
+        calendar.set(Calendar.SECOND, 0);
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
@@ -231,6 +263,79 @@ public class NotificationActivity extends AppCompatActivity implements TimePicke
         politicsCheckbox.setChecked(politicsOnOff);
 
         textNotif.setText(textNotifSaved);
-
     }
+
+    //------------------------------------------------------------------------------------------------
+    // creation request
+    //------------------------------------------------------------------------------------------------
+    private void keywordResult() {
+        launch = true;
+        Log.d(TAG, "keywordResult: launch " +launch);
+        String keywordsResults1 = textNotif.getText().toString();
+        if (keywordsResults1.length() < 1) {
+            Toast.makeText(this, "Il faut saisir au moins un mot clé", Toast.LENGTH_LONG).show();
+            launch = false;
+            Log.d(TAG, "keywordResult 2: launch " +launch);
+        } else {
+            keywordsResults = "(";
+            String[] splitArray = null; //tableau de chaînes
+            //la chaîne à traiter
+            String str = keywordsResults1;
+            // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
+            splitArray = str.split(" ");
+
+            for (int i = 0; i < splitArray.length; i++) {
+                // On affiche chaque élément du tableau
+                System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
+                keywordsResults += "\"" + splitArray[i] + "\" ";
+                Log.d(TAG, "keywordResult 2: launch " +launch);
+            }
+            keywordsResults += ")";
+        }
+    }
+
+    private void checkboxResult () {
+        Log.d(TAG, "checkboxResultResult 3: launch " +launch);
+        checkboxResults = "news_desk:(";
+        int index = 0;
+
+        if (politicsCheckbox.isChecked()) {
+            checkboxResults += "\"politics\" ";
+            index+=1;
+        }
+
+        if (artsCheckbox.isChecked()) {
+            checkboxResults += "\"arts\" ";
+            index+=1;
+        }
+
+        if (businessCheckbox.isChecked()) {
+            checkboxResults += "\"business\" ";
+            index+=1;
+        }
+
+        if (sportCheckbox.isChecked()) {
+            checkboxResults += "\"sports\" ";
+            index+=1;
+        }
+
+        if (entrepreneursCheckbox.isChecked()) {
+            checkboxResults += "\"entrepreneurs\" ";
+            index+=1;
+        }
+
+        if (travelCheckbox.isChecked()) {
+            checkboxResults += "\"travel\" ";
+            index+=1;
+        }
+
+        checkboxResults += ")";
+
+        if(index==0){
+            launch = false;
+            Toast.makeText(this, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
+        }
+        Log.d(TAG, "checkboxResultResult 4: launch " +launch);
+    }
+
 }

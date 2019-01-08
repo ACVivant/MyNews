@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-   // String tabarray[] = new String[]{"1", "2", "3"};
     Context ctx;
 
     public TabPagerAdapter(FragmentManager fm, Context context) {
@@ -31,9 +30,9 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new TopStoriesPageFragment();
+                return new NYTPageFragment().newInstance(0);
             case 1:
-                return new MostPopularPageFragment();
+                return new NYTPageFragment().newInstance(1);
             case 2:
                 return new BusinessFragmentPage();
         }

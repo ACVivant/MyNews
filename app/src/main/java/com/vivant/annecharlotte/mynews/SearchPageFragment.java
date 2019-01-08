@@ -41,7 +41,7 @@ public class SearchPageFragment extends Fragment  {
          void onArticletClicked(int position);
     }
 
-    public static final String TAG = "topstories_zut";
+    public static final String TAG = "searchpagefragment_zut";
 
     private ListOfArticlesAdapter adapter;
     private List<ResultTopStories> mListArticles;

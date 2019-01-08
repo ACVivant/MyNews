@@ -1,13 +1,13 @@
 package com.vivant.annecharlotte.mynews.API;
 
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
-import com.vivant.annecharlotte.mynews.Models.NYTMostPopularArticles;
-import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+        import com.vivant.annecharlotte.mynews.Models.NYTMostPopularArticles;
+        import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+        import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+        import retrofit2.Call;
+        import retrofit2.http.GET;
+        import retrofit2.http.Query;
 
 /**
  * Created by Anne-Charlotte Vivant on 17/12/2018.
@@ -30,9 +30,9 @@ public interface NYTimesAPIInterface {
     // Search API
     @GET("svc/search/v2/articlesearch.json")
     Call<NYTSearchArticles> loadSearch(@Query("api-key") String apiKey,
-                                     @Query("q") String query,
-                                     @Query("fq") String fQuery,
-                                     @Query("sort") String sort,
-                                     @Query("begin_date") String beginDate,
-                                     @Query("end_date") String endDate);
+                                       @Query("q") String query,
+                                       @Query("fq") String fQuery,
+                                       @Query("sort") String sort,
+                                       @Query("begin_date") String beginDate,
+                                       @Query("end_date") String endDate);
 }

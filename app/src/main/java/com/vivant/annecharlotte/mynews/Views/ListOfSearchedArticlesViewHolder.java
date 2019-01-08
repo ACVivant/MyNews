@@ -55,7 +55,6 @@ public class ListOfSearchedArticlesViewHolder extends RecyclerView.ViewHolder{
 
         if (NYTArticle.getMultimedia().get(2).getUrl().length()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
               glide.load("https://static01.nyt.com/"+NYTArticle.getMultimedia().get(2).getUrl()).into(imageView);}
-
         else
             this.imageView.setImageResource(R.drawable.ic_menu_camera);
 

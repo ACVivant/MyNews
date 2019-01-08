@@ -26,6 +26,8 @@ import java.util.Locale;
          */
 public class SearchActivity extends AppCompatActivity {
 
+    private Toolbar searchToolbar;
+
     private EditText mEditText_keywords,
                      mEditText_beginDate,
                      mEditText_endDate;
@@ -66,6 +68,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void configureLayoutLinks() {
+
         mEditText_keywords = findViewById(R.id.search_query_edittext);
 
         mEditText_beginDate = findViewById(R.id.begin_date_edittext);
@@ -90,18 +93,20 @@ public class SearchActivity extends AppCompatActivity {
 
     private void configureSearchToolbar() {
         //Get the toolbar (Serialise)
-        Toolbar searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        searchToolbar.setTitle("Search Articles");
         //Set the toolbar
         setSupportActionBar(searchToolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-    }
+}
 
     private void configureWindow() {
         notificationSwitch = (Switch) findViewById(R.id.switch_notification);
         notificationSwitch.setVisibility(View.GONE);
+
     }
 
     // -----------------------------------------------------------

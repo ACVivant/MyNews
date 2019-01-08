@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -19,8 +18,9 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
-import com.vivant.annecharlotte.mynews.Models.NYTMostPopularArticles;
+import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
+import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 
 import java.util.List;
@@ -31,29 +31,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MostPopularPageFragment extends Fragment {
+public class NoTopStoriesPageFragment extends Fragment  {
 
     private RecyclerView mRecyclerView;
     private LinearLayout mArticleItem;
-    private TopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
+    private OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
     public interface OnArticleClickedListener {
-        void onArticletClicked(int position);
+         void onArticletClicked(int position);
     }
 
-    public static final String TAG = "mostpopular_zut";
-    public static final String TAG_API = "MOSTPOPULAR";
+    public static final String TAG = "topstories_zut";
+
+    public static final String TAG_API = "TOPSTORIES";
     public String getTagApi() { return TAG_API;}
 
     private ListOfArticlesAdapter adapter;
     private List<ResultArticles> mListArticles;
 
-    public MostPopularPageFragment() {
+    public NoTopStoriesPageFragment() {
         // Required empty public constructor
     }
 
@@ -61,6 +59,8 @@ public class MostPopularPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView ");
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
@@ -76,7 +76,7 @@ public class MostPopularPageFragment extends Fragment {
         Log.d(TAG, "onCreate: entrée ");
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        Call<NYTArticles> call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
+        Call<NYTArticles> call = apiService.loadTopStories(ApiKey.NYT_API_KEY);
 
         call.enqueue(new Callback<NYTArticles>() {
             @Override
@@ -90,7 +90,6 @@ public class MostPopularPageFragment extends Fragment {
                 NYTArticles posts = response.body();
                 mListArticles = posts.getResults();
 
-                //adapter = new ListOfArticlesAdapter(mListArticles);
                 adapter = new ListOfArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
@@ -116,4 +115,3 @@ public class MostPopularPageFragment extends Fragment {
         });
     }
 }
-

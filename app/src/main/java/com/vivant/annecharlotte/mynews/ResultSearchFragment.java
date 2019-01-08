@@ -1,11 +1,12 @@
 package com.vivant.annecharlotte.mynews;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,13 +23,10 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
-import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,11 +43,11 @@ public class ResultSearchFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
     private LinearLayout mArticleItem;
-    private TopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
+    private NoTopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
-    public static final String TAG = "searchfragment_zut";
+    public static final String TAG = "resultsearchfragment";
     public static final String TAG_API = "SEARCH";
 
     public String getTagApi() {
@@ -92,7 +90,6 @@ public class ResultSearchFragment extends Fragment {
         }
 
         Log.d(TAG, "onCreateView: mFQuery: " + mFQuery + ", mQuery: "+ mQuery+ ", mBeginDate: " + mBeginDate + ", mEndDate: " + mEndDate );
-        Log.d(TAG, "onCreateView: BUSINESS: " +BUSINESS_SEARCH);
         this.configureRecyclerView();
         return view;
     }
@@ -121,6 +118,24 @@ public class ResultSearchFragment extends Fragment {
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
+                if (mListArticles.isEmpty()) {
+
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(getContext());
+                    }
+                    builder.setTitle("Dommage...")
+                            .setMessage("Aucun article ne correspond à votre recherche")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(getContext(), "Retour à coder", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
 
                 adapter = new ListOfSearchedArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

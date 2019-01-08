@@ -18,9 +18,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 
 import java.util.List;
@@ -31,27 +29,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TopStoriesPageFragment extends Fragment  {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class NoMostPopularPageFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayout mArticleItem;
-    private OnArticleClickedListener mOnArticleClickedListener;
+    private NoTopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
     public interface OnArticleClickedListener {
-         void onArticletClicked(int position);
+        void onArticletClicked(int position);
     }
 
-    public static final String TAG = "topstories_zut";
-
-    public static final String TAG_API = "TOPSTORIES";
+    public static final String TAG = "mostpopular_zut";
+    public static final String TAG_API = "MOSTPOPULAR";
     public String getTagApi() { return TAG_API;}
 
     private ListOfArticlesAdapter adapter;
     private List<ResultArticles> mListArticles;
 
-    public TopStoriesPageFragment() {
+    public NoMostPopularPageFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +59,6 @@ public class TopStoriesPageFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView ");
-
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
@@ -76,7 +74,7 @@ public class TopStoriesPageFragment extends Fragment  {
         Log.d(TAG, "onCreate: entrée ");
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        Call<NYTArticles> call = apiService.loadTopStories(ApiKey.NYT_API_KEY);
+        Call<NYTArticles> call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
 
         call.enqueue(new Callback<NYTArticles>() {
             @Override
@@ -90,6 +88,7 @@ public class TopStoriesPageFragment extends Fragment  {
                 NYTArticles posts = response.body();
                 mListArticles = posts.getResults();
 
+                //adapter = new ListOfArticlesAdapter(mListArticles);
                 adapter = new ListOfArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
@@ -115,3 +114,4 @@ public class TopStoriesPageFragment extends Fragment  {
         });
     }
 }
+

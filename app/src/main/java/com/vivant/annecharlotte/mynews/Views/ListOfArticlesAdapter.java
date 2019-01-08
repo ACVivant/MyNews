@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
-import com.vivant.annecharlotte.mynews.TopStoriesPageFragment;
 
 import java.util.List;
 
