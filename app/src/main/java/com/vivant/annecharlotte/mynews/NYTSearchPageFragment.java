@@ -22,6 +22,7 @@ import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
+import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesViewHolder;
@@ -65,7 +66,11 @@ public class BusinessFragmentPage extends Fragment{
 
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
+
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
+        MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
+
         mArticleItem = view.findViewById(R.id.article_item);
 
         return view;
