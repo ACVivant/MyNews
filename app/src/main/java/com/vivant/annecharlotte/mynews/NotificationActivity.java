@@ -168,37 +168,15 @@ public class NotificationActivity extends AppCompatActivity {
 
         mNotificationHelper = new NotificationHelper(this);
         }
-    //--------------------------------------------------------------------------------------------------------------
-    // about notification channel
-    //--------------------------------------------------------------------------------------------------------------
-  /*  public void sendOnChannel(String title, String message) {
-        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification(title, message);
-        mNotificationHelper.getManager().notify(1, nb.build());
-    }
 
-
-
-     */
     //--------------------------------------------------------------------------------------------------------------
     // about Alarm Manager
     //---------------------------------------------------------------------------------------------------------------
 
- /*   @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 24);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        //makeAResearch(calendar);
-        startAlarm(calendar);
-    }*/
-
     public void startAlarm() {
-       // public void startAlarm(Calendar calendar) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 56);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 05);
         calendar.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

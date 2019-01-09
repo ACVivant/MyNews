@@ -34,13 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BusinessFragmentPage extends Fragment{
+public class NYTSearchPageFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
-    private LinearLayout mArticleItem;
     private NYTPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
-    private WebViewActivity mArticleWebView = new WebViewActivity();
 
    private static final String BUSINESS_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Business\")";
    public static final String TAG = "business_zut";
@@ -50,11 +48,8 @@ public class BusinessFragmentPage extends Fragment{
     private ListOfSearchedArticlesAdapter adapter;
     private List<Doc> mListArticles;
 
-    public interface OnArticleClickedListener {
-        void onArticletClicked(int position);
-    }
 
-   public BusinessFragmentPage() {
+   public NYTSearchPageFragment() {
         // Required empty public constructor
     }
 
@@ -62,6 +57,8 @@ public class BusinessFragmentPage extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        LinearLayout mArticleItem;
+
         Log.d(TAG, "onCreateView ");
 
         // Inflate the layout for this fragment

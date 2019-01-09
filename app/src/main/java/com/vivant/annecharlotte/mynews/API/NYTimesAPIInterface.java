@@ -1,11 +1,9 @@
 package com.vivant.annecharlotte.mynews.API;
 
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
-        import com.vivant.annecharlotte.mynews.Models.NYTMostPopularArticles;
-        import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
-        import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
+import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 
-        import retrofit2.Call;
+import retrofit2.Call;
         import retrofit2.http.GET;
         import retrofit2.http.Query;
 

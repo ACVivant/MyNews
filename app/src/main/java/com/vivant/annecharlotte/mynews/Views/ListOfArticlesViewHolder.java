@@ -12,6 +12,12 @@ import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
+import com.vivant.annecharlotte.mynews.Utils.DateConverter;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +56,8 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         this.titleTextView.setText(NYTArticle.getTitle());
 
         String date = NYTArticle.getPublishedDate().substring(0,10);
-        this.dateTextView.setText(date);
+        date = DateConverter.getPublished_date_converted(date);
+           this.dateTextView.setText(date);
 
         String section = NYTArticle.getSection() ;
 

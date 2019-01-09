@@ -50,7 +50,6 @@ public class ResultsSearchNotification  extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private LinearLayout mArticleItem;
-    private NoTopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
@@ -120,7 +119,7 @@ public class ResultsSearchNotification  extends AppCompatActivity {
 
     public void loadNotifCriterion() {
 
-        mQuery = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(QUERY, "");
+       /* mQuery = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(QUERY, "");
         Log.d(TAG, "loadNotifCriterion: mQuery " + mQuery);
 
         artsOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ARTS, false);
@@ -134,7 +133,14 @@ public class ResultsSearchNotification  extends AppCompatActivity {
         travelOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(TRAVEL, false);
         if (travelOnOff) {mFQuery += "\"travel\" ";}
         politicsOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(POLITICS, false);
-        if (politicsOnOff) {mFQuery += "\"politics\" ";}
+        if (politicsOnOff) {mFQuery += "\"politics\" ";}*/
+
+// pour les tests------------------------------------
+       mQuery = "shutdown";
+
+       mFQuery = "business";
+
+       //--------------------------------------
 
         Date day = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -149,6 +155,11 @@ public class ResultsSearchNotification  extends AppCompatActivity {
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
         Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY,mQuery, mFQuery,  "newest", mBeginDate, mEndDate);
 
+        Log.d(TAG, "onResponse:Query " + mQuery);
+        Log.d(TAG, "onResponse:FQuery " + mFQuery);
+        Log.d(TAG, "onResponse:beginDate " + mBeginDate);
+        Log.d(TAG, "onResponse:endDate " + mEndDate);
+
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
@@ -160,9 +171,11 @@ public class ResultsSearchNotification  extends AppCompatActivity {
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
+                Log.d(TAG, "onResponse: numberArticles " + numberArticles);
                 if (!mListArticles.isEmpty()) {
                     numberArticles = mListArticles.size()+1;
                 }
+                Log.d(TAG, "onResponse: numberArticles " + numberArticles);
             }
 
             @Override

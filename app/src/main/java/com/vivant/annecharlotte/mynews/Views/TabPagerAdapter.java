@@ -1,10 +1,14 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.vivant.annecharlotte.mynews.NYTSearchPageFragment;
+import com.vivant.annecharlotte.mynews.NYTPageFragment;
+import com.vivant.annecharlotte.mynews.R;
 
 /**
  * Created by Anne-Charlotte Vivant on 13/12/2018.
@@ -34,7 +38,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new NYTPageFragment().newInstance(1);
             case 2:
-                return new BusinessFragmentPage();
+                return new NYTSearchPageFragment();
         }
         return null;
     }

@@ -18,6 +18,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
+import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 
 import java.util.List;
@@ -35,7 +36,6 @@ public class NYTPageFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayout mArticleItem;
-    private NoTopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
@@ -63,7 +63,11 @@ public class NYTPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
+
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
+        MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
+
         mArticleItem = view.findViewById(R.id.article_item);
 
         Log.d(TAG, "onCreateView: pos: " +indexAPI );

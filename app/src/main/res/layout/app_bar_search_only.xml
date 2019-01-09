@@ -12,7 +12,7 @@ tools:context=".ResultsSearchActivity">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
-    android:background="@android:color/holo_orange_dark"
+    android:background="@color/colorPrimary"
     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 </android.support.design.widget.CoordinatorLayout>

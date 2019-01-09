@@ -43,7 +43,6 @@ public class ResultSearchFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
     private LinearLayout mArticleItem;
-    private NoTopStoriesPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 

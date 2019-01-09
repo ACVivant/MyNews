@@ -106,7 +106,6 @@ public class SearchActivity extends AppCompatActivity {
     private void configureWindow() {
         notificationSwitch = (Switch) findViewById(R.id.switch_notification);
         notificationSwitch.setVisibility(View.GONE);
-
     }
 
     // -----------------------------------------------------------
@@ -197,21 +196,6 @@ public class SearchActivity extends AppCompatActivity {
         mEndDate = sdf2.format(mCalendar.getTime());
 
     }
-
-    // Sets date value to null
-    private void nullifyEndDate() {
-        mEndDate = null;
-    }
-
-    //--------------------------------------------------------------------------------------------------------------
-    // Save research criterium
-    //--------------------------------------------------------------------------------------------------------------
-    /*@Query("api-key") String apiKey,
-                                     @Query("q") String query,
-                                     @Query("fq") String fQuery,
-                                     @Query("sort") String sort,
-                                     @Query("begin_date") String beginDate,
-                                     @Query("end_date") String endDate)*/
 
     private void launchResultsSearchActivity() {
             keywordResult();

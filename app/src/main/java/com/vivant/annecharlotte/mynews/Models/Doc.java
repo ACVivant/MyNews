@@ -21,18 +21,9 @@ public class Doc {
     @SerializedName("print_page")
     @Expose
     private String printPage;
-   /* @SerializedName("blog")
-    @Expose
-    private List<String> blog = null;*/
     @SerializedName("source")
     @Expose
     private String source;
-    @SerializedName("headline")
-    @Expose
-    private Headline headline;
-   /* @SerializedName("keywords")
-    @Expose
-    private Keywords keywords;*/
     @SerializedName("pub_date")
     @Expose
     private String pubDate;
@@ -48,21 +39,9 @@ public class Doc {
     @SerializedName("subsection_name")
     @Expose
     private String subsectionName;
-    /*@SerializedName("byline")
-    @Expose
-    private Byline byline;*/
-    @SerializedName("type_of_material")
-    @Expose
-    private String typeOfMaterial;
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("word_count")
-    @Expose
-    private String wordCount;
-    @SerializedName("slideshow_credits")
-    @Expose
-    private String slideshowCredits;
     @SerializedName("multimedia")
     @Expose
     private List<Multimedium> multimedia = null;
@@ -83,38 +62,6 @@ public class Doc {
         this.snippet = snippet;
     }
 
-    public String getLeadParagraph() {
-        return leadParagraph;
-    }
-
-    public void setLeadParagraph(String leadParagraph) {
-        this.leadParagraph = leadParagraph;
-    }
-
-    public String getAbstract() {
-        return _abstract;
-    }
-
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
-    }
-
-    public String getPrintPage() {
-        return printPage;
-    }
-
-    public void setPrintPage(String printPage) {
-        this.printPage = printPage;
-    }
-
-  /*  public List<String> getBlog() {
-        return blog;
-    }
-
-    public void setBlog(List<String> blog) {
-        this.blog = blog;
-    }*/
-
     public String getSource() {
         return source;
     }
@@ -122,22 +69,6 @@ public class Doc {
     public void setSource(String source) {
         this.source = source;
     }
-
-    public Headline getHeadline() {
-        return headline;
-    }
-
-    public void setHeadline(Headline headline) {
-        this.headline = headline;
-    }
-
-    /*public Keywords getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Keywords keywords) {
-        this.keywords = keywords;
-    }*/
 
     public String getPubDate() {
         return pubDate;
@@ -179,44 +110,12 @@ public class Doc {
         this.subsectionName = subsectionName;
     }
 
-    /*public Byline getByline() {
-        return byline;
-    }
-
-    public void setByline(Byline byline) {
-        this.byline = byline;
-    }*/
-
-    public String getTypeOfMaterial() {
-        return typeOfMaterial;
-    }
-
-    public void setTypeOfMaterial(String typeOfMaterial) {
-        this.typeOfMaterial = typeOfMaterial;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getWordCount() {
-        return wordCount;
-    }
-
-    public void setWordCount(String wordCount) {
-        this.wordCount = wordCount;
-    }
-
-    public String getSlideshowCredits() {
-        return slideshowCredits;
-    }
-
-    public void setSlideshowCredits(String slideshowCredits) {
-        this.slideshowCredits = slideshowCredits;
     }
 
     public List<Multimedium> getMultimedia() {

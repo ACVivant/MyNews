@@ -11,6 +11,7 @@ import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.Response;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.R;
+import com.vivant.annecharlotte.mynews.Utils.DateConverter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,12 +49,15 @@ public class ListOfSearchedArticlesViewHolder extends RecyclerView.ViewHolder{
         this.titleTextView.setText(NYTArticle.getSnippet());
 
         String date = NYTArticle.getPubDate().substring(0,10);
+        date = DateConverter.getPublished_date_converted(date);
         this.dateTextView.setText(date);
 
         String section = NYTArticle.getSectionName() ;
         this.sectionTextView.setText(section);
 
-        if (NYTArticle.getMultimedia().get(2).getUrl().length()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
+        Log.d("images", "updateWithNYTArticles: " +NYTArticle.getMultimedia().size());
+
+        if (NYTArticle.getMultimedia().size()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
               glide.load("https://static01.nyt.com/"+NYTArticle.getMultimedia().get(2).getUrl()).into(imageView);}
         else
             this.imageView.setImageResource(R.drawable.ic_menu_camera);
