@@ -23,6 +23,11 @@
     <string name="drawer_food">Alimentation</string>
     <string name="drawer_science">Science</string>
 
+    <string name="drawer_title2">A découvrir</string>
+
+    <string name="drawer_search">Chercher... et trouver!</string>
+    <string name="drawer_notification">Notifications</string>
+
     <!-- Array with entries of welcome page -->
     <array name="TabTitles">
         <item>"Top Stories"</item>

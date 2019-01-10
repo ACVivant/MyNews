@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -101,22 +106,38 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        String EDUCATION_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Education\")";
+        String ENERGY_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Energy\")";
+        String ENVIRONMENT_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Environment\")";
+        String FOOD_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Food\")";
+        String SCIENCE_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Science\")";
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+        if (id == R.id.nav_education) {
+            Intent myIntent = new Intent(MainActivity.this, ResultsSearchActivity.class);
+            myIntent.putExtra("fq", EDUCATION_SEARCH);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_environment) {
+            Intent myIntent = new Intent(MainActivity.this, ResultsSearchActivity.class);
+            myIntent.putExtra("fq", ENVIRONMENT_SEARCH);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_food) {
+            Intent myIntent = new Intent(MainActivity.this, ResultsSearchActivity.class);
+            myIntent.putExtra("fq", FOOD_SEARCH);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_science) {
+            Intent myIntent = new Intent(MainActivity.this, ResultsSearchActivity.class);
+            myIntent.putExtra("fq", SCIENCE_SEARCH);
+            startActivity(myIntent);
+        } else if (id == R.id.nav_search) {
+            Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(myIntent);
+    }          else if (id == R.id.nav_notification) {
+            Intent myIntent = new Intent(MainActivity.this, NotificationActivity.class);
+            startActivity(myIntent);
+    }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
