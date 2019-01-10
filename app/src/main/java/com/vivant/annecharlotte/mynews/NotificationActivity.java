@@ -175,7 +175,7 @@ public class NotificationActivity extends AppCompatActivity {
     public void startAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 11);
+        calendar.set(Calendar.MINUTE, 48);
         calendar.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

@@ -21,23 +21,27 @@ public class AlertReceiver extends BroadcastReceiver {
     private String textMessage = "";
     int numberArticles = 0;
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        search(context);
-        textMessage =  createMessage(numberArticles);
-        send(context);
-        // faire en sorte que tout se déroule dans l'ordre!!!
+    public Context getContextAlert() {
+        return contextAlert;
     }
 
-    public String createMessage(int numberArticles) {
+    Context contextAlert;
+
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        searchAndSendNotif(context);
+    }
+
+   /* public String createMessage(int numberArticles) {
         if (numberArticles == 0) {
             return "Vous n'avez aucun article à découvrir aujourd'hui!";
         } else {
             return "Vous avez " + numberArticles + " nouveaux articles à découvrir aujourd'hui!";
         }
-    }
+    }*/
 
-    public void search(Context context) {
+    public void searchAndSendNotif(Context context) {
         Log.d(TAG, "search: juste avant la recherche de nouveaux articles");
         mResultsSearchNotification = new ResultsSearchNotification(context);
         numberArticles = mResultsSearchNotification.getNumberArticles();
@@ -45,12 +49,12 @@ public class AlertReceiver extends BroadcastReceiver {
         Log.d(TAG, "search: juste après la recherche de nouveaux articles");
     }
 
-    public void send(Context context) {
+    /*public void send(Context context) {
         // Envoyer la notification
             Log.d(TAG, "send: envoi de la notification");
         NotificationHelper notificationHelper = new NotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", textMessage);
         notificationHelper.getManager().notify(1, nb.build());
-    }
+    }*/
 
 }

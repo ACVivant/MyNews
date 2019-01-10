@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
+import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 
 import java.text.SimpleDateFormat;
@@ -113,29 +116,31 @@ public class ResultsSearchNotification {
     }
 
     private int numberArticles =0;
+    private String textMessage = "";
 
     public ResultsSearchNotification(Context context) {
         // Required empty public constructor
         loadNotifCriterion(context);
-        searchArticles();
+        searchArticles(context);
     }
 
     public void loadNotifCriterion(Context context) {
 
-        mQuery = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(QUERY, "");
+        SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mQuery = prefs.getString(QUERY, "");
         Log.d(TAG, "loadNotifCriterion: mQuery " + mQuery);
 
-        artsOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ARTS, false);
+        artsOnOff = prefs.getBoolean(ARTS, false);
         if (artsOnOff) {mFQuery += "\"arts\" ";}
-        businessOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(BUSINESS, false);
+        businessOnOff =prefs.getBoolean(BUSINESS, false);
         if (businessOnOff) {mFQuery += "\"business\" ";}
-        sportOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(SPORT, false);
+        sportOnOff = prefs.getBoolean(SPORT, false);
         if (sportOnOff) {mFQuery += "\"sport\" ";}
-        entrepreneursOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ENTREPRENEURS, false);
+        entrepreneursOnOff = prefs.getBoolean(ENTREPRENEURS, false);
         if (entrepreneursOnOff) {mFQuery += "\"entrepreneurs\" ";}
-        travelOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(TRAVEL, false);
+        travelOnOff = prefs.getBoolean(TRAVEL, false);
         if (travelOnOff) {mFQuery += "\"travel\" ";}
-        politicsOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(POLITICS, false);
+        politicsOnOff = prefs.getBoolean(POLITICS, false);
         if (politicsOnOff) {mFQuery += "\"politics\" ";}
         mFQuery+= ")";
 
@@ -156,7 +161,7 @@ public class ResultsSearchNotification {
         mBeginDate = f.format(calendar.getTime());
     }
 
-    public void searchArticles() {
+    public void searchArticles(final Context context) {
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
         Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY,mQuery, mFQuery,  "newest", mBeginDate, mEndDate);
@@ -169,6 +174,7 @@ public class ResultsSearchNotification {
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
+                AlertReceiver mAlert = new AlertReceiver();
                 Log.d(TAG, "searchArticles: onResponse ");
                 if (!response.isSuccessful()) {
                     Log.e(TAG, "erreur lors de la réponse de la recherche");
@@ -184,7 +190,9 @@ public class ResultsSearchNotification {
                     numberArticles =0;
                 }
                 Log.d(TAG, "searchArticles onResponse: numberArticles " + numberArticles);
-
+                //textMessage = createMessage(numberArticles);
+                textMessage = new TextNotif().createMessage(numberArticles);
+                send(context);
             }
 
             @Override
@@ -193,5 +201,12 @@ public class ResultsSearchNotification {
             }
         });
     }
-}
 
+    private void send(Context context) {
+        // Envoyer la notification
+        Log.d(TAG, "send: envoi de la notification");
+        NotificationHelper notificationHelper = new NotificationHelper(context);
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", textMessage);
+        notificationHelper.getManager().notify(1, nb.build());
+    }
+}
