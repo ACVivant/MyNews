@@ -113,18 +113,19 @@ public class ResultSearchFragment extends Fragment {
 
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Light_Dialog);
                     } else {
                         builder = new AlertDialog.Builder(getContext());
                     }
-                    builder.setTitle("Dommage...")
-                            .setMessage("Aucun article ne correspond à votre recherche")
+                    builder.setTitle(R.string.searchdialog_title)
+                            .setMessage(R.string.searchdialog_text)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getContext(), "Retour à coder", Toast.LENGTH_LONG).show();
+                                    Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                                    startActivity(myIntent);
                                 }
                             })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setIcon(R.drawable.baseline_sentiment_very_dissatisfied_24)
                             .show();
                 }
 

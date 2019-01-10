@@ -1,8 +1,11 @@
 package com.vivant.annecharlotte.mynews;
 
 
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -86,12 +89,40 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_help) {
-            Toast.makeText(this, "Help n'est pas encore disponible", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Help n'est pas encore disponible", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle(R.string.helpmenu_title)
+                    .setMessage(R.string.helpmenu_text)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(R.drawable.baseline_help_24)
+                    .show();
             return true;
         }
 
         if (id == R.id.action_about) {
-            Toast.makeText(this, "About n'est pas encore disponible", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "About n'est pas encore disponible", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle(R.string.aboutmenu_title)
+                    .setMessage(R.string.aboutmenu_text)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(R.drawable.baseline_insert_comment_24)
+                    .show();
             return true;
         }
 

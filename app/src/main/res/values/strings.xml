@@ -35,8 +35,18 @@
         <item>"Arts"</item>
     </array>
 
+    <!-- informations for menu -->
+    <string name="helpmenu_title">"A l'aide!"</string>
+    <string name="helpmenu_text">"Tous les cris, les SOS..."</string>
+    <string name="aboutmenu_title">"Qui, que, quoi?"</string>
+    <string name="aboutmenu_text">"MyNews, l'application qui te tient au courant sur tout, tout, tout..."</string>
+
     <!-- informations for API -->
     <string name="sort_by_newest">newest</string>
+
+    <!-- informations for search dialog -->
+    <string name="searchdialog_title">"Dommage..."</string>
+    <string name="searchdialog_text">"Aucun article ne correspond à votre recherche"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
