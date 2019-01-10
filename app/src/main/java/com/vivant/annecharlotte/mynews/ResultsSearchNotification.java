@@ -52,21 +52,9 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class ResultsSearchNotification {
 
-    private RelativeLayout mRelativeLayout;
-    private RecyclerView mRecyclerView;
-
-    private LinearLayout mArticleItem;
-    private String articleUrl;
-    private WebViewActivity mArticleWebView = new WebViewActivity();
-
     public static final String TAG = "resultsearchnotif";
     public static final String TAG_API = "SEARCH";
 
-    public String getTagApi() {
-        return TAG_API;
-    }
-
-    private ListOfSearchedArticlesAdapter adapter;
     private List<Doc> mListArticles;
 
     private String mFQuery =  "news_desk:(" ;
@@ -74,42 +62,14 @@ public class ResultsSearchNotification {
     private String mBeginDate ;
     private String mEndDate ;
 
-    private Button searchButton;
-    private Switch switchButton;
-    private CheckBox artsCheckbox,
-            businessCheckbox,
-            entrepreneursCheckbox,
-            politicsCheckbox,
-            sportCheckbox,
-            travelCheckbox;
-    private EditText textNotif;
-
-    private LinearLayout beginDate,
-            endDate;
-
-    public static final String SHARED_PREFS = "SharedPrefs";
-    public static final String SWITCH_NOTIF = "SwitchNotif";
-    public static final String FQUERY = "FQueryNotif";
-    public static final String QUERY = "QueryNotif";
-    public static final String ARTS = "ArtsNotif";
-    public static final String BUSINESS = "BusinessNotif";
-    public static final String ENTREPRENEURS = "EntrepreneursNotif";
-    public static final String POLITICS = "PoliticsNotif";
-    public static final String SPORT = "SportNotif";
-    public static final String TRAVEL = "TravelNotif";
-
-    private String textNotifSaved ;
-    private String mQuerySaved;
-    private boolean switchOnOff;
-
-    private String FQueryNotif ;
-    private String QueryNotif;
-    private boolean artsOnOff;
-    private boolean businessOnOff;
-    private boolean entrepreneursOnOff;
-    private boolean politicsOnOff;
-    private boolean sportOnOff;
-    private boolean travelOnOff;
+    private static final String SHARED_PREFS = "SharedPrefs";
+    private static final String QUERY = "QueryNotif";
+    private static final String ARTS = "ArtsNotif";
+    private static final String BUSINESS = "BusinessNotif";
+    private static final String ENTREPRENEURS = "EntrepreneursNotif";
+    private static final String POLITICS = "PoliticsNotif";
+    private static final String SPORT = "SportNotif";
+    private static final String TRAVEL = "TravelNotif";
 
     public int getNumberArticles() {
         return numberArticles;
@@ -126,9 +86,15 @@ public class ResultsSearchNotification {
 
     public void loadNotifCriterion(Context context) {
 
+        boolean artsOnOff;
+        boolean businessOnOff;
+        boolean entrepreneursOnOff;
+        boolean politicsOnOff;
+        boolean sportOnOff;
+        boolean travelOnOff;
+
         SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         mQuery = prefs.getString(QUERY, "");
-        Log.d(TAG, "loadNotifCriterion: mQuery " + mQuery);
 
         artsOnOff = prefs.getBoolean(ARTS, false);
         if (artsOnOff) {mFQuery += "\"arts\" ";}
@@ -144,15 +110,6 @@ public class ResultsSearchNotification {
         if (politicsOnOff) {mFQuery += "\"politics\" ";}
         mFQuery+= ")";
 
-        Log.d(TAG, "loadNotifCriterion: mFQuery " + mFQuery);
-
-        //---------------- pour les tests------------------------------------
-       /*mQuery = "trump";
-       mFQuery = "news_desk:(politics)";
-       mBeginDate = "20191201";
-       mEndDate = "20190109";*/
-       //--------------------------------------
-
         Date day = new Date();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
@@ -166,31 +123,22 @@ public class ResultsSearchNotification {
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
         Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY,mQuery, mFQuery,  "newest", mBeginDate, mEndDate);
 
-        Log.d(TAG, "onResponse:Query " + mQuery);
-        Log.d(TAG, "onResponse:FQuery " + mFQuery);
-        Log.d(TAG, "onResponse:beginDate " + mBeginDate);
-        Log.d(TAG, "onResponse:endDate " + mEndDate);
-
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
                 AlertReceiver mAlert = new AlertReceiver();
-                Log.d(TAG, "searchArticles: onResponse ");
                 if (!response.isSuccessful()) {
-                    Log.e(TAG, "erreur lors de la réponse de la recherche");
+                    Toast.makeText(context, "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
-                Log.d(TAG, "searchArticles onResponse: numberArticles " + numberArticles);
                 if (!mListArticles.isEmpty()) {
                     numberArticles = mListArticles.size();
                 } else {
                     numberArticles =0;
                 }
-                Log.d(TAG, "searchArticles onResponse: numberArticles " + numberArticles);
-                //textMessage = createMessage(numberArticles);
                 textMessage = new TextNotif().createMessage(numberArticles);
                 send(context);
             }
@@ -204,7 +152,6 @@ public class ResultsSearchNotification {
 
     private void send(Context context) {
         // Envoyer la notification
-        Log.d(TAG, "send: envoi de la notification");
         NotificationHelper notificationHelper = new NotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", textMessage);
         notificationHelper.getManager().notify(1, nb.build());

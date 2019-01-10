@@ -12,14 +12,22 @@
 
     <string name="tabs_title_top">Top Stories</string>
     <string name="tabs_title_popular">Most Popular</string>
-    <string name="tabs_title_business">Business</string>
+    <string name="tabs_title_arts">Arts</string>
+
+    <!-- Entries of navigation drawer -->
+    <string name="drawer_title">Thèmes</string>
+
+    <string name="drawer_educations">Education</string>
+    <string name="drawer_energy">Energie</string>
+    <string name="drawer_environment">Environnement</string>
+    <string name="drawer_food">Alimentation</string>
+    <string name="drawer_science">Science</string>
 
     <!-- Array with entries of welcome page -->
-
     <array name="TabTitles">
         <item>"Top Stories"</item>
         <item>"Most Popular"</item>
-        <item>"Business"</item>
+        <item>"Arts"</item>
     </array>
 
     <!-- informations for API -->

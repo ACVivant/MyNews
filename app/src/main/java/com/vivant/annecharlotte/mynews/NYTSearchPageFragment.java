@@ -37,38 +37,27 @@ import retrofit2.Response;
 public class NYTSearchPageFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
-    private NYTPageFragment.OnArticleClickedListener mOnArticleClickedListener;
     private String articleUrl;
 
-   private static final String BUSINESS_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Business\")";
-   public static final String TAG = "business_zut";
-    public static final String TAG_API = "BUSINESS";
-    public String getTagApi() { return TAG_API;}
+   private static final String ART_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
+    public static final String TAG_API = "ARTS";
 
     private ListOfSearchedArticlesAdapter adapter;
     private List<Doc> mListArticles;
-
 
    public NYTSearchPageFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        LinearLayout mArticleItem;
-
-        Log.d(TAG, "onCreateView ");
-
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
 
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
         MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
         mRecyclerView.addItemDecoration(mDividerItemDecoration);
-
-        mArticleItem = view.findViewById(R.id.article_item);
 
         return view;
     }
@@ -77,16 +66,13 @@ public class NYTSearchPageFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG, "onCreate: entrée ");
-
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        Call<NYTSearchArticles> call = apiService.loadBusiness(ApiKey.NYT_API_KEY, BUSINESS_SEARCH, getContext().getString(R.string.sort_by_newest));
+        Call<NYTSearchArticles> call = apiService.loadBusiness(ApiKey.NYT_API_KEY, ART_SEARCH, getContext().getString(R.string.sort_by_newest));
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
-                Log.d(TAG, "onCreate: onResponse ");
-                if (!response.isSuccessful()) {
+                    if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -112,8 +98,7 @@ public class NYTSearchPageFragment extends Fragment{
             @Override
             public void onFailure(Call<NYTSearchArticles> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
-                Log.e(TAG, t.toString());
+                Log.e(TAG_API, t.toString());
             }
         });
     }

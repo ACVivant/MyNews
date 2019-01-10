@@ -65,7 +65,6 @@ public class ResultSearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,7 +73,6 @@ public class ResultSearchFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
         mRelativeLayout = view.findViewById(R.id.fragment_articles_page_recyclerview);
         mArticleItem = view.findViewById(R.id.article_item);
-        Log.d(TAG, "onCreateView: ");
 
         if (getArguments()!=null) {
 
@@ -98,9 +96,7 @@ public class ResultSearchFragment extends Fragment {
         Log.d(TAG, "configureRecyclerView: entrée ");
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        //Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY, ("love children"), "news_desk: (\"arts\" \"entrepreneurs\")",  getContext().getString(R.string.sort_by_newest), "20181001", "20181220");
         Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY,mQuery, mFQuery,  getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
-        //Call<NYTSearchArticles> call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery,  getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
@@ -136,7 +132,6 @@ public class ResultSearchFragment extends Fragment {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
 
-                Log.d(TAG, "onResponse: adapter");
                 adapter.setOnItemClickedListener(new ListOfSearchedArticlesAdapter.OnItemClickedListener() {
                     @Override
                     public void OnItemClicked(int position) {

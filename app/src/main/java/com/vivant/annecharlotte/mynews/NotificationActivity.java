@@ -100,12 +100,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
         Log.d(TAG, "onDestroy: launch" + launch);
-
-       /* if (switchButton.isChecked()) {
-            sendOnChannel("Bravo", textNotif.getText().toString());
-        }*/
         super.onDestroy();
     }
 
@@ -254,10 +249,13 @@ public class NotificationActivity extends AppCompatActivity {
             launch = false;
             Log.d(TAG, "keywordResult 2: launch " +launch);
         } else {
+            keywordFormat(keywordsResults1);
+        }
+    }
+
+    public String keywordFormat(String str) {
             keywordsResults = "(";
             String[] splitArray = null; //tableau de chaînes
-            //la chaîne à traiter
-            String str = keywordsResults1;
             // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
             splitArray = str.split(" ");
 
@@ -265,10 +263,10 @@ public class NotificationActivity extends AppCompatActivity {
                 // On affiche chaque élément du tableau
                 System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
                 keywordsResults += "\"" + splitArray[i] + "\" ";
-                Log.d(TAG, "keywordResult 2: launch " +launch);
             }
             keywordsResults += ")";
-        }
+
+        return keywordsResults;
     }
 
     private void checkboxResult () {

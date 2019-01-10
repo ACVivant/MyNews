@@ -17,10 +17,6 @@ public class WebViewActivity extends AppCompatActivity {
     private WebView mWebView;
     private String mURL;
 
-    public void setURL(String URL) {
-        mURL = URL;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +30,6 @@ public class WebViewActivity extends AppCompatActivity {
         //mWebView.loadUrl("http://www.google.com");
         Log.d("testUrl", "onCreate: " + mURL);
         mWebView.loadUrl(mURL);
-
     }
 
     @Override

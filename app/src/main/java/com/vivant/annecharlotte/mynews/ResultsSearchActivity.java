@@ -19,27 +19,7 @@ public class ResultsSearchActivity extends AppCompatActivity {
 
     private ResultSearchFragment mResultSearchFragment;
 
-    private String mFQuery ;
-    private String mQuery;
-    private String mBeginDate ;
-    private String mEndDate ;
-
-    private String TAG= "resultsearchactivity_zut";
     private String TAG_API= "SEARCH";
-
-    private ResultSearchFragment fragobj;
-
-    private RecyclerView mRecyclerView;
-    private LinearLayout mArticleItem;
-    private String articleUrl;
-    private WebViewActivity mArticleWebView = new WebViewActivity();
-
-    private ListOfSearchedArticlesAdapter adapter;
-    private List<Doc> mListArticles;
-
-    public interface OnArticleClickedListener {
-        void onArticletClicked(int position);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +27,10 @@ public class ResultsSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results_search);
         this.configureSearchToolbar();
         this.configureAndShowResultSearchFragment();
-
-
-        Log.d(TAG, "onCreate: ");
-
-       // configureRecyclerView();
     }
 
 
     private void configureAndShowResultSearchFragment() {
-        Log.d(TAG, "configureAndShowResultSearchFragment: ");
         Bundle bundle = new Bundle();
         bundle.putString("q", getIntent().getStringExtra("q"));
         bundle.putString("fq", getIntent().getStringExtra("fq"));
@@ -75,7 +49,6 @@ public class ResultsSearchActivity extends AppCompatActivity {
     }
 
     private void configureSearchToolbar() {
-        Log.d(TAG, "configureSearchToolbar: ");
         //Get the toolbar (Serialise)
         Toolbar searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         searchToolbar.setTitle("Search Articles: Results");
@@ -89,7 +62,6 @@ public class ResultsSearchActivity extends AppCompatActivity {
         searchToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getBaseContext(), "clic clic", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

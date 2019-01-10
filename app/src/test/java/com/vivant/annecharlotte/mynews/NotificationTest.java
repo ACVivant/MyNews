@@ -1,10 +1,7 @@
 package com.vivant.annecharlotte.mynews;
 
-import android.content.Context;
-import android.widget.TextView;
-
-import static org.mockito.Mockito.*;
-import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +9,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Anne-Charlotte Vivant on 10/01/2019.
  */
-public class AlertTest {
+public class NotificationTest {
+    @Test
+    public void format_edittext_keywords() {
+        NotificationActivity formatNotifText = new NotificationActivity();
+        assertEquals("(\"trump\" \"shutdown\" )", formatNotifText.keywordFormat("trump shutdown"));
+    }
+
     @Test
     public void message_notification_newarticles() {
         TextNotif alertTest = new TextNotif();

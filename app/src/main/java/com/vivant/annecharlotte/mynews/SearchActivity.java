@@ -26,8 +26,6 @@ import java.util.Locale;
          */
 public class SearchActivity extends AppCompatActivity {
 
-    private Toolbar searchToolbar;
-
     private EditText mEditText_keywords,
                      mEditText_beginDate,
                      mEditText_endDate;
@@ -43,10 +41,6 @@ public class SearchActivity extends AppCompatActivity {
                         mPolitics,
                         mSport,
                         mTravel;
-
-    private Switch notificationSwitch;
-
-    private Button mSearchButton;
 
     private String checkboxResults;
     private String keywordsResults;
@@ -68,6 +62,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void configureLayoutLinks() {
+
+        Button mSearchButton;
 
         mEditText_keywords = findViewById(R.id.search_query_edittext);
 
@@ -92,6 +88,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void configureSearchToolbar() {
+        Toolbar searchToolbar;
+
         //Get the toolbar (Serialise)
         searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         searchToolbar.setTitle("Search Articles");
@@ -104,6 +102,7 @@ public class SearchActivity extends AppCompatActivity {
 }
 
     private void configureWindow() {
+        Switch notificationSwitch;
         notificationSwitch = (Switch) findViewById(R.id.switch_notification);
         notificationSwitch.setVisibility(View.GONE);
     }
@@ -148,15 +147,6 @@ public class SearchActivity extends AppCompatActivity {
         mEditText_beginDate.setText(sdf.format(mCalendar.getTime()));
         mBeginDate = sdf2.format(mCalendar.getTime());
     }
-
-    // Sets date value to null
-    private void nullifyBeginDate() {
-        mBeginDate = null;
-    }
-
-    // ---------------------------------------------------------
-    // END DATE : TextView Listener + DatePicker + Label update
-    // ---------------------------------------------------------
 
     // Attach listener to TextView that calls a DatePickerDialog when clicked on
     private void initializeOnClickEndDateListener() {
@@ -238,8 +228,6 @@ public class SearchActivity extends AppCompatActivity {
         private void checkboxResult () {
             checkboxResults = "news_desk:(";
             int index = 0;
-
-
 
                 if (mPolitics.isChecked()) {
                     checkboxResults += "\"politics\" ";

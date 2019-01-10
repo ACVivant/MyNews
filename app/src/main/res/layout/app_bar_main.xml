@@ -36,7 +36,7 @@ tools:context=".MainActivity">
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabs_title_business" />
+            android:text="@string/tabs_title_arts" />
     </android.support.design.widget.TabLayout>
 
 </android.support.design.widget.AppBarLayout>

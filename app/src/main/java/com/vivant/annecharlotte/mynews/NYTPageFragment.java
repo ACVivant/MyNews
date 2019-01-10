@@ -37,15 +37,9 @@ public class NYTPageFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LinearLayout mArticleItem;
     private String articleUrl;
-    private WebViewActivity mArticleWebView = new WebViewActivity();
-
-    public interface OnArticleClickedListener {
-        void onArticletClicked(int position);
-    }
 
     public static final String TAG = "mostpopular_zut";
     public String TAG_API ;
-    public String getTagApi() { return TAG_API;}
 
     private ListOfArticlesAdapter adapter;
     private List<ResultArticles> mListArticles;
@@ -82,22 +76,17 @@ public class NYTPageFragment extends Fragment {
             indexAPI = getArguments().getInt("pos");
         }
 
-        Log.d(TAG, "onCreate: entrée ");
-        Log.d(TAG, "onCreate: index position: " + indexAPI);
-
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
 
         switch (indexAPI) {
             case 0:
             TAG_API = "TOPSTORIES";
             call = apiService.loadTopStories(ApiKey.NYT_API_KEY);
-            Log.d(TAG, "onCreate: passage par le if = 0");
             break;
 
             case 1:
             TAG_API = "MOSTPOPULAR";
             call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
-            Log.d(TAG, "onCreate: passage par le if = 1");
             break;
         }
 
@@ -133,7 +122,6 @@ public class NYTPageFragment extends Fragment {
             @Override
             public void onFailure(Call<NYTArticles> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
                 Log.e(TAG, t.toString());
             }
         });
