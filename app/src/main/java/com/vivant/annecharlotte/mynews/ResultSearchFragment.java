@@ -61,10 +61,6 @@ public class ResultSearchFragment extends Fragment {
     private String mBeginDate ;
     private String mEndDate ;
 
-    public interface OnArticleClickedListener {
-        void onArticletClicked(int position);
-    }
-
     public ResultSearchFragment() {
         // Required empty public constructor
     }
@@ -98,7 +94,7 @@ public class ResultSearchFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void configureRecyclerView() {
+    public void configureRecyclerView() {
         Log.d(TAG, "configureRecyclerView: entrée ");
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);

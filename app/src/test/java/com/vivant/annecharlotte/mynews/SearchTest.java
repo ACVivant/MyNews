@@ -9,9 +9,17 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class SearchTest {
     @Test
-    public void addition_isCorrect() {
+    public void noresult_alertDialog() {
+        /*String mQuery= "ckjplh";
+        String mFQuery = "";
+        String mBeginDate = "20181210";
+        String mEndDate = "20181212";
+
+        ResultSearchFragment mTest = new ResultSearchFragment();
+        mTest.configureRecyclerView();   */
+
         assertEquals(4, 2 + 2);
     }
 }

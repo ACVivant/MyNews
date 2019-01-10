@@ -33,8 +33,7 @@ import java.util.Calendar;
  * Created by Anne-Charlotte Vivant on 14/12/2018.
  */
 public class NotificationActivity extends AppCompatActivity {
-    //public class NotificationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
-    
+
     final static String TAG = "notif_zut";
 
     private Toolbar searchToolbar;
@@ -175,8 +174,8 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void startAlarm() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 20);
-        calendar.set(Calendar.MINUTE, 05);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 11);
         calendar.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

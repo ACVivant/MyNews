@@ -1,11 +1,13 @@
 package com.vivant.annecharlotte.mynews;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +47,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Created by Anne-Charlotte Vivant on 08/01/2019.
  */
-public class ResultsSearchNotification  extends AppCompatActivity {
+public class ResultsSearchNotification {
 
     private RelativeLayout mRelativeLayout;
     private RecyclerView mRecyclerView;
@@ -53,7 +56,7 @@ public class ResultsSearchNotification  extends AppCompatActivity {
     private String articleUrl;
     private WebViewActivity mArticleWebView = new WebViewActivity();
 
-    public static final String TAG = "resultsearchfragment";
+    public static final String TAG = "resultsearchnotif";
     public static final String TAG_API = "SEARCH";
 
     public String getTagApi() {
@@ -111,35 +114,38 @@ public class ResultsSearchNotification  extends AppCompatActivity {
 
     private int numberArticles =0;
 
-    public ResultsSearchNotification() {
+    public ResultsSearchNotification(Context context) {
         // Required empty public constructor
-        loadNotifCriterion();
+        loadNotifCriterion(context);
         searchArticles();
     }
 
-    public void loadNotifCriterion() {
+    public void loadNotifCriterion(Context context) {
 
-       /* mQuery = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(QUERY, "");
+        mQuery = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(QUERY, "");
         Log.d(TAG, "loadNotifCriterion: mQuery " + mQuery);
 
-        artsOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ARTS, false);
+        artsOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ARTS, false);
         if (artsOnOff) {mFQuery += "\"arts\" ";}
-        businessOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(BUSINESS, false);
+        businessOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(BUSINESS, false);
         if (businessOnOff) {mFQuery += "\"business\" ";}
-        sportOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(SPORT, false);
+        sportOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(SPORT, false);
         if (sportOnOff) {mFQuery += "\"sport\" ";}
-        entrepreneursOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ENTREPRENEURS, false);
+        entrepreneursOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(ENTREPRENEURS, false);
         if (entrepreneursOnOff) {mFQuery += "\"entrepreneurs\" ";}
-        travelOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(TRAVEL, false);
+        travelOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(TRAVEL, false);
         if (travelOnOff) {mFQuery += "\"travel\" ";}
-        politicsOnOff = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(POLITICS, false);
-        if (politicsOnOff) {mFQuery += "\"politics\" ";}*/
+        politicsOnOff = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(POLITICS, false);
+        if (politicsOnOff) {mFQuery += "\"politics\" ";}
+        mFQuery+= ")";
 
-// pour les tests------------------------------------
-       mQuery = "shutdown";
+        Log.d(TAG, "loadNotifCriterion: mFQuery " + mFQuery);
 
-       mFQuery = "business";
-
+        //---------------- pour les tests------------------------------------
+       /*mQuery = "trump";
+       mFQuery = "news_desk:(politics)";
+       mBeginDate = "20191201";
+       mEndDate = "20190109";*/
        //--------------------------------------
 
         Date day = new Date();
@@ -163,7 +169,7 @@ public class ResultsSearchNotification  extends AppCompatActivity {
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
-                Log.d(TAG, "configureRecyclerView: onResponse ");
+                Log.d(TAG, "searchArticles: onResponse ");
                 if (!response.isSuccessful()) {
                     Log.e(TAG, "erreur lors de la réponse de la recherche");
                     return;
@@ -171,11 +177,14 @@ public class ResultsSearchNotification  extends AppCompatActivity {
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
-                Log.d(TAG, "onResponse: numberArticles " + numberArticles);
+                Log.d(TAG, "searchArticles onResponse: numberArticles " + numberArticles);
                 if (!mListArticles.isEmpty()) {
-                    numberArticles = mListArticles.size()+1;
+                    numberArticles = mListArticles.size();
+                } else {
+                    numberArticles =0;
                 }
-                Log.d(TAG, "onResponse: numberArticles " + numberArticles);
+                Log.d(TAG, "searchArticles onResponse: numberArticles " + numberArticles);
+
             }
 
             @Override

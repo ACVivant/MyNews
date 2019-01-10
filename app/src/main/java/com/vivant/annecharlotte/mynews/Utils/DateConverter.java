@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 public class DateConverter {
 // Date conversion to display in the desired format (dd/MM/yy)
 
-        public String published_date;
-
         // Convert base date format input 「yyyy-MM-dd'T'HH:mm:ssXXX」 to desired date format 「dd"+"/"+"MM"+"/"+"yyyy」
         // Example: 「2018-03-23T05:00:07-04:00」 to 「23/03/2018」
 
