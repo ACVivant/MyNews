@@ -1,45 +1,23 @@
 package com.vivant.annecharlotte.mynews;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
-import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
 import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
-import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,11 +26,10 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Anne-Charlotte Vivant on 08/01/2019.
+ * Analyse result of the search on notfication keys
  */
 public class ResultsSearchNotification {
 
-    public static final String TAG = "resultsearchnotif";
     public static final String TAG_API = "SEARCH";
 
     private List<Doc> mListArticles;
@@ -80,11 +57,12 @@ public class ResultsSearchNotification {
 
     public ResultsSearchNotification(Context context) {
         // Required empty public constructor
-        loadNotifCriterion(context);
+        loadNotifKeys(context);
         searchArticles(context);
     }
 
-    public void loadNotifCriterion(Context context) {
+    // load notification keys which were saved in SharedPreferences
+    public void loadNotifKeys(Context context) {
 
         boolean artsOnOff;
         boolean businessOnOff;
@@ -110,6 +88,7 @@ public class ResultsSearchNotification {
         if (politicsOnOff) {mFQuery += "\"politics\" ";}
         mFQuery+= ")";
 
+        // format date (today and yesterday)
         Date day = new Date();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
@@ -118,6 +97,7 @@ public class ResultsSearchNotification {
         mBeginDate = f.format(calendar.getTime());
     }
 
+    // call the Search API
     public void searchArticles(final Context context) {
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
@@ -126,7 +106,7 @@ public class ResultsSearchNotification {
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
-                AlertReceiver mAlert = new AlertReceiver();
+                //AlertReceiver mAlert = new AlertReceiver();
                 if (!response.isSuccessful()) {
                     Toast.makeText(context, "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
@@ -139,19 +119,20 @@ public class ResultsSearchNotification {
                 } else {
                     numberArticles =0;
                 }
+                // adjust the text of the notification
                 textMessage = new TextNotif().createMessage(numberArticles);
                 send(context);
             }
 
             @Override
             public void onFailure(Call<NYTSearchArticles> call, Throwable t) {
-                Log.e(TAG, t.toString());
+                Log.e(TAG_API, t.toString());
             }
         });
     }
 
+    // Send the notification
     private void send(Context context) {
-        // Envoyer la notification
         NotificationHelper notificationHelper = new NotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", textMessage);
         notificationHelper.getManager().notify(1, nb.build());

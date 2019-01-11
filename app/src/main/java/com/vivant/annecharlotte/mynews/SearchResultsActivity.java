@@ -3,23 +3,17 @@ package com.vivant.annecharlotte.mynews;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.vivant.annecharlotte.mynews.Models.Doc;
-import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
-
-import java.util.List;
-
+/**
+ * Generate results for search demand
+ * and show them
+ */
 public class ResultsSearchActivity extends AppCompatActivity {
 
-    private ResultSearchFragment mResultSearchFragment;
+    private NYTSearchPageFragment mResultSearchFragment;
 
-    private String TAG_API= "SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +23,6 @@ public class ResultsSearchActivity extends AppCompatActivity {
         this.configureAndShowResultSearchFragment();
     }
 
-
     private void configureAndShowResultSearchFragment() {
         Bundle bundle = new Bundle();
         bundle.putString("q", getIntent().getStringExtra("q"));
@@ -37,10 +30,10 @@ public class ResultsSearchActivity extends AppCompatActivity {
         bundle.putString("begin_date", getIntent().getStringExtra("begin_date"));
         bundle.putString("end_date", getIntent().getStringExtra("end_date"));
 
-        mResultSearchFragment = (ResultSearchFragment) getSupportFragmentManager().findFragmentById(R.id.container_search_recyclerview);
+        mResultSearchFragment = (NYTSearchPageFragment) getSupportFragmentManager().findFragmentById(R.id.container_search_recyclerview);
 
         if (mResultSearchFragment == null) {
-            mResultSearchFragment = new ResultSearchFragment();
+            mResultSearchFragment = new NYTSearchPageFragment();
             mResultSearchFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container_search_recyclerview, mResultSearchFragment)
@@ -51,7 +44,7 @@ public class ResultsSearchActivity extends AppCompatActivity {
     private void configureSearchToolbar() {
         //Get the toolbar (Serialise)
         Toolbar searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
-        searchToolbar.setTitle("Search Articles: Results");
+        searchToolbar.setTitle(R.string.search_results_title);
         //Set the toolbar
         setSupportActionBar(searchToolbar);
         // Get a support ActionBar corresponding to this toolbar

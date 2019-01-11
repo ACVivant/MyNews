@@ -2,43 +2,32 @@ package com.vivant.annecharlotte.mynews;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
-import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
 
 import java.util.Calendar;
 
 /**
- * Created by Anne-Charlotte Vivant on 14/12/2018.
+ * Generate notification window
+ * Save and load notification keys
  */
 public class NotificationActivity extends AppCompatActivity {
 
-    final static String TAG = "notif_zut";
-
-    private Toolbar searchToolbar;
-
-    private Button searchButton;
     private Switch switchButton;
     private CheckBox artsCheckbox,
             businessCheckbox,
@@ -47,9 +36,6 @@ public class NotificationActivity extends AppCompatActivity {
             sportCheckbox,
             travelCheckbox;
     private EditText textNotif;
-
-    private LinearLayout beginDate,
-                         endDate;
 
     public static final String SHARED_PREFS = "SharedPrefs";
     public static final String SWITCH_NOTIF = "SwitchNotif";
@@ -62,16 +48,9 @@ public class NotificationActivity extends AppCompatActivity {
     public static final String SPORT = "SportNotif";
     public static final String TRAVEL = "TravelNotif";
 
-
-    private String mFQuery ;
-    private String mQuery;
-
     private String textNotifSaved ;
-    private String mQuerySaved;
     private boolean switchOnOff;
 
-    private String FQueryNotif ;
-    private String QueryNotif;
     private boolean artsOnOff;
     private boolean businessOnOff;
     private boolean entrepreneursOnOff;
@@ -79,20 +58,13 @@ public class NotificationActivity extends AppCompatActivity {
     private boolean sportOnOff;
     private boolean travelOnOff;
 
-    private NotificationHelper mNotificationHelper;
-
     private boolean launch;
-    private String keywordsResults;
-    private String checkboxResults;
-
-    private View toolbar;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_notif_window);
-        this.configureSearchToolbar();
+        this.configureNotificationToolbar();
         this.configureWindow();
         loadData();
         updateView();
@@ -100,7 +72,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy: launch" + launch);
         super.onDestroy();
     }
 
@@ -108,23 +79,25 @@ public class NotificationActivity extends AppCompatActivity {
     // about notification window
     //---------------------------------------------------------------------------------------------------------
 
-    private void configureSearchToolbar() {
+    private void configureNotificationToolbar() {
+        Toolbar notificationToolbar;
         //Get the toolbar (Serialise)
-        searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
-        searchToolbar.setTitle("Notifications");
+        notificationToolbar = findViewById(R.id.search_toolbar);
+        notificationToolbar.setTitle("Notifications");
         //Set the toolbar
-        setSupportActionBar(searchToolbar);
+        setSupportActionBar(notificationToolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
-        searchToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        notificationToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 keywordResult();
                 checkboxResult();
 
+                // Save data only if values are ok (launch == true) and switchbutton is on
                 if (launch) {
                     saveData();
                     if (switchButton.isChecked()) {
@@ -139,14 +112,15 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void configureWindow() {
-
-        searchButton = (Button) findViewById(R.id.search_button);
+        Button searchButton;
+        searchButton = findViewById(R.id.search_button);
         searchButton.setVisibility(View.GONE);
 
-        beginDate = (LinearLayout) findViewById(R.id.begin_date);
+        LinearLayout beginDate,endDate;
+        beginDate = findViewById(R.id.begin_date);
         beginDate.setVisibility(View.GONE);
 
-        endDate = (LinearLayout) findViewById(R.id.end_date);
+        endDate = findViewById(R.id.end_date);
         endDate.setVisibility(View.GONE);
 
         artsCheckbox = findViewById(R.id.art_checkBox);
@@ -156,11 +130,9 @@ public class NotificationActivity extends AppCompatActivity {
         travelCheckbox = findViewById(R.id.travel_checkBox);
         politicsCheckbox = findViewById(R.id.politics_checkBox);
 
-        switchButton = (Switch) findViewById(R.id.switch_notification);
+        switchButton = findViewById(R.id.switch_notification);
 
-        textNotif = (EditText) findViewById(R.id.search_query_edittext);
-
-        mNotificationHelper = new NotificationHelper(this);
+        textNotif = findViewById(R.id.search_query_edittext);
         }
 
     //--------------------------------------------------------------------------------------------------------------
@@ -169,8 +141,8 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void startAlarm() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 48);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 35);
         calendar.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -189,26 +161,28 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     //---------------------------------------------------------------------------------------------------------------
-    // restore and save notification criterion
+    // restore and save notification keys
     //--------------------------------------------------------------------------------------------------------------
     public void saveData() {
-        Log.d(TAG, "saveData: ");
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         editor.putString(QUERY, textNotif.getText().toString());
+
         editor.putBoolean(ARTS, artsCheckbox.isChecked());
         editor.putBoolean(BUSINESS, businessCheckbox.isChecked());
         editor.putBoolean(SPORT, sportCheckbox.isChecked());
         editor.putBoolean(ENTREPRENEURS, entrepreneursCheckbox.isChecked());
         editor.putBoolean(TRAVEL, travelCheckbox.isChecked());
         editor.putBoolean(POLITICS, politicsCheckbox.isChecked());
+
         editor.putBoolean(SWITCH_NOTIF, switchButton.isChecked());
         editor.apply();
     }
 
     public void loadData() {
-        Log.d(TAG, "loadData: ");
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
         textNotifSaved = sharedPreferences.getString(QUERY, "");
@@ -224,7 +198,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     public void updateView() {
-        Log.d(TAG, "updateView: ");
+
         switchButton.setChecked(switchOnOff);
 
         artsCheckbox.setChecked(artsOnOff);
@@ -238,30 +212,28 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     //------------------------------------------------------------------------------------------------
-    // creation request
+    // format request
     //------------------------------------------------------------------------------------------------
     private void keywordResult() {
         launch = true;
-        Log.d(TAG, "keywordResult: launch " +launch);
         String keywordsResults1 = textNotif.getText().toString();
         if (keywordsResults1.length() < 1) {
-            Toast.makeText(this, "Il faut saisir au moins un mot clé", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.notificationdialog_checkbox_error, Toast.LENGTH_LONG).show();
             launch = false;
-            Log.d(TAG, "keywordResult 2: launch " +launch);
         } else {
             keywordFormat(keywordsResults1);
         }
     }
 
     public String keywordFormat(String str) {
+        String keywordsResults;
             keywordsResults = "(";
-            String[] splitArray = null; //tableau de chaînes
-            // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
+            String[] splitArray = null;
+            // We split String str and put each part of the result in splitArray cell
             splitArray = str.split(" ");
 
             for (int i = 0; i < splitArray.length; i++) {
-                // On affiche chaque élément du tableau
-                System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
+                // we create the right string for API
                 keywordsResults += "\"" + splitArray[i] + "\" ";
             }
             keywordsResults += ")";
@@ -270,8 +242,8 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void checkboxResult () {
-        Log.d(TAG, "checkboxResultResult 3: launch " +launch);
-        checkboxResults = "news_desk:(";
+
+        String checkboxResults = "news_desk:(";
         int index = 0;
 
         if (politicsCheckbox.isChecked()) {
@@ -310,7 +282,6 @@ public class NotificationActivity extends AppCompatActivity {
             launch = false;
             Toast.makeText(this, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
         }
-        Log.d(TAG, "checkboxResultResult 4: launch " +launch);
     }
 
 }

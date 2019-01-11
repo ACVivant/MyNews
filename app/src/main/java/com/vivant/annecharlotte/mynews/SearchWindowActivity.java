@@ -22,8 +22,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by Anne-Charlotte Vivant on 14/12/2018.
-         */
+ * Generate search window
+ * launch ResultsSearchActivity for results
+ */
 public class SearchActivity extends AppCompatActivity {
 
     private EditText mEditText_keywords,
@@ -44,7 +45,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private String checkboxResults;
     private String keywordsResults;
-    private String TAG = "searchactivity_zut";
 
     boolean launch;
 
@@ -58,7 +58,6 @@ public class SearchActivity extends AppCompatActivity {
         initializeOnClickBeginDateListener();
         initializeOnClickEndDateListener();
         configureLayoutLinks();
-        Log.d(TAG, "onCreate: ");
     }
 
     private void configureLayoutLinks() {
@@ -82,7 +81,17 @@ public class SearchActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchResultsSearchActivity();
+                keywordResult();
+                checkboxResult();
+
+                if (launch) {
+                    Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
+                    myIntent.putExtra("q", keywordsResults);
+                    myIntent.putExtra("fq", checkboxResults);
+                    myIntent.putExtra("begin_date", mBeginDate);
+                    myIntent.putExtra("end_date", mEndDate);
+                    startActivity(myIntent);
+                }
             }
         });
     }
@@ -108,7 +117,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     // -----------------------------------------------------------
-    // BEGIN DATE : Text View Listener + DatePicker + Label update
+    // DATE : Text View Listener + DatePicker + Label update
     // -----------------------------------------------------------
 
     // Attach listener to TextView that calls a DatePickerDialog when clicked on
@@ -187,20 +196,9 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void launchResultsSearchActivity() {
-            keywordResult();
-            checkboxResult();
-
-            if (launch) {
-                Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
-                myIntent.putExtra("q", keywordsResults);
-                myIntent.putExtra("fq", checkboxResults);
-                myIntent.putExtra("begin_date", mBeginDate);
-                myIntent.putExtra("end_date", mEndDate);
-                startActivity(myIntent);
-            }
-        }
-
+    // -----------------------------------------------------------
+    // KEYS for the search call
+    // -----------------------------------------------------------
 
     private void keywordResult() {
         launch = true;
