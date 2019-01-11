@@ -10,22 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
-import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.Doc;
-import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
-import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
-import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesViewHolder;
 
 import java.util.List;
 
@@ -34,18 +28,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NYTSearchPageFragment extends Fragment{
+/**
+ * Generate call for search demand
+ */
+public class ResultSearchFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+
     private String articleUrl;
 
-   private static final String ART_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
-    public static final String TAG_API = "ARTS";
+    public static final String TAG_API = "SEARCH";
 
     private ListOfSearchedArticlesAdapter adapter;
     private List<Doc> mListArticles;
 
-   public NYTSearchPageFragment() {
+    private String mFQuery ;
+    private String mQuery;
+    private String mBeginDate ;
+    private String mEndDate ;
+
+    private int index;
+
+    private  Call<NYTSearchArticles> call;
+
+    public ResultSearchFragment() {
         // Required empty public constructor
     }
 
@@ -53,21 +59,54 @@ public class NYTSearchPageFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_articles_page, container, false);
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
         MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
         mRecyclerView.addItemDecoration(mDividerItemDecoration);
-
         return view;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            if (getArguments() != null) {
+                index = getArguments().getInt("pos", 3);
+                Log.d("ResultSearchFragment", "onCreateView: " + index);
+                switch (index) {
+                    case 2:
+                        mQuery = "";
+                        //mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
+                        mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Sports\")";
+                        mBeginDate = "";
+                        mEndDate = "";
+                        break;
+                    case 3:
+                        mQuery = getArguments().getString("q");
+                        mFQuery = getArguments().getString("fq");
+                        mBeginDate = getArguments().getString("begin_date");
+                        mEndDate = getArguments().getString("end_date");
+                        break;
+                }
+            }
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-        Call<NYTSearchArticles> call = apiService.loadBusiness(ApiKey.NYT_API_KEY, ART_SEARCH, getContext().getString(R.string.sort_by_newest));
+            Log.d("Avant call resultat", "onCreate: index " + index);
+        switch (index) {
+            case 2:
+                Log.d("Resultat", "onCreate: index 2 " + index);
+                call = apiService.loadBusiness(ApiKey.NYT_API_KEY, mFQuery, getContext().getString(R.string.sort_by_newest));
+                break;
+            case 3:
+                Log.d("Resultat", "onCreate: index 3 " + index);
+                call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery, getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
+                break;
+        }
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
@@ -79,6 +118,11 @@ public class NYTSearchPageFragment extends Fragment{
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
+                if (mListArticles.isEmpty()) {
+
+                    Popup mPopup = new Popup(getContext(), R.string.searchdialog_title, R.string.searchdialog_text, R.drawable.baseline_sentiment_very_dissatisfied_24);
+                    mPopup.personnaliseAndLaunchPopup();
+                }
 
                 adapter = new ListOfSearchedArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -98,8 +142,20 @@ public class NYTSearchPageFragment extends Fragment{
             @Override
             public void onFailure(Call<NYTSearchArticles> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
                 Log.e(TAG_API, t.toString());
             }
         });
     }
+
+    // save the position on the main tab to know which API should be called
+    public static ResultSearchFragment newInstance(int position) {
+        ResultSearchFragment f = new ResultSearchFragment();
+        Bundle bTransfert = new Bundle();
+
+        bTransfert.putInt("pos", position);
+        f.setArguments(bTransfert);
+        return f;
+    }
 }
+
