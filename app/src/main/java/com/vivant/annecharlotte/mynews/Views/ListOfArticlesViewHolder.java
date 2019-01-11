@@ -45,6 +45,10 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
                     if (position!= RecyclerView.NO_POSITION) {
                         listener.OnItemClicked(position);
                     }
+                     // change the color when click on item is intercepted
+                    dateTextView.setTextColor(dateTextView.getResources().getColor(R.color.colorPrimaryDark));
+                    sectionTextView.setTextColor(sectionTextView.getResources().getColor(R.color.colorPrimaryDark));
+                    titleTextView.setTextColor(titleTextView.getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
         });

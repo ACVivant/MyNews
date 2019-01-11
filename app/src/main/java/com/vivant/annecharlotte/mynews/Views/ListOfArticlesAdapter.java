@@ -50,7 +50,6 @@ public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesVi
     @Override
     public void onBindViewHolder(ListOfArticlesViewHolder viewHolder, int position) {
         viewHolder.updateWithNYTArticles(this.listOfArticles.get(position), this.glide);
-        //viewHolder.updateWithNYTArticles(this.listOfArticles.get(position));
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST

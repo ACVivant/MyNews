@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         String EDUCATION_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Education\")";
-        String ENERGY_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Energy\")";
         String ENVIRONMENT_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Environment\")";
         String FOOD_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Food\")";
         String SCIENCE_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Science\")";

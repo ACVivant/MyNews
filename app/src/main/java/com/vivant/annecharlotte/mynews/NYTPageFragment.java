@@ -38,7 +38,7 @@ public class NYTPageFragment extends Fragment {
     private LinearLayout mArticleItem;
     private String articleUrl;
 
-    public static final String TAG = "mostpopular_zut";
+    public static final String TAG = "MOSTPOPULAR";
     public String TAG_API ;
 
     private ListOfArticlesAdapter adapter;
@@ -102,7 +102,6 @@ public class NYTPageFragment extends Fragment {
                 NYTArticles posts = response.body();
                 mListArticles = posts.getResults();
 
-                //adapter = new ListOfArticlesAdapter(mListArticles);
                 adapter = new ListOfArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
@@ -111,7 +110,6 @@ public class NYTPageFragment extends Fragment {
                     @Override
                     public void OnItemClicked(int position) {
                         articleUrl = mListArticles.get(position).getUrl();
-                        //mArticleWebView.setURL(articleUrl);
                         Intent WVIntent = new Intent(getContext(), WebViewActivity.class);
                         WVIntent.putExtra("ArticleURL", articleUrl);
                         startActivity(WVIntent);
