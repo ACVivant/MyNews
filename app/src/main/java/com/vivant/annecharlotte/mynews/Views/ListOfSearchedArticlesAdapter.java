@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.vivant.annecharlotte.mynews.Models.Doc;
-import com.vivant.annecharlotte.mynews.Models.Response;
-import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.R;
 
 import java.util.List;
 
 /**
- * Created by Anne-Charlotte Vivant on 18/12/2018.
+ * Link between articles position and content for Search Articles API
  */
 public class ListOfSearchedArticlesAdapter extends RecyclerView.Adapter<ListOfSearchedArticlesViewHolder> {
 
@@ -32,8 +30,8 @@ public class ListOfSearchedArticlesAdapter extends RecyclerView.Adapter<ListOfSe
         mListener = listener;
     }
 
-    // CONSTRUCTOR
-        public ListOfSearchedArticlesAdapter(List<Doc> listOfArticles, RequestManager glide, String apiTag) {
+    // constructor
+    public ListOfSearchedArticlesAdapter(List<Doc> listOfArticles, RequestManager glide, String apiTag) {
         this.listOfArticles = listOfArticles;
         this.glide = glide;
         this.apiTag =  apiTag;
@@ -41,20 +39,20 @@ public class ListOfSearchedArticlesAdapter extends RecyclerView.Adapter<ListOfSe
 
     @Override
     public ListOfSearchedArticlesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
+        // Creates view holder and inflates its xml layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_item, parent, false);
         return new ListOfSearchedArticlesViewHolder(view, mListener, apiTag);
     }
 
-    // UPDATE VIEW HOLDER
+    // update view holder
     @Override
     public void onBindViewHolder(ListOfSearchedArticlesViewHolder viewHolder, int position) {
         viewHolder.updateWithNYTArticles(this.listOfArticles.get(position), this.glide);
     }
 
-    // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST
+    // return the total count of items in the list
     @Override
     public int getItemCount() {
         return this.listOfArticles.size();

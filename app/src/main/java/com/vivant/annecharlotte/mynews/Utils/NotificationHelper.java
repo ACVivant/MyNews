@@ -12,7 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import com.vivant.annecharlotte.mynews.R;
 
 /**
- * Created by Anne-Charlotte Vivant on 21/12/2018.
+ * Manage notifications
  */
 public class NotificationHelper extends ContextWrapper {
 

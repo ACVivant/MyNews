@@ -2,8 +2,8 @@
     <string name="app_name">MyNews</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">MyNews</string>
+    <string name="nav_header_subtitle">hello@mynews.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="action_notifications">Notifications</string>
@@ -37,16 +37,34 @@
 
     <!-- informations for menu -->
     <string name="helpmenu_title">"A l'aide!"</string>
-    <string name="helpmenu_text">"Tous les cris, les SOS..."</string>
+    <string name="helpmenu_text">"Tous les cris, les SOS."</string>
     <string name="aboutmenu_title">"Qui, que, quoi?"</string>
-    <string name="aboutmenu_text">"MyNews, l'application qui te tient au courant sur tout, tout, tout..."</string>
+    <string name="aboutmenu_text">"MyNews, l'application qui te tient au courant sur tout, tout, tout."</string>
+    <string name="toolbar_title">"Rechercher"</string>
 
     <!-- informations for API -->
     <string name="sort_by_newest">newest</string>
 
     <!-- informations for search dialog -->
-    <string name="searchdialog_title">"Dommage..."</string>
+    <string name="searchdialog_title">"Dommage!"</string>
     <string name="searchdialog_text">"Aucun article ne correspond à votre recherche"</string>
+    <string name="search_results_title">"Résultats de la recherche"</string>
+
+    <!-- informations for notification dialog -->
+    <string name="notificationdialog_checkbox_error">"Il faut saisir au moins un mot clé"</string>
+    <string name="notification_noarticles">"Vous n'avez aucun article à découvrir aujourd'hui!"</string>
+    <string name="notification_newarticles1">"Vous avez "</string>
+    <string name="notification_newarticles2">" nouveaux articles à découvrir aujourd'hui!"</string>
+
+    <!-- keys for search-notification window -->
+    <string name="notification_window_switch">"Je veux recevoir des notifications! (une fois par jour)"</string>
+    <string name="search_window_button">"C'est parti!"</string>
+    <string name="travel_checkbox_text">"Voyages"</string>
+    <string name="business_checkbox_text">"Business"</string>
+    <string name="arts_checkbox_text">"Arts"</string>
+    <string name="entrepreneurs_checkbox_text">"Entrepreneurs"</string>
+    <string name="politics_checkbox_text">"Politique"</string>
+    <string name="sport_checkbox_text">"Sport"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

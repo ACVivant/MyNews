@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,9 +22,9 @@ import java.util.Locale;
 
 /**
  * Generate search window
- * launch ResultsSearchActivity for results
+ * launch SearchResultsActivity for results
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchWindowActivity extends AppCompatActivity {
 
     private EditText mEditText_keywords,
                      mEditText_beginDate,
@@ -85,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
                 checkboxResult();
 
                 if (launch) {
-                    Intent myIntent = new Intent(SearchActivity.this, ResultsSearchActivity.class);
+                    Intent myIntent = new Intent(SearchWindowActivity.this, SearchResultsActivity.class);
                     myIntent.putExtra("q", keywordsResults);
                     myIntent.putExtra("fq", checkboxResults);
                     myIntent.putExtra("begin_date", mBeginDate);
@@ -139,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
         mEditText_beginDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(SearchActivity.this, date, mCalendar
+                new DatePickerDialog(SearchWindowActivity.this, date, mCalendar
                         .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
                         mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -177,7 +176,7 @@ public class SearchActivity extends AppCompatActivity {
         mEditText_endDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(SearchActivity.this, date, mCalendar
+                new DatePickerDialog(SearchWindowActivity.this, date, mCalendar
                         .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
                         mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }

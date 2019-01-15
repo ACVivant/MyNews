@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Views;
 
 import android.app.AlertDialog;
 import android.content.Context;

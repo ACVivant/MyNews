@@ -17,7 +17,7 @@ public class SearchTest {
         String mBeginDate = "20181210";
         String mEndDate = "20181212";
 
-        ResultSearchFragment mTest = new ResultSearchFragment();
+        NYTSearchPageFragment mTest = new NYTSearchPageFragment();
         mTest.configureRecyclerView();   */
 
         assertEquals(4, 2 + 2);

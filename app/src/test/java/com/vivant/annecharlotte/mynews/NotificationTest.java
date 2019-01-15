@@ -1,7 +1,6 @@
 package com.vivant.annecharlotte.mynews;
 
-import android.widget.CheckBox;
-import android.widget.EditText;
+import com.vivant.annecharlotte.mynews.Views.TextNotif;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class NotificationTest {
     @Test
     public void format_edittext_keywords() {
-        NotificationActivity formatNotifText = new NotificationActivity();
+        NotificationWindowActivity formatNotifText = new NotificationWindowActivity();
         assertEquals("(\"trump\" \"shutdown\" )", formatNotifText.keywordFormat("trump shutdown"));
     }
 

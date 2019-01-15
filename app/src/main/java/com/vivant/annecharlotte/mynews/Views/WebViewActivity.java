@@ -1,9 +1,11 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Views;
 
 import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
         import android.webkit.WebView;
         import android.webkit.WebViewClient;
+
+import com.vivant.annecharlotte.mynews.R;
 
 public class WebViewActivity extends AppCompatActivity {
 

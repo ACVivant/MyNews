@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Views;
 
 /**
  * Update text of the notification

@@ -10,7 +10,7 @@ import android.view.View;
  * Generate results for search demand
  * and show them
  */
-public class ResultsSearchActivity extends AppCompatActivity {
+public class SearchResultsActivity extends AppCompatActivity {
 
     private NYTSearchPageFragment mResultSearchFragment;
 

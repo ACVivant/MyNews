@@ -9,9 +9,6 @@ import com.google.gson.annotations.SerializedName;
         @SerializedName("docs")
         @Expose
         private List<Doc> docs = null;
-       /* @SerializedName("meta")
-        @Expose
-        private Meta meta;*/
 
         public List<Doc> getDocs() {
             return docs;

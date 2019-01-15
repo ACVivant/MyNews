@@ -20,6 +20,8 @@ import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
+import com.vivant.annecharlotte.mynews.Views.Popup;
+import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ import retrofit2.Response;
 /**
  * Generate call for search demand
  */
-public class ResultSearchFragment extends Fragment {
+public class NYTSearchPageFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
 
@@ -51,7 +53,7 @@ public class ResultSearchFragment extends Fragment {
 
     private  Call<NYTSearchArticles> call;
 
-    public ResultSearchFragment() {
+    public NYTSearchPageFragment() {
         // Required empty public constructor
     }
 
@@ -77,12 +79,11 @@ public class ResultSearchFragment extends Fragment {
 
             if (getArguments() != null) {
                 index = getArguments().getInt("pos", 3);
-                Log.d("ResultSearchFragment", "onCreateView: " + index);
+                Log.d("NYTSearchPageFragment", "onCreateView: " + index);
                 switch (index) {
                     case 2:
                         mQuery = "";
-                        //mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
-                        mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Sports\")";
+                        mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
                         mBeginDate = "";
                         mEndDate = "";
                         break;
@@ -149,8 +150,8 @@ public class ResultSearchFragment extends Fragment {
     }
 
     // save the position on the main tab to know which API should be called
-    public static ResultSearchFragment newInstance(int position) {
-        ResultSearchFragment f = new ResultSearchFragment();
+    public static NYTSearchPageFragment newInstance(int position) {
+        NYTSearchPageFragment f = new NYTSearchPageFragment();
         Bundle bTransfert = new Bundle();
 
         bTransfert.putInt("pos", position);

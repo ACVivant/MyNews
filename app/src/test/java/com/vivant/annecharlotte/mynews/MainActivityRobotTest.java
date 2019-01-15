@@ -24,7 +24,7 @@ import static org.robolectric.Shadows.shadowOf;
  */
 
 @RunWith(RobolectricTestRunner.class)
-public class RobotTest {
+public class MainActivityRobotTest {
     private MainActivity activity;
 
     @Before
@@ -91,7 +91,7 @@ public class RobotTest {
         assertEquals(expectedIntent.getComponent(), startedIntent.getComponent());
 
         //java.lang.NullPointerException
-        //	at com.vivant.annecharlotte.mynews.RobotTest.when_EducationClickedinDrawer_then_StartSearchResultActivity(RobotTest.java:89)
+        //	at com.vivant.annecharlotte.mynews.MainActivityRobotTest.when_EducationClickedinDrawer_then_StartSearchResultActivity(MainActivityRobotTest.java:89)
         //	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
         //	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
         //	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

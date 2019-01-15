@@ -26,7 +26,7 @@ import java.util.Calendar;
  * Generate notification window
  * Save and load notification keys
  */
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationWindowActivity extends AppCompatActivity {
 
     private Switch switchButton;
     private CheckBox artsCheckbox,
@@ -141,15 +141,17 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void startAlarm() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 35);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        // send notification each day
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),1000 * 60 * 60 * 24 ,pendingIntent);
     }
 
     private void cancelAlarm() {

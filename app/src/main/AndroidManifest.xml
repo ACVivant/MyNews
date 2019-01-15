@@ -25,7 +25,7 @@
         <!-- childs of the main activity -->
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".SearchWindowActivity"
             android:label="Detail"
             android:parentActivityName=".MainActivity">
 
@@ -35,7 +35,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".NotificationActivity"
+            android:name=".NotificationWindowActivity"
             android:label="Detail"
             android:parentActivityName=".MainActivity">
 
@@ -45,11 +45,11 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".WebViewActivity"
+            android:name=".Views.WebViewActivity"
             android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ResultsSearchActivity"
+            android:name=".SearchResultsActivity"
             android:label="@string/title_activity_results_search"
             android:theme="@style/AppTheme" />
 

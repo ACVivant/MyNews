@@ -20,6 +20,7 @@ import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
+import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ import retrofit2.Response;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Generate Top Stories and Most Popular pages
  */
 public class NYTPageFragment extends Fragment {
 
@@ -38,7 +39,6 @@ public class NYTPageFragment extends Fragment {
     private LinearLayout mArticleItem;
     private String articleUrl;
 
-    public static final String TAG = "MOSTPOPULAR";
     public String TAG_API ;
 
     private ListOfArticlesAdapter adapter;
@@ -57,14 +57,13 @@ public class NYTPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
-
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
+        mArticleItem = view.findViewById(R.id.article_item);
+
+        // Add horizontal separators
         MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
         mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
-        mArticleItem = view.findViewById(R.id.article_item);
-
-        Log.d(TAG, "onCreateView: pos: " +indexAPI );
         return view;
     }
 
@@ -72,6 +71,9 @@ public class NYTPageFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Call to the New-York Times API
+
+        // read the position on the main tab to know which API should be called
         if (getArguments() != null) {
             indexAPI = getArguments().getInt("pos");
         }
@@ -93,12 +95,12 @@ public class NYTPageFragment extends Fragment {
         call.enqueue(new Callback<NYTArticles>() {
             @Override
             public void onResponse(Call<NYTArticles> call, Response<NYTArticles> response) {
-                Log.d(TAG, "onCreate: onResponse ");
                 if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
 
+                // fill the recyclerview
                 NYTArticles posts = response.body();
                 mListArticles = posts.getResults();
 
@@ -106,6 +108,7 @@ public class NYTPageFragment extends Fragment {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
 
+                // Launch WebViewActiviy when user clicks on an articles item
                 adapter.setOnItemClickedListener(new ListOfArticlesAdapter.OnItemClickedListener() {
                     @Override
                     public void OnItemClicked(int position) {
@@ -120,11 +123,12 @@ public class NYTPageFragment extends Fragment {
             @Override
             public void onFailure(Call<NYTArticles> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e(TAG, t.toString());
+                Log.e(TAG_API, t.toString());
             }
         });
     }
 
+    // save the position on the main tab to know which API should be called
     public static NYTPageFragment newInstance(int position) {
         NYTPageFragment f = new NYTPageFragment();
         Bundle bTransfert = new Bundle();

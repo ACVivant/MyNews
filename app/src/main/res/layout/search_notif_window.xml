@@ -3,6 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_notif_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -96,7 +97,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_alignLeft="@+id/begin_date"
-        android:text="Arts" />
+        android:text="@string/arts_checkbox_text" />
 
     <CheckBox
         android:id="@+id/business_checkBox"
@@ -104,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/art_checkBox"
         android:layout_alignLeft="@id/art_checkBox"
-        android:text="Business" />
+        android:text="@string/business_checkbox_text" />
 
     <CheckBox
         android:id="@+id/entrepreneurs_checkBox"
@@ -112,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/business_checkBox"
         android:layout_alignLeft="@id/art_checkBox"
-        android:text="Entrepreneurs" />
+        android:text="@string/entrepreneurs_checkbox_text" />
 
     <CheckBox
         android:id="@+id/politics_checkBox"
@@ -121,7 +122,7 @@
         android:layout_toEndOf="@id/art_checkBox"
         android:layout_alignTop="@id/art_checkBox"
         android:layout_alignLeft="@id/travel_checkBox"
-        android:text="Politics" />
+        android:text="@string/travel_checkbox_text" />
 
     <CheckBox
         android:id="@+id/sport_checkBox"
@@ -130,7 +131,7 @@
         android:layout_toEndOf="@id/business_checkBox"
         android:layout_alignTop="@+id/business_checkBox"
         android:layout_alignLeft="@id/travel_checkBox"
-        android:text="Sport" />
+        android:text="@string/business_checkbox_text" />
 
     <CheckBox
         android:id="@+id/travel_checkBox"
@@ -139,7 +140,7 @@
         android:layout_toEndOf="@id/entrepreneurs_checkBox"
         android:layout_alignTop="@id/entrepreneurs_checkBox"
         android:layout_alignLeft="@id/end_date"
-        android:text="Travel" />
+        android:text="@string/travel_checkbox_text" />
 
     <Button
             android:id="@+id/search_button"
@@ -147,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/travel_checkBox"
             android:layout_centerHorizontal="true"
-            android:text="Search"
+            android:text="@string/search_window_button"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="40dp"
@@ -161,11 +162,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/travel_checkBox"
+        android:layout_alignBottom="@+id/search_button"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
-        android:text="Enable notifications (once per day)"
-        android:visibility="visible"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="13dp"
+        android:text="@string/notification_window_switch"
+        android:visibility="visible" />
 
 
 </RelativeLayout>

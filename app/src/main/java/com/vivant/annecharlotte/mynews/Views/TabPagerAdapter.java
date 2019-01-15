@@ -6,16 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.vivant.annecharlotte.mynews.NYTSearchPageFragment;
 import com.vivant.annecharlotte.mynews.NYTPageFragment;
+import com.vivant.annecharlotte.mynews.NYTSearchPageFragment;
 import com.vivant.annecharlotte.mynews.R;
 
 /**
- * Created by Anne-Charlotte Vivant on 13/12/2018.
+ * Link between main tab position and content
  */
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-    Context ctx;
+    private Context ctx;
 
     public TabPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -25,7 +25,6 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public String getPageTitle(int position) {
-       // return tabarray[position];
        return  ctx.getResources().getStringArray(R.array.TabTitles)[position];
     }
 
@@ -38,7 +37,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new NYTPageFragment().newInstance(1);
             case 2:
-                return new NYTSearchPageFragment();
+                return new NYTSearchPageFragment().newInstance(2);
         }
         return null;
     }

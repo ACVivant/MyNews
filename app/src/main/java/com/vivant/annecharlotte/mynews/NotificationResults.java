@@ -12,6 +12,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
+import com.vivant.annecharlotte.mynews.Views.TextNotif;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Analyse result of the search on notfication keys
  */
-public class ResultsSearchNotification {
+public class NotificationResults {
 
     public static final String TAG_API = "SEARCH";
 
@@ -55,7 +56,7 @@ public class ResultsSearchNotification {
     private int numberArticles =0;
     private String textMessage = "";
 
-    public ResultsSearchNotification(Context context) {
+    public NotificationResults(Context context) {
         // Required empty public constructor
         loadNotifKeys(context);
         searchArticles(context);

@@ -5,28 +5,20 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by Anne-Charlotte Vivant on 09/01/2019.
+ * Attributes of separator  android.R.attr.listDivider
  */
 public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
 
-    /**
-     * Attributes of separator  android.R.attr.listDivider
-     */
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
 
-    // static VERTICAL_LIST
-    public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
-
     private Drawable mDivider;
-
-    private int mOrientation;
 
     public MyDividerItemDecoration(Context context) {
         // get the attributes style
@@ -34,13 +26,11 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         // get drawable in style
         mDivider = a.getDrawable(0);
         a.recycle();
-        // set orientation
-        mOrientation = VERTICAL_LIST;
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent) {
-        // get padding of parents (Left and right
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        // get padding of parents (Left and right)
         final int left = parent.getPaddingLeft()+225;
         final int right = parent.getWidth() - parent.getPaddingRight();
 
@@ -61,17 +51,10 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    /**
-     * Return the dimension outRect for itemPosition and parent (Offset)
-     * @param outRect : the new Rect
-     * @param itemPosition: the position of item
-     * @param parent : the view parent
-     *
-     */
+
+     // Return the dimension outRect for itemPosition and parent (Offset)
     @Override
-    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-        // depends orientation
-            // return rect with height of divider
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
     }
 }

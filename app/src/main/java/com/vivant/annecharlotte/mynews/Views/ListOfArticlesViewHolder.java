@@ -1,29 +1,20 @@
 package com.vivant.annecharlotte.mynews.Views;
 
-import android.graphics.drawable.Icon;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
-import com.vivant.annecharlotte.mynews.Models.NYTTopStoriesArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
-import com.vivant.annecharlotte.mynews.Models.ResultTopStories;
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.DateConverter;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Anne-Charlotte Vivant on 18/12/2018.
+ * ViewHolder linked with ListOfArticlesAdapter (TOP Stories and MostPopular API)
  */
 public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
 
@@ -32,7 +23,7 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.fragment_item_section) TextView sectionTextView;
     @BindView(R.id.fragment_item_image) ImageView imageView;
 
-    String apiTag;
+    private String apiTag;
 
     public ListOfArticlesViewHolder(View itemView, final ListOfArticlesAdapter.OnItemClickedListener listener, String apiTag) {
         super(itemView);
@@ -45,7 +36,7 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
                     if (position!= RecyclerView.NO_POSITION) {
                         listener.OnItemClicked(position);
                     }
-                     // change the color when click on item is intercepted
+                    // change the color when click on item is intercepted
                     dateTextView.setTextColor(dateTextView.getResources().getColor(R.color.colorPrimaryDark));
                     sectionTextView.setTextColor(sectionTextView.getResources().getColor(R.color.colorPrimaryDark));
                     titleTextView.setTextColor(titleTextView.getResources().getColor(R.color.colorPrimaryDark));
@@ -55,35 +46,38 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         this.apiTag = apiTag;
     }
 
-
-       public void updateWithNYTArticles(ResultArticles NYTArticle, RequestManager glide){
+    public void updateWithNYTArticles(ResultArticles NYTArticle, RequestManager glide){
+        // Principal title
         this.titleTextView.setText(NYTArticle.getTitle());
 
-        String date = NYTArticle.getPublishedDate().substring(0,10);
-        date = DateConverter.getPublished_date_converted(date);
-           this.dateTextView.setText(date);
-
+        // Section title if possible
         String section = NYTArticle.getSection() ;
-
-        if (apiTag=="TOPSTORIES") {  // ici on gère le fait qu'il n'y a pas de subsection dans MostPopular
-        if(NYTArticle.getSubsection().length()> 0){
+        // there isn't subsections in most popular articles, so we put the subseciton title only for topstories articles
+        if (apiTag=="TOPSTORIES") {
+            if(NYTArticle.getSubsection().length()> 0){
                 section += ">" +NYTArticle.getSubsection();
-        }
+            }
         }
         this.sectionTextView.setText(section);
 
-           if (apiTag=="TOPSTORIES") {
-        if (NYTArticle.getMultimedia().size()>0){  // ici il faut gérer les cas où Multimedia est un tableau vide
-        glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);}
-        else
-               this.imageView.setImageResource(R.drawable.ic_menu_camera);
-           }
+        // Date
+        String date = NYTArticle.getPublishedDate().substring(0,10);
+        date = DateConverter.getPublished_date_converted(date);
+        this.dateTextView.setText(date);
 
-           if (apiTag=="MOSTPOPULAR") {
-               if (NYTArticle.getMedia().size()>0){  // ici il faut gérer les cas où Media est un tableau vide
-                   glide.load(NYTArticle.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);}
-               else
-                   this.imageView.setImageResource(R.drawable.ic_menu_camera);
-           }
+        // Images
+        // sometimes there isn't images, so we use an icon instead
+        if (apiTag.equals("TOPSTORIES")) {
+            if (NYTArticle.getMultimedia().size()>0){
+                glide.load(NYTArticle.getMultimedia().get(0).getUrl()).into(imageView);}
+            else
+                this.imageView.setImageResource(R.drawable.ic_menu_camera);
+        }
+        if (apiTag.equals("MOSTPOPULAR")) {
+            if (NYTArticle.getMedia().size()>0){  // ici il faut gérer les cas où Media est un tableau vide
+                glide.load(NYTArticle.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);}
+            else
+                this.imageView.setImageResource(R.drawable.ic_menu_camera);
+        }
     }
 }
