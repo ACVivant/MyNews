@@ -3,7 +3,7 @@ package com.vivant.annecharlotte.mynews.Utils;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.vivant.annecharlotte.mynews.NotificationResults;
+import com.vivant.annecharlotte.mynews.Controller.NotificationResults;
 
 /**
  * Organize what to do when Alarm is on

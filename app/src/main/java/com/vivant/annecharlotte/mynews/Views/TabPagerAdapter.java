@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.vivant.annecharlotte.mynews.NYTPageFragment;
-import com.vivant.annecharlotte.mynews.NYTSearchPageFragment;
+import com.vivant.annecharlotte.mynews.Controller.NYTPageFragment;
+import com.vivant.annecharlotte.mynews.Controller.NYTSearchPageFragment;
 import com.vivant.annecharlotte.mynews.R;
 
 /**
@@ -37,7 +37,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new NYTPageFragment().newInstance(1);
             case 2:
-                return new NYTSearchPageFragment().newInstance(2);
+            return new NYTPageFragment().newInstance(2);
         }
         return null;
     }

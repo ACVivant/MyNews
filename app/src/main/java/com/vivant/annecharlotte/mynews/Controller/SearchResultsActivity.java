@@ -1,10 +1,13 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.vivant.annecharlotte.mynews.Controller.NYTSearchPageFragment;
+import com.vivant.annecharlotte.mynews.R;
 
 /**
  * Generate results for search demand

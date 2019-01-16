@@ -7,18 +7,18 @@
     <item android:title="@string/drawer_title">
     <menu>
         <item
-            android:id="@+id/nav_education"
+            android:id="@+id/nav_health"
             android:icon="@drawable/baseline_face_24"
-            android:title="@string/drawer_educations" />
+            android:title="@string/drawer_health" />
 
-        <item
-            android:id="@+id/nav_environment"
-            android:icon="@drawable/baseline_local_florist_24"
-            android:title="@string/drawer_environment" />
         <item
             android:id="@+id/nav_food"
             android:icon="@drawable/baseline_local_dining_24"
             android:title="@string/drawer_food" />
+        <item
+            android:id="@+id/nav_technology"
+            android:icon="@drawable/baseline_wb_iridescent_24"
+            android:title="@string/drawer_technology" />
         <item
             android:id="@+id/nav_science"
             android:icon="@drawable/baseline_blur_linear_24"

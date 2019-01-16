@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Views.Popup;
 import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
 
@@ -104,22 +105,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        // launch activities from navigation drawer
-        String EDUCATION_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Education\")";
-        String ENVIRONMENT_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Environment\")";
-        String FOOD_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Food\")";
-        String SCIENCE_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Science\")";
-
         int id = item.getItemId();
 
-        if (id == R.id.nav_education) {
-            launchSearchActivityFromNavigationDrawer(EDUCATION_SEARCH);
-        } else if (id == R.id.nav_environment) {
-            launchSearchActivityFromNavigationDrawer(ENVIRONMENT_SEARCH);
+        if (id == R.id.nav_health) {
+            launchTopStoriesActivityFromNavigationDrawer(3);
         } else if (id == R.id.nav_food) {
-            launchSearchActivityFromNavigationDrawer(FOOD_SEARCH);
+            launchTopStoriesActivityFromNavigationDrawer(4);
+        } else if (id == R.id.nav_technology) {
+            launchTopStoriesActivityFromNavigationDrawer(5);
         } else if (id == R.id.nav_science) {
-            launchSearchActivityFromNavigationDrawer(SCIENCE_SEARCH);
+            launchTopStoriesActivityFromNavigationDrawer(6);
         } else if (id == R.id.nav_search) {
             Intent myIntent = new Intent(MainActivity.this, SearchWindowActivity.class);
             startActivity(myIntent);
@@ -132,9 +127,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void launchSearchActivityFromNavigationDrawer(String key) {
-        Intent myIntent = new Intent(MainActivity.this, SearchResultsActivity.class);
-        myIntent.putExtra("fq", key);
+    public void launchTopStoriesActivityFromNavigationDrawer(int key) {
+        Intent myIntent = new Intent(MainActivity.this, NavigationDrawerActivity.class);
+        myIntent.putExtra("pos", key);
         startActivity(myIntent);
     }
 

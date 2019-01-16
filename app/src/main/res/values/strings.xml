@@ -17,9 +17,8 @@
     <!-- Entries of navigation drawer -->
     <string name="drawer_title">Thèmes</string>
 
-    <string name="drawer_educations">Education</string>
-    <string name="drawer_energy">Energie</string>
-    <string name="drawer_environment">Environnement</string>
+    <string name="drawer_health">Santé</string>
+    <string name="drawer_technology">Technologie</string>
     <string name="drawer_food">Alimentation</string>
     <string name="drawer_science">Science</string>
 
@@ -27,6 +26,8 @@
 
     <string name="drawer_search">Chercher... et trouver!</string>
     <string name="drawer_notification">Notifications</string>
+
+    <string name="drawer_results_title">A découvrir</string>
 
     <!-- Array with entries of welcome page -->
     <array name="TabTitles">
@@ -70,4 +71,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_web_view">WebViewActivity</string>
     <string name="title_activity_results_search">ResultsSearchActivity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
 </resources>

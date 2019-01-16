@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.API.ApiKey;
 import com.vivant.annecharlotte.mynews.Models.NYTArticles;
 import com.vivant.annecharlotte.mynews.Models.ResultArticles;
+import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
@@ -90,6 +91,31 @@ public class NYTPageFragment extends Fragment {
             TAG_API = "MOSTPOPULAR";
             call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
             break;
+
+            case 2:
+                TAG_API = "ARTS";
+                call = apiService.loadArts(ApiKey.NYT_API_KEY);
+                break;
+
+            case 3:
+                TAG_API = "HEALTH";
+                call = apiService.loadHealth(ApiKey.NYT_API_KEY);
+                break;
+
+            case 4:
+                TAG_API = "FOOD";
+                call = apiService.loadFood(ApiKey.NYT_API_KEY);
+                break;
+
+            case 5:
+                TAG_API = "TECHNOLOGY";
+                call = apiService.loadTechnology(ApiKey.NYT_API_KEY);
+                break;
+
+            case 6:
+                TAG_API = "SCIENCE";
+                call = apiService.loadScience(ApiKey.NYT_API_KEY);
+                break;
         }
 
         call.enqueue(new Callback<NYTArticles>() {

@@ -122,7 +122,7 @@
         android:layout_toEndOf="@id/art_checkBox"
         android:layout_alignTop="@id/art_checkBox"
         android:layout_alignLeft="@id/travel_checkBox"
-        android:text="@string/travel_checkbox_text" />
+        android:text="@string/politics_checkbox_text" />
 
     <CheckBox
         android:id="@+id/sport_checkBox"
@@ -131,7 +131,7 @@
         android:layout_toEndOf="@id/business_checkBox"
         android:layout_alignTop="@+id/business_checkBox"
         android:layout_alignLeft="@id/travel_checkBox"
-        android:text="@string/business_checkbox_text" />
+        android:text="@string/sport_checkbox_text" />
 
     <CheckBox
         android:id="@+id/travel_checkBox"

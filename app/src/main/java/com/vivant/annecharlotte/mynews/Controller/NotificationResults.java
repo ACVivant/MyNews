@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+import com.vivant.annecharlotte.mynews.Utils.SearchKeysValidation;
 import com.vivant.annecharlotte.mynews.Utils.NotificationHelper;
 import com.vivant.annecharlotte.mynews.Views.TextNotif;
 
@@ -74,6 +75,8 @@ public class NotificationResults {
 
         SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         mQuery = prefs.getString(QUERY, "");
+        SearchKeysValidation keywordsValidation = new SearchKeysValidation(mQuery);
+        mQuery = keywordsValidation.keywordFormat(mQuery);
 
         artsOnOff = prefs.getBoolean(ARTS, false);
         if (artsOnOff) {mFQuery += "\"arts\" ";}

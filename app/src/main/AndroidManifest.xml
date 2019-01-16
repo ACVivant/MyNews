@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Controller.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,35 +25,40 @@
         <!-- childs of the main activity -->
 
         <activity
-            android:name=".SearchWindowActivity"
+            android:name=".Controller.SearchWindowActivity"
             android:label="Detail"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Controller.MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Controller.MainActivity" />
         </activity>
         <activity
-            android:name=".NotificationWindowActivity"
+            android:name=".Controller.NotificationWindowActivity"
             android:label="Detail"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Controller.MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Controller.MainActivity" />
         </activity>
         <activity
             android:name=".Views.WebViewActivity"
             android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SearchResultsActivity"
+            android:name=".Controller.SearchResultsActivity"
             android:label="@string/title_activity_results_search"
             android:theme="@style/AppTheme" />
 
-        <receiver android:name=".Utils.AlertReceiver"></receiver>
+        <receiver android:name=".Utils.AlertReceiver" />
+
+        <activity
+            android:name=".Controller.NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -14,7 +14,9 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.Toast;
+
+import com.vivant.annecharlotte.mynews.R;
+import com.vivant.annecharlotte.mynews.Utils.SearchKeysValidation;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -80,8 +82,11 @@ public class SearchWindowActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                keywordResult();
-                checkboxResult();
+                SearchKeysValidation keywordsValidation = new SearchKeysValidation(getBaseContext(), mEditText_keywords, mArts, mBusiness, mEntrepreneurs, mPolitics, mSport, mTravel);
+                keywordsResults = keywordsValidation.keywordResult();
+                checkboxResults = keywordsValidation.checkboxResult();
+
+                launch = keywordsValidation.isLaunch();
 
                 if (launch) {
                     Intent myIntent = new Intent(SearchWindowActivity.this, SearchResultsActivity.class);
@@ -194,74 +199,4 @@ public class SearchWindowActivity extends AppCompatActivity {
         mEndDate = sdf2.format(mCalendar.getTime());
 
     }
-
-    // -----------------------------------------------------------
-    // KEYS for the search call
-    // -----------------------------------------------------------
-
-    private void keywordResult() {
-        launch = true;
-        String keywordsResults1 = mEditText_keywords.getText().toString();
-        if (keywordsResults1.length() < 1) {
-            Toast.makeText(this, "Il faut saisir au moins un mot clé", Toast.LENGTH_LONG).show();
-            launch = false;
-        } else {
-            keywordsResults = "(";
-            String[] splitArray = null; //tableau de chaînes
-            //la chaîne à traiter
-            String str = keywordsResults1;
-            // On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
-            splitArray = str.split(" ");
-
-            for (int i = 0; i < splitArray.length; i++) {
-                // On affiche chaque élément du tableau
-                System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
-                keywordsResults += "\"" + splitArray[i] + "\" ";
-            }
-            keywordsResults += ")";
-        }
-    }
-
-        private void checkboxResult () {
-            checkboxResults = "news_desk:(";
-            int index = 0;
-
-                if (mPolitics.isChecked()) {
-                    checkboxResults += "\"politics\" ";
-                    index+=1;
-                }
-
-                if (mArts.isChecked()) {
-                    checkboxResults += "\"arts\" ";
-                    index+=1;
-                }
-
-                if (mBusiness.isChecked()) {
-                    checkboxResults += "\"business\" ";
-                    index+=1;
-                }
-
-                if (mSport.isChecked()) {
-                    checkboxResults += "\"sports\" ";
-                    index+=1;
-                }
-
-                if (mEntrepreneurs.isChecked()) {
-                    checkboxResults += "\"entrepreneurs\" ";
-                    index+=1;
-                }
-
-                if (mTravel.isChecked()) {
-                    checkboxResults += "\"travel\" ";
-                    index+=1;
-                }
-
-                checkboxResults += ")";
-
-                if(index==0){
-                    launch = false;
-                Toast.makeText(this, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
-            }
-        }
-
 }

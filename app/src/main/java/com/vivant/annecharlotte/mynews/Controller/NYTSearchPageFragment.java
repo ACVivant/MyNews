@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.vivant.annecharlotte.mynews.API.NYTimesAPIClient;
 import com.vivant.annecharlotte.mynews.API.NYTimesAPIInterface;
 import com.vivant.annecharlotte.mynews.Models.Doc;
 import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
+import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.Popup;
@@ -101,7 +102,7 @@ public class NYTSearchPageFragment extends Fragment {
         switch (index) {
             case 2:
                 Log.d("Resultat", "onCreate: index 2 " + index);
-                call = apiService.loadBusiness(ApiKey.NYT_API_KEY, mFQuery, getContext().getString(R.string.sort_by_newest));
+                //call = apiService.loadArts(ApiKey.NYT_API_KEY, mFQuery, getContext().getString(R.string.sort_by_newest));
                 break;
             case 3:
                 Log.d("Resultat", "onCreate: index 3 " + index);

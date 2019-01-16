@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews;
+package com.vivant.annecharlotte.mynews.Controller;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,8 +16,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.Toast;
 
+import com.vivant.annecharlotte.mynews.R;
+import com.vivant.annecharlotte.mynews.Utils.SearchKeysValidation;
 import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
 
 import java.util.Calendar;
@@ -59,6 +60,8 @@ public class NotificationWindowActivity extends AppCompatActivity {
     private boolean travelOnOff;
 
     private boolean launch;
+    private String checkboxResults;
+    private String keywordsResults;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,8 +97,11 @@ public class NotificationWindowActivity extends AppCompatActivity {
         notificationToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                keywordResult();
-                checkboxResult();
+                SearchKeysValidation keywordsValidation = new SearchKeysValidation(getBaseContext(), textNotif, artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportCheckbox, travelCheckbox);
+                keywordsResults = keywordsValidation.keywordResult();
+                checkboxResults = keywordsValidation.checkboxResult();
+
+                launch = keywordsValidation.isLaunch();
 
                 // Save data only if values are ok (launch == true) and switchbutton is on
                 if (launch) {
@@ -212,78 +218,4 @@ public class NotificationWindowActivity extends AppCompatActivity {
 
         textNotif.setText(textNotifSaved);
     }
-
-    //------------------------------------------------------------------------------------------------
-    // format request
-    //------------------------------------------------------------------------------------------------
-    private void keywordResult() {
-        launch = true;
-        String keywordsResults1 = textNotif.getText().toString();
-        if (keywordsResults1.length() < 1) {
-            Toast.makeText(this, R.string.notificationdialog_checkbox_error, Toast.LENGTH_LONG).show();
-            launch = false;
-        } else {
-            keywordFormat(keywordsResults1);
-        }
-    }
-
-    public String keywordFormat(String str) {
-        String keywordsResults;
-            keywordsResults = "(";
-            String[] splitArray = null;
-            // We split String str and put each part of the result in splitArray cell
-            splitArray = str.split(" ");
-
-            for (int i = 0; i < splitArray.length; i++) {
-                // we create the right string for API
-                keywordsResults += "\"" + splitArray[i] + "\" ";
-            }
-            keywordsResults += ")";
-
-        return keywordsResults;
-    }
-
-    private void checkboxResult () {
-
-        String checkboxResults = "news_desk:(";
-        int index = 0;
-
-        if (politicsCheckbox.isChecked()) {
-            checkboxResults += "\"politics\" ";
-            index+=1;
-        }
-
-        if (artsCheckbox.isChecked()) {
-            checkboxResults += "\"arts\" ";
-            index+=1;
-        }
-
-        if (businessCheckbox.isChecked()) {
-            checkboxResults += "\"business\" ";
-            index+=1;
-        }
-
-        if (sportCheckbox.isChecked()) {
-            checkboxResults += "\"sports\" ";
-            index+=1;
-        }
-
-        if (entrepreneursCheckbox.isChecked()) {
-            checkboxResults += "\"entrepreneurs\" ";
-            index+=1;
-        }
-
-        if (travelCheckbox.isChecked()) {
-            checkboxResults += "\"travel\" ";
-            index+=1;
-        }
-
-        checkboxResults += ")";
-
-        if(index==0){
-            launch = false;
-            Toast.makeText(this, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
-        }
-    }
-
 }

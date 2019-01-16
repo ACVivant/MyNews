@@ -1,5 +1,6 @@
 package com.vivant.annecharlotte.mynews;
 
+import com.vivant.annecharlotte.mynews.Controller.NotificationWindowActivity;
 import com.vivant.annecharlotte.mynews.Views.TextNotif;
 
 import org.junit.Test;
