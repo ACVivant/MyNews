@@ -116,6 +116,37 @@ public class NYTPageFragment extends Fragment {
                 TAG_API = "SCIENCE";
                 call = apiService.loadScience(ApiKey.NYT_API_KEY);
                 break;
+
+            case 7:
+                TAG_API = "BUSINESS";
+                call = apiService.loadBusiness(ApiKey.NYT_API_KEY);
+                break;
+
+            case 8:
+                TAG_API = "FASHION";
+                call = apiService.loadFashion(ApiKey.NYT_API_KEY);
+                break;
+
+            case 9:
+                TAG_API = "POLITICS";
+                call = apiService.loadPolitics(ApiKey.NYT_API_KEY);
+                break;
+
+            case 10:
+                TAG_API = "TRAVEL";
+                call = apiService.loadTravel(ApiKey.NYT_API_KEY);
+                break;
+
+            case 11:
+                TAG_API = "SPORT";
+                call = apiService.loadSport(ApiKey.NYT_API_KEY);
+                break;
+
+            case 12:
+                TAG_API = "WORLD";
+                call = apiService.loadWorld(ApiKey.NYT_API_KEY);
+                break;
+
         }
 
         call.enqueue(new Callback<NYTArticles>() {

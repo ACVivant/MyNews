@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vivant.annecharlotte.mynews.PersonalizationActivity;
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Views.Popup;
 import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
@@ -106,22 +107,72 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+        CharSequence theme = item.getTitle();
 
-        if (id == R.id.nav_health) {
+        if (theme == getResources().getString(R.string.health_checkbox_text)) {
             launchTopStoriesActivityFromNavigationDrawer(3);
-        } else if (id == R.id.nav_food) {
+        }
+
+        if (theme == getResources().getString(R.string.food_checkbox_text)) {
             launchTopStoriesActivityFromNavigationDrawer(4);
-        } else if (id == R.id.nav_technology) {
+        }
+
+        if (theme == getResources().getString(R.string.technology_checkbox_text)) {
             launchTopStoriesActivityFromNavigationDrawer(5);
-        } else if (id == R.id.nav_science) {
+        }
+
+        if (theme == getResources().getString(R.string.sciences_checkbox_text)) {
             launchTopStoriesActivityFromNavigationDrawer(6);
-        } else if (id == R.id.nav_search) {
+        }
+
+        if (theme == getResources().getString(R.string.business_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(7);
+        }
+
+        if (theme == getResources().getString(R.string.fashion_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(8);
+        }
+
+        if (theme == getResources().getString(R.string.politics_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(9);
+        }
+
+        if (theme == getResources().getString(R.string.travel_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(10);
+        }
+
+        if (theme == getResources().getString(R.string.sport_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(11);
+        }
+
+        if (theme == getResources().getString(R.string.world_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(12);
+        }
+
+        /*if (id == R.id.nav_1) {
+            launchTopStoriesActivityFromNavigationDrawer(3);
+        } else if (id == R.id.nav_2) {
+            launchTopStoriesActivityFromNavigationDrawer(4);
+        } else if (id == R.id.nav_3) {
+            launchTopStoriesActivityFromNavigationDrawer(5);
+        } else if (id == R.id.nav_4) {
+            launchTopStoriesActivityFromNavigationDrawer(6);
+        } else */
+
+        if (id == R.id.nav_search) {
             Intent myIntent = new Intent(MainActivity.this, SearchWindowActivity.class);
             startActivity(myIntent);
-    }          else if (id == R.id.nav_notification) {
+    }
+
+    if (id == R.id.nav_notification) {
             Intent myIntent = new Intent(MainActivity.this, NotificationWindowActivity.class);
             startActivity(myIntent);
     }
+
+    if (id == R.id.nav_perso) {
+            Intent myIntent = new Intent(MainActivity.this, PersonalizationActivity.class);
+            startActivity(myIntent);
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -5,7 +5,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import com.vivant.annecharlotte.mynews.R;
 
 /**
  * Created by Anne-Charlotte Vivant on 15/01/2019.
@@ -28,11 +28,8 @@ public class SearchKeysValidation {
     public boolean isLaunch() {
         return launch;
     }
-
     boolean launch;
-
     Context mContext;
-
 
     public SearchKeysValidation(Context context, EditText editText, CheckBox arts, CheckBox business, CheckBox entrepreneurs, CheckBox politics, CheckBox sport, CheckBox travel) {
         mContext = context;
@@ -53,7 +50,7 @@ public class SearchKeysValidation {
         launch = true;
         String keywordsResults1 = mEditText_keywords.getText().toString();
         if (keywordsResults1.length() < 1) {
-            Toast.makeText(mContext, "Il faut saisir au moins un mot clé", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.notificationdialog_checkbox_error, Toast.LENGTH_LONG).show();
             launch = false;
         } else {
             keywordsResults = keywordFormat(keywordsResults1);
@@ -113,8 +110,9 @@ public class SearchKeysValidation {
 
         if(index==0){
             launch = false;
-            Toast.makeText(mContext, "Il faut choisir au moins une catégorie", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.personalization_error0, Toast.LENGTH_LONG).show();
         }
+
         return checkboxResults;
     }
 

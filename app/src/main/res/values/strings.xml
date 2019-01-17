@@ -22,10 +22,12 @@
     <string name="drawer_food">Alimentation</string>
     <string name="drawer_science">Science</string>
 
-    <string name="drawer_title2">A découvrir</string>
+    <string name="drawer_title1">A découvrir</string>
+    <string name="drawer_title2">Personnalisation</string>
 
     <string name="drawer_search">Chercher... et trouver!</string>
     <string name="drawer_notification">Notifications</string>
+    <string name="drawer_personalization">"Mes centres d'intérêt"</string>
 
     <string name="drawer_results_title">A découvrir</string>
 
@@ -66,10 +68,22 @@
     <string name="entrepreneurs_checkbox_text">"Entrepreneurs"</string>
     <string name="politics_checkbox_text">"Politique"</string>
     <string name="sport_checkbox_text">"Sport"</string>
+    <string name="automobiles_checkbox_text">"Voitures"</string>
+    <string name="fashion_checkbox_text">"Mode"</string>
+    <string name="food_checkbox_text">"Alimentation"</string>
+    <string name="sciences_checkbox_text">"Sciences"</string>
+    <string name="technology_checkbox_text">"Technologie"</string>
+    <string name="world_checkbox_text">"Monde"</string>
+    <string name="health_checkbox_text">"Santé"</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_web_view">WebViewActivity</string>
-    <string name="title_activity_results_search">ResultsSearchActivity</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <!-- informations for personalization window -->
+    <string name="personalization_window_title">"Mes centres d'intérêts"</string>
+    <string name="personalization_text1">"Quels thèmes souhaitez-vous pouvoir suivre depuis le menu?" (4 thèmes max)</string>
+    <string name="personalization_error0">"Il faut choisir au moins un thème"</string>
+    <string name="personalization_error4">"Il faut choisir 4 thèmes au maximum"</string>
+
+    <string name="title_activity_web_view">"Lire l'article"</string>
+    <string name="title_activity_results_search">"Mes trouvailles"</string>
+    <string name="title_activity_navigation_drawer">"Mes préférences</string>
+
 </resources>

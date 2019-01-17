@@ -58,7 +58,8 @@
         <activity
             android:name=".Controller.NavigationDrawerActivity"
             android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".PersonalizationActivity"></activity>
     </application>
 
 </manifest>

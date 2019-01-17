@@ -7,26 +7,27 @@
     <item android:title="@string/drawer_title">
     <menu>
         <item
-            android:id="@+id/nav_health"
+            android:id="@+id/nav_1"
             android:icon="@drawable/baseline_face_24"
             android:title="@string/drawer_health" />
 
         <item
-            android:id="@+id/nav_food"
+            android:id="@+id/nav_2"
             android:icon="@drawable/baseline_local_dining_24"
             android:title="@string/drawer_food" />
         <item
-            android:id="@+id/nav_technology"
+            android:id="@+id/nav_3"
             android:icon="@drawable/baseline_wb_iridescent_24"
             android:title="@string/drawer_technology" />
         <item
-            android:id="@+id/nav_science"
+            android:id="@+id/nav_4"
             android:icon="@drawable/baseline_blur_linear_24"
             android:title="@string/drawer_science" />
+
     </menu>
 </item>
 
-    <item android:title="@string/drawer_title2">
+    <item android:title="@string/drawer_title1">
         <menu>
             <item
                 android:id="@+id/nav_search"
@@ -36,6 +37,15 @@
                 android:id="@+id/nav_notification"
                 android:icon="@drawable/baseline_notification_important_24"
                 android:title="@string/drawer_notification" />
+        </menu>
+    </item>
+
+    <item android:title="@string/drawer_title2">
+        <menu>
+            <item
+                android:id="@+id/nav_perso"
+                android:icon="@drawable/baseline_build_24"
+                android:title="@string/drawer_personalization" />
         </menu>
     </item>
 </menu>

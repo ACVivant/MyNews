@@ -41,6 +41,30 @@ public interface NYTimesAPIInterface {
     @GET("svc/topstories/v2/technology.json")
     Call<NYTArticles> loadTechnology(@Query("api-key") String apiKey);
 
+    // Top Stories Business
+    @GET("svc/topstories/v2/business.json")
+    Call<NYTArticles> loadBusiness(@Query("api-key") String apiKey);
+
+    // Top Stories Politics
+    @GET("svc/topstories/v2/politics.json")
+    Call<NYTArticles> loadPolitics(@Query("api-key") String apiKey);
+
+    // Top Stories Fashion
+    @GET("svc/topstories/v2/fashion.json")
+    Call<NYTArticles> loadFashion(@Query("api-key") String apiKey);
+
+    // Top Stories Travel
+    @GET("svc/topstories/v2/travel.json")
+    Call<NYTArticles> loadTravel(@Query("api-key") String apiKey);
+
+    // Top Stories Sport
+    @GET("svc/topstories/v2/sport.json")
+    Call<NYTArticles> loadSport(@Query("api-key") String apiKey);
+
+    // Top Stories World
+    @GET("svc/topstories/v2/world.json")
+    Call<NYTArticles> loadWorld(@Query("api-key") String apiKey);
+
     // Search API
     @GET("svc/search/v2/articlesearch.json")
     Call<NYTSearchArticles> loadSearch(@Query("api-key") String apiKey,

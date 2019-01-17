@@ -10,11 +10,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Anne-Charlotte Vivant on 10/01/2019.
  */
 public class NotificationTest {
-    @Test
-    public void format_edittext_keywords() {
-        NotificationWindowActivity formatNotifText = new NotificationWindowActivity();
-        assertEquals("(\"trump\" \"shutdown\" )", formatNotifText.keywordFormat("trump shutdown"));
-    }
+
 
     @Test
     public void message_notification_newarticles() {

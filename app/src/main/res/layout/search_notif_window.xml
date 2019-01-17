@@ -1,174 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/search_notif_window"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<!-- Importation de notre Toolbar -->
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/search_notif_window"
+    android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    app:titleTextColor="@android:color/white"
+    app:title="Title"/>
 
-    <!-- Importation de notre Toolbar -->
-
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/search_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white"
-        app:title="Title"/>
-
-        <EditText
-            android:id="@+id/search_query_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/search_toolbar"
-            android:hint="Search query term"
-            android:padding="20dp"/>
+<EditText
+    android:id="@+id/search_query_edittext"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/search_toolbar"
+    android:hint="Search query term"
+    android:padding="20dp"/>
 
 
-    <LinearLayout
-        android:id="@+id/begin_date"
+<LinearLayout
+    android:id="@+id/begin_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/search_query_edittext"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:layout_weight="1.5"
+    >
+
+    <TextView
+        android:id="@+id/begin_date_textview_label"
+        android:paddingStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search_query_edittext"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:layout_weight="1.5"
-        >
+        android:text="Begin date"
+        />
 
-        <TextView
-            android:id="@+id/begin_date_textview_label"
-            android:paddingStart="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Begin date"
-            />
+    <EditText
+        android:id="@+id/begin_date_edittext"
+        android:layout_width="170dp"
+        android:layout_height="42dp"
+        android:drawableRight="@drawable/baseline_arrow_drop_down_24"
+        android:inputType="date"
+        android:focusable="false"
+        />
 
-        <EditText
-            android:id="@+id/begin_date_edittext"
-            android:layout_width="170dp"
-            android:layout_height="42dp"
-            android:drawableRight="@drawable/baseline_arrow_drop_down_24"
-            android:inputType="date"
-            android:focusable="false"
-            />
+</LinearLayout>
 
-    </LinearLayout>
+<LinearLayout
+    android:id="@+id/end_date"
+    android:layout_toRightOf="@+id/begin_date"
+    android:layout_alignTop="@id/begin_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_weight="1.5"
+    >
 
-        <LinearLayout
-            android:id="@+id/end_date"
-            android:layout_toRightOf="@+id/begin_date"
-            android:layout_alignTop="@id/begin_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1.5"
-            >
-
-            <TextView
-                android:id="@+id/end_date_textview_label"
-                android:paddingStart="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="End date"
-                />
-
-            <EditText
-                android:id="@+id/end_date_edittext"
-                android:layout_width="170dp"
-                android:layout_height="42dp"
-                android:drawableRight="@drawable/baseline_arrow_drop_down_24"
-                android:inputType="date"
-                android:focusable="false"
-                />
-
-        </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/art_checkBox"
+    <TextView
+        android:id="@+id/end_date_textview_label"
+        android:paddingStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/begin_date"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignLeft="@+id/begin_date"
-        android:text="@string/arts_checkbox_text" />
+        android:text="End date"
+        />
 
-    <CheckBox
-        android:id="@+id/business_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/art_checkBox"
-        android:layout_alignLeft="@id/art_checkBox"
-        android:text="@string/business_checkbox_text" />
+    <EditText
+        android:id="@+id/end_date_edittext"
+        android:layout_width="170dp"
+        android:layout_height="42dp"
+        android:drawableRight="@drawable/baseline_arrow_drop_down_24"
+        android:inputType="date"
+        android:focusable="false"
+        />
 
-    <CheckBox
-        android:id="@+id/entrepreneurs_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/business_checkBox"
-        android:layout_alignLeft="@id/art_checkBox"
-        android:text="@string/entrepreneurs_checkbox_text" />
+</LinearLayout>
 
-    <CheckBox
-        android:id="@+id/politics_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/art_checkBox"
-        android:layout_alignTop="@id/art_checkBox"
-        android:layout_alignLeft="@id/travel_checkBox"
-        android:text="@string/politics_checkbox_text" />
+<CheckBox
+    android:id="@+id/art_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/begin_date"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_alignLeft="@+id/begin_date"
+    android:text="@string/arts_checkbox_text" />
 
-    <CheckBox
-        android:id="@+id/sport_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/business_checkBox"
-        android:layout_alignTop="@+id/business_checkBox"
-        android:layout_alignLeft="@id/travel_checkBox"
-        android:text="@string/sport_checkbox_text" />
+<CheckBox
+    android:id="@+id/business_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/art_checkBox"
+    android:layout_alignLeft="@id/art_checkBox"
+    android:text="@string/business_checkbox_text" />
 
-    <CheckBox
-        android:id="@+id/travel_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/entrepreneurs_checkBox"
-        android:layout_alignTop="@id/entrepreneurs_checkBox"
-        android:layout_alignLeft="@id/end_date"
-        android:text="@string/travel_checkbox_text" />
+<CheckBox
+    android:id="@+id/entrepreneurs_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/business_checkBox"
+    android:layout_alignLeft="@id/art_checkBox"
+    android:text="@string/entrepreneurs_checkbox_text" />
 
-    <Button
-            android:id="@+id/search_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/travel_checkBox"
-            android:layout_centerHorizontal="true"
-            android:text="@string/search_window_button"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:visibility="visible"
-            />
+<CheckBox
+    android:id="@+id/politics_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/art_checkBox"
+    android:layout_alignTop="@id/art_checkBox"
+    android:layout_alignLeft="@id/travel_checkBox"
+    android:text="@string/politics_checkbox_text" />
 
-    <Switch
-        android:id="@+id/switch_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/travel_checkBox"
-        android:layout_alignBottom="@+id/search_button"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="13dp"
-        android:text="@string/notification_window_switch"
-        android:visibility="visible" />
+<CheckBox
+    android:id="@+id/sport_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/business_checkBox"
+    android:layout_alignTop="@+id/business_checkBox"
+    android:layout_alignLeft="@id/travel_checkBox"
+    android:text="@string/sport_checkbox_text" />
+
+<CheckBox
+    android:id="@+id/travel_checkBox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/entrepreneurs_checkBox"
+    android:layout_alignTop="@id/entrepreneurs_checkBox"
+    android:layout_alignLeft="@id/end_date"
+    android:text="@string/travel_checkbox_text" />
+
+<Button
+    android:id="@+id/search_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/travel_checkBox"
+    android:layout_centerHorizontal="true"
+    android:text="@string/search_window_button"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="40dp"
+    android:background="@color/colorPrimary"
+    android:textColor="@android:color/white"
+    android:visibility="visible"
+    />
+
+<Switch
+    android:id="@+id/switch_notification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/travel_checkBox"
+    android:layout_alignBottom="@+id/search_button"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="13dp"
+    android:text="@string/notification_window_switch"
+    android:visibility="visible" />
 
 
 </RelativeLayout>
