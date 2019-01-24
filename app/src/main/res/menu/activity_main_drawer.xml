@@ -43,9 +43,9 @@
     <item android:title="@string/drawer_title2">
         <menu>
             <item
-                android:id="@+id/nav_perso"
-                android:icon="@drawable/baseline_build_24"
-                android:title="@string/drawer_personalization" />
+            android:id="@+id/nav_perso_ND"
+            android:icon="@drawable/baseline_build_24"
+            android:title="@string/drawer_personalization" />
         </menu>
     </item>
 </menu>

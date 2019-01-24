@@ -36,7 +36,7 @@ public class NotificationResults {
 
     private List<Doc> mListArticles;
 
-    private String mFQuery =  "news_desk:(" ;
+    private String mFQuery ;
     private String mQuery;
     private String mBeginDate ;
     private String mEndDate ;
@@ -57,6 +57,62 @@ public class NotificationResults {
     private int numberArticles =0;
     private String textMessage = "";
 
+    public void setArtsOnOff(boolean artsOnOff) {
+        this.artsOnOff = artsOnOff;
+    }
+
+    public void setBusinessOnOff(boolean businessOnOff) {
+        this.businessOnOff = businessOnOff;
+    }
+
+    public void setEntrepreneursOnOff(boolean entrepreneursOnOff) {
+        this.entrepreneursOnOff = entrepreneursOnOff;
+    }
+
+    public void setPoliticsOnOff(boolean politicsOnOff) {
+        this.politicsOnOff = politicsOnOff;
+    }
+
+    public void setSportOnOff(boolean sportOnOff) {
+        this.sportOnOff = sportOnOff;
+    }
+
+    public void setTravelOnOff(boolean travelOnOff) {
+        this.travelOnOff = travelOnOff;
+    }
+
+
+    public boolean isArtsOnOff() {
+        return artsOnOff;
+    }
+
+    public boolean isBusinessOnOff() {
+        return businessOnOff;
+    }
+
+    public boolean isEntrepreneursOnOff() {
+        return entrepreneursOnOff;
+    }
+
+    public boolean isPoliticsOnOff() {
+        return politicsOnOff;
+    }
+
+    public boolean isSportOnOff() {
+        return sportOnOff;
+    }
+
+    public boolean isTravelOnOff() {
+        return travelOnOff;
+    }
+
+    private boolean artsOnOff;
+    private boolean businessOnOff;
+    private boolean entrepreneursOnOff;
+    private boolean politicsOnOff;
+    private boolean sportOnOff;
+    private boolean travelOnOff;
+
     public NotificationResults(Context context) {
         // Required empty public constructor
         loadNotifKeys(context);
@@ -65,33 +121,41 @@ public class NotificationResults {
 
     // load notification keys which were saved in SharedPreferences
     public void loadNotifKeys(Context context) {
-
-        boolean artsOnOff;
-        boolean businessOnOff;
-        boolean entrepreneursOnOff;
-        boolean politicsOnOff;
-        boolean sportOnOff;
-        boolean travelOnOff;
-
         SharedPreferences prefs = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        mQuery = prefs.getString(QUERY, "");
+        loadSharedPreferences(prefs);
+
         SearchKeysValidation keywordsValidation = new SearchKeysValidation(mQuery);
         mQuery = keywordsValidation.keywordFormat(mQuery);
 
-        artsOnOff = prefs.getBoolean(ARTS, false);
-        if (artsOnOff) {mFQuery += "\"arts\" ";}
-        businessOnOff =prefs.getBoolean(BUSINESS, false);
-        if (businessOnOff) {mFQuery += "\"business\" ";}
-        sportOnOff = prefs.getBoolean(SPORT, false);
-        if (sportOnOff) {mFQuery += "\"sport\" ";}
-        entrepreneursOnOff = prefs.getBoolean(ENTREPRENEURS, false);
-        if (entrepreneursOnOff) {mFQuery += "\"entrepreneurs\" ";}
-        travelOnOff = prefs.getBoolean(TRAVEL, false);
-        if (travelOnOff) {mFQuery += "\"travel\" ";}
-        politicsOnOff = prefs.getBoolean(POLITICS, false);
-        if (politicsOnOff) {mFQuery += "\"politics\" ";}
-        mFQuery+= ")";
+        mFQuery =formatTextFQuery();
 
+        formatDate();
+    }
+
+    public void loadSharedPreferences(SharedPreferences prefs) {
+        mQuery = prefs.getString(QUERY, "");
+        artsOnOff = prefs.getBoolean(ARTS, false);
+        businessOnOff =prefs.getBoolean(BUSINESS, false);
+        sportOnOff = prefs.getBoolean(SPORT, false);
+        entrepreneursOnOff = prefs.getBoolean(ENTREPRENEURS, false);
+        travelOnOff = prefs.getBoolean(TRAVEL, false);
+        politicsOnOff = prefs.getBoolean(POLITICS, false);
+    }
+
+    public String formatTextFQuery() {
+        String query =  "news_desk:(";
+        if (artsOnOff) {query += "\"arts\" ";}
+        if (businessOnOff) {query += "\"business\" ";}
+        if (sportOnOff) {query += "\"sport\" ";}
+        if (entrepreneursOnOff) {query += "\"entrepreneurs\" ";}
+        if (travelOnOff) {query += "\"travel\" ";}
+        if (politicsOnOff) {query += "\"politics\" ";}
+        query+= ")";
+
+        return query;
+    }
+
+    public void formatDate() {
         // format date (today and yesterday)
         Date day = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -124,7 +188,7 @@ public class NotificationResults {
                     numberArticles =0;
                 }
                 // adjust the text of the notification
-                textMessage = new TextNotif().createMessage(numberArticles);
+                textMessage = new TextNotif().createMessage(context,numberArticles);
                 send(context);
             }
 

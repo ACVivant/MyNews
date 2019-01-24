@@ -28,8 +28,14 @@ public class SearchKeysValidation {
     public boolean isLaunch() {
         return launch;
     }
+
+    public void setLaunch(boolean launch) {
+        this.launch = launch;
+    }
+
     boolean launch;
     Context mContext;
+    private int index;
 
     public SearchKeysValidation(Context context, EditText editText, CheckBox arts, CheckBox business, CheckBox entrepreneurs, CheckBox politics, CheckBox sport, CheckBox travel) {
         mContext = context;
@@ -46,13 +52,21 @@ public class SearchKeysValidation {
          mKeywords = keys;
     }
 
+    public SearchKeysValidation() {
+            }
+
+    //----------------------------------------------------------------------------------------------------
+    // Validation or not of keywords
+    //----------------------------------------------------------------------------------------------------
+
     public String keywordResult() {
         launch = true;
         String keywordsResults1 = mEditText_keywords.getText().toString();
-        if (keywordsResults1.length() < 1) {
-            Toast.makeText(mContext, R.string.notificationdialog_checkbox_error, Toast.LENGTH_LONG).show();
-            launch = false;
-        } else {
+
+        shouldDisplayToastKeywords(keywordsResults1);
+        launchOrNotKeywords(keywordsResults1);
+
+        if (launch){
             keywordsResults = keywordFormat(keywordsResults1);
         }
         return keywordsResults;
@@ -65,16 +79,36 @@ public class SearchKeysValidation {
             splitArray = str.split(" ");
 
             for (int i = 0; i < splitArray.length; i++) {
-                System.out.println("élement n° " + i + "=[" + splitArray[i] + "]");
                 keywordsResults += "\"" + splitArray[i] + "\" ";
             }
             keywordsResults += ")";
         return keywordsResults;
     }
 
+    public boolean launchOrNotKeywords(String keyWords) {
+        if (keyWords.length() < 1) {
+            launch = false;
+        } return launch;
+    }
+
+    public void shouldDisplayToastKeywords(String keyWords) {
+        if (keyWords.length() < 1) Toast.makeText(mContext, R.string.notificationdialog_checkbox_error, Toast.LENGTH_LONG).show();
+    }
+
+    //----------------------------------------------------------------------------------------------------------
+    // validation or not of checklist
+    //----------------------------------------------------------------------------------------------------------
+
     public String checkboxResult () {
+        index = 0;
+        checkboxFormat();
+        shouldDisplayToastCheckbox(index);
+        launchOrNotCheckBox(index);
+        return checkboxResults;
+    }
+
+    public void checkboxFormat() {
         checkboxResults = "news_desk:(";
-        int index = 0;
 
         if (mPolitics.isChecked()) {
             checkboxResults += "\"politics\" ";
@@ -108,12 +142,16 @@ public class SearchKeysValidation {
 
         checkboxResults += ")";
 
+    }
+
+    public boolean launchOrNotCheckBox(int index) {
         if(index==0){
             launch = false;
-            Toast.makeText(mContext, R.string.personalization_error0, Toast.LENGTH_LONG).show();
-        }
+        } return launch;
+    }
 
-        return checkboxResults;
+    public void shouldDisplayToastCheckbox(int index) {
+        if (index==0) Toast.makeText(mContext, R.string.personalization_error0, Toast.LENGTH_LONG).show();
     }
 
 }

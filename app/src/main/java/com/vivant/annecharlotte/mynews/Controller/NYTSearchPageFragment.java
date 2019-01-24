@@ -79,36 +79,14 @@ public class NYTSearchPageFragment extends Fragment {
             super.onCreate(savedInstanceState);
 
             if (getArguments() != null) {
-                index = getArguments().getInt("pos", 3);
-                Log.d("NYTSearchPageFragment", "onCreateView: " + index);
-                switch (index) {
-                    case 2:
-                        mQuery = "";
-                        mFQuery = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Arts\")";
-                        mBeginDate = "";
-                        mEndDate = "";
-                        break;
-                    case 3:
                         mQuery = getArguments().getString("q");
                         mFQuery = getArguments().getString("fq");
                         mBeginDate = getArguments().getString("begin_date");
                         mEndDate = getArguments().getString("end_date");
-                        break;
-                }
             }
 
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-            Log.d("Avant call resultat", "onCreate: index " + index);
-        switch (index) {
-            case 2:
-                Log.d("Resultat", "onCreate: index 2 " + index);
-                //call = apiService.loadArts(ApiKey.NYT_API_KEY, mFQuery, getContext().getString(R.string.sort_by_newest));
-                break;
-            case 3:
-                Log.d("Resultat", "onCreate: index 3 " + index);
                 call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery, getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
-                break;
-        }
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override

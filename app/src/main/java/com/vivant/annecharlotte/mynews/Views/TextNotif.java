@@ -1,15 +1,20 @@
 package com.vivant.annecharlotte.mynews.Views;
 
+import android.content.Context;
+
+import com.vivant.annecharlotte.mynews.R;
+
 /**
  * Update text of the notification
  */
 public class TextNotif {
 
-    public String createMessage(int numberArticles) {
+    public String createMessage(Context context, int numberArticles) {
         if (numberArticles == 0) {
-            return "Vous n'avez aucun article à découvrir aujourd'hui!";
-        } else {
-            return "Vous avez " + numberArticles + " nouveaux articles à découvrir aujourd'hui!";
-        }
+            return context.getResources().getString(R.string.notification_noarticles);
+        } else if (numberArticles == 1) {
+            return context.getResources().getString(R.string.notification_newarticles21);
+        } else
+            return context.getResources().getString(R.string.notification_newarticles1) + numberArticles + context.getResources().getString(R.string.notification_newarticles2);
     }
 }

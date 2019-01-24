@@ -26,17 +26,17 @@ tools:context=".Controller.MainActivity">
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabs_title_top" />
+            android:text="@string/tabs_title_1" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabs_title_popular" />
+            android:text="@string/tabs_title_2" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tabs_title_arts" />
+            android:text="@string/tabs_title_3" />
     </android.support.design.widget.TabLayout>
 
 </android.support.design.widget.AppBarLayout>

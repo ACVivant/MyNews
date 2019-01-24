@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.shadows.ShadowApplication;
 
@@ -77,30 +78,4 @@ public class MainActivityRobotTest {
         assertThat(sAlert.getTitle().toString(),
                 equalTo(activity.getString(R.string.aboutmenu_title)));
     }
-
-    /*
-    @Test
-    public void when_EducationClickedinDrawer_then_StartSearchResultActivity() {
-        String EDUCATION_SEARCH = "source:(\"The New York Times\")" + " AND" + " news_desk:(\"Education\")";
-        final Bundle bundle = new Bundle();
-        bundle.putString("fq", EDUCATION_SEARCH);
-
-        shadowOf(activity).clickMenuItem(R.id.nav_education);
-        Intent startedIntent = ShadowApplication.getInstance().getNextStartedActivity();
-        Intent expectedIntent = new Intent(activity, SearchResultsActivity.class);
-        expectedIntent.putExtras(bundle);
-        assertEquals(expectedIntent.getComponent(), startedIntent.getComponent());
-
-        //java.lang.NullPointerException
-        //	at com.vivant.annecharlotte.mynews.MainActivityRobotTest.when_EducationClickedinDrawer_then_StartSearchResultActivity(MainActivityRobotTest.java:89)
-        //	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-        //	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-        //	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-        //	at java.lang.reflect.Method.invoke(Method.java:498)
-        //	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-        //	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-        //	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-        //	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-    }*/
-
 }

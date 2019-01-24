@@ -37,9 +37,9 @@ public class ListOfSearchedArticlesViewHolder extends RecyclerView.ViewHolder{
                         listener.OnItemClicked(position);
                     }
                     // change the color when click on item is intercepted
-                    dateTextView.setTextColor(dateTextView.getResources().getColor(R.color.colorPrimaryDark));
+                    /*dateTextView.setTextColor(dateTextView.getResources().getColor(R.color.colorPrimaryDark));
                     sectionTextView.setTextColor(sectionTextView.getResources().getColor(R.color.colorPrimaryDark));
-                    titleTextView.setTextColor(titleTextView.getResources().getColor(R.color.colorPrimaryDark));
+                    titleTextView.setTextColor(titleTextView.getResources().getColor(R.color.colorPrimaryDark));*/
                 }
             }
         });

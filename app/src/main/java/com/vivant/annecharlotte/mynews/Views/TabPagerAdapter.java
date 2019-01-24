@@ -16,10 +16,12 @@ import com.vivant.annecharlotte.mynews.R;
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context ctx;
+    private int key;
 
-    public TabPagerAdapter(FragmentManager fm, Context context) {
+    public TabPagerAdapter(FragmentManager fm, Context context, int key) {
         super(fm);
         ctx = context;
+        this.key = key;
     }
 
     @Nullable
@@ -37,7 +39,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new NYTPageFragment().newInstance(1);
             case 2:
-            return new NYTPageFragment().newInstance(2);
+            return new NYTPageFragment().newInstance(12);
         }
         return null;
     }

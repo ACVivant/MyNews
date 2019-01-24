@@ -8,12 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.SearchKeysValidation;
@@ -34,8 +36,8 @@ public class SearchWindowActivity extends AppCompatActivity {
 
     private Calendar mCalendar;
 
-    private String mBeginDate,
-                    mEndDate;
+    private String mBeginDate="",
+                    mEndDate="";
 
     private CheckBox mArts,
                         mBusiness,
@@ -48,6 +50,7 @@ public class SearchWindowActivity extends AppCompatActivity {
     private String keywordsResults;
 
     boolean launch;
+    boolean launchDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,13 +85,15 @@ public class SearchWindowActivity extends AppCompatActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                launchDate = true;
                 SearchKeysValidation keywordsValidation = new SearchKeysValidation(getBaseContext(), mEditText_keywords, mArts, mBusiness, mEntrepreneurs, mPolitics, mSport, mTravel);
                 keywordsResults = keywordsValidation.keywordResult();
                 checkboxResults = keywordsValidation.checkboxResult();
 
                 launch = keywordsValidation.isLaunch();
+                launchDate = checkDate();
 
-                if (launch) {
+                if (launch && launchDate) {
                     Intent myIntent = new Intent(SearchWindowActivity.this, SearchResultsActivity.class);
                     myIntent.putExtra("q", keywordsResults);
                     myIntent.putExtra("fq", checkboxResults);
@@ -105,7 +110,7 @@ public class SearchWindowActivity extends AppCompatActivity {
 
         //Get the toolbar (Serialise)
         searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
-        searchToolbar.setTitle("Search Articles");
+        searchToolbar.setTitle(R.string.search_results_title);
         //Set the toolbar
         setSupportActionBar(searchToolbar);
         // Get a support ActionBar corresponding to this toolbar
@@ -161,6 +166,8 @@ public class SearchWindowActivity extends AppCompatActivity {
         mBeginDate = sdf2.format(mCalendar.getTime());
     }
 
+
+
     // Attach listener to TextView that calls a DatePickerDialog when clicked on
     private void initializeOnClickEndDateListener() {
 
@@ -198,5 +205,19 @@ public class SearchWindowActivity extends AppCompatActivity {
         mEditText_endDate.setText(sdf.format(mCalendar.getTime()));
         mEndDate = sdf2.format(mCalendar.getTime());
 
+    }
+
+    // Verify if there is a begin et and end date
+    private boolean checkDate() {
+        boolean testDate;
+        if (mBeginDate.length()<1 || mEndDate.length()<1) {
+            Toast.makeText(this, R.string.date_error, Toast.LENGTH_LONG).show();
+            testDate = false;
+        }
+
+        else {
+            testDate = true;
+        }
+        return testDate;
     }
 }

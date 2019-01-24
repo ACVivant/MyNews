@@ -86,7 +86,7 @@ public class NotificationWindowActivity extends AppCompatActivity {
         Toolbar notificationToolbar;
         //Get the toolbar (Serialise)
         notificationToolbar = findViewById(R.id.search_toolbar);
-        notificationToolbar.setTitle("Notifications");
+        notificationToolbar.setTitle(R.string.notif_window_title);
         //Set the toolbar
         setSupportActionBar(notificationToolbar);
         // Get a support ActionBar corresponding to this toolbar

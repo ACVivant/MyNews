@@ -1,37 +1,66 @@
 package com.vivant.annecharlotte.mynews.Controller;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.os.Bundle;
+        import android.support.design.widget.TabLayout;
+        import android.support.v4.view.ViewPager;
+        import android.support.design.widget.NavigationView;
+        import android.support.v4.view.GravityCompat;
+        import android.support.v4.widget.DrawerLayout;
+        import android.support.v7.app.ActionBarDrawerToggle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
+        import android.view.Menu;
+        import android.view.MenuItem;
 
-import com.vivant.annecharlotte.mynews.PersonalizationActivity;
-import com.vivant.annecharlotte.mynews.R;
-import com.vivant.annecharlotte.mynews.Views.Popup;
-import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
+        import com.vivant.annecharlotte.mynews.R;
+        import com.vivant.annecharlotte.mynews.Views.Popup;
+        import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int PERSO_ACTIVITY_REQUEST_CODE = 0;
+
+    private MenuItem nav1,
+            nav2,
+            nav3,
+            nav4;
+
+    private int artsIndex,
+            businessIndex,
+            politicsIndex,
+            sportIndex,
+            travelIndex,
+            fashionIndex,
+            foodIndex,
+            scienceIndex,
+            technologyIndex,
+            worldIndex,
+            healthIndex;
+
+    private int keyWelcome;
+
+    public static final String SHARED_PREFS_ND = "SharedPrefsND";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
+    private String titleId;
+    private String iconId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar_resultssearch);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewpager);
 
-        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), this);
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), this, keyWelcome);
         viewPager.setAdapter(tabPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -44,6 +73,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // adapt NavigationView with users perferences
+        nav1 = navigationView.getMenu().findItem(R.id.nav_1);
+        nav2 = navigationView.getMenu().findItem(R.id.nav_2);
+        nav3 = navigationView.getMenu().findItem(R.id.nav_3);
+        nav4 = navigationView.getMenu().findItem(R.id.nav_4);
+
+        myNDView(nav1);
+        myNDView(nav2);
+        myNDView(nav3);
+        myNDView(nav4);
     }
 
     @Override
@@ -109,6 +148,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         CharSequence theme = item.getTitle();
 
+        if (theme == getResources().getString(R.string.arts_checkbox_text)) {
+            launchTopStoriesActivityFromNavigationDrawer(2);
+        }
+
         if (theme == getResources().getString(R.string.health_checkbox_text)) {
             launchTopStoriesActivityFromNavigationDrawer(3);
         }
@@ -149,30 +192,22 @@ public class MainActivity extends AppCompatActivity
             launchTopStoriesActivityFromNavigationDrawer(12);
         }
 
-        /*if (id == R.id.nav_1) {
-            launchTopStoriesActivityFromNavigationDrawer(3);
-        } else if (id == R.id.nav_2) {
-            launchTopStoriesActivityFromNavigationDrawer(4);
-        } else if (id == R.id.nav_3) {
-            launchTopStoriesActivityFromNavigationDrawer(5);
-        } else if (id == R.id.nav_4) {
-            launchTopStoriesActivityFromNavigationDrawer(6);
-        } else */
-
         if (id == R.id.nav_search) {
             Intent myIntent = new Intent(MainActivity.this, SearchWindowActivity.class);
             startActivity(myIntent);
-    }
+        }
 
-    if (id == R.id.nav_notification) {
+        if (id == R.id.nav_notification) {
             Intent myIntent = new Intent(MainActivity.this, NotificationWindowActivity.class);
             startActivity(myIntent);
-    }
-
-    if (id == R.id.nav_perso) {
-            Intent myIntent = new Intent(MainActivity.this, PersonalizationActivity.class);
-            startActivity(myIntent);
         }
+
+
+        if (id == R.id.nav_perso_ND) {
+            Intent myIntent = new Intent(MainActivity.this, PersonalizationActivity.class);
+            startActivityForResult(myIntent,PERSO_ACTIVITY_REQUEST_CODE );
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -184,4 +219,145 @@ public class MainActivity extends AppCompatActivity
         startActivity(myIntent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == PERSO_ACTIVITY_REQUEST_CODE ) {
+            // get keys data from Intent
+            artsIndex = data.getIntExtra("keyArts", 0);
+            businessIndex = data.getIntExtra("keyBusiness", 0);
+            politicsIndex = data.getIntExtra("keyPolitics", 0);
+            sportIndex = data.getIntExtra("keySport", 0);
+            travelIndex = data.getIntExtra("keyTravel", 0);
+            fashionIndex = data.getIntExtra("keyFashion", 0);
+            foodIndex = data.getIntExtra("keyFood", 0);
+            scienceIndex = data.getIntExtra("keySciences", 0);
+            technologyIndex = data.getIntExtra("keyTechnology", 0);
+            worldIndex = data.getIntExtra("keyWorld", 0);
+            healthIndex = data.getIntExtra("keyHealth", 0);
+
+            updateNDView();
+        }
+    }
+
+    public void myNDView(MenuItem nav) {
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_ND, MODE_PRIVATE);
+        nav.setTitle(sharedPreferences.getInt("Title"+nav.getItemId(),R.string.perso_firsttime));
+        nav.setIcon(sharedPreferences.getInt("Icon" +nav.getItemId(),R.drawable.baseline_face_24));
+    }
+
+    public void updateNDView() {
+        // mise à jour de l'affichage
+        int sumIndex = artsIndex + businessIndex + politicsIndex + sportIndex + travelIndex + fashionIndex + foodIndex + scienceIndex + technologyIndex+ worldIndex +healthIndex;
+
+        nav1.setVisible(false);
+        nav2.setVisible(false);
+        nav3.setVisible(false);
+        nav4.setVisible(false);
+
+        switch (sumIndex) {
+
+            case 4:
+                personalization(nav4);
+            case 3:
+                personalization(nav3);
+            case 2:
+                personalization(nav2);
+            case 1:
+                personalization(nav1);
+                break;
+        }
+    }
+
+
+    public void personalization(MenuItem nav) {
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_ND, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        nav.setVisible(true);
+
+        int k=0;
+        keyWelcome=0;
+
+        String id = Integer.toString(nav.getItemId());
+        titleId = "Title" +id;
+        iconId = "Icon" +id;
+
+        if (politicsIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.politics_checkbox_text, R.drawable.baseline_mic_24);
+            politicsIndex =0;
+            k+=1;
+        }
+
+        if (artsIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.arts_checkbox_text, R.drawable.baseline_collections_24);
+            artsIndex =0;
+            k+=1;
+        }
+
+        if (businessIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.business_checkbox_text, R.drawable.baseline_business_24);
+            businessIndex =0;
+            k+=1;
+        }
+
+        if (sportIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.sport_checkbox_text, R.drawable.baseline_directions_run_24);
+            sportIndex =0;
+            k+=1;
+        }
+
+        if (fashionIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.fashion_checkbox_text, R.drawable.baseline_people_24);
+            fashionIndex =0;
+            k+=1;
+        }
+
+        if (foodIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.food_checkbox_text, R.drawable.baseline_local_dining_24);
+            foodIndex =0;
+            k+=1;
+        }
+
+        if (scienceIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.sciences_checkbox_text, R.drawable.baseline_blur_linear_24);
+            scienceIndex =0;
+            k+=1;
+        }
+
+        if (technologyIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.technology_checkbox_text, R.drawable.baseline_wb_iridescent_24);
+            technologyIndex =0;
+            k+=1;
+        }
+
+        if (travelIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.travel_checkbox_text, R.drawable.baseline_flight_24);
+            travelIndex =0;
+            k+=1;
+
+        }
+
+        if (worldIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.world_checkbox_text, R.drawable.baseline_public_24);
+            worldIndex =0;
+            k+=1;
+        }
+
+        if (healthIndex ==1&&k==0) {
+            editAndSaveKeys(nav, R.string.health_checkbox_text, R.drawable.baseline_healing_24);
+            healthIndex =0;
+            k+=1;
+        }
+    }
+    public void editAndSaveKeys(MenuItem nav, int title, int icon) {
+        nav.setTitle(title);
+        nav.setIcon(icon);
+
+        editor.putInt(titleId, title);
+        editor.putInt(iconId, icon);
+        editor.apply();
+    }
 }

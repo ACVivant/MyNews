@@ -13,7 +13,6 @@ import retrofit2.Call;
 public interface NYTimesAPIInterface {
 
     // Most Popular
-    //@GET("svc/mostpopular/v2/mostviewed/all-sections/7.json")
     @GET("svc/mostpopular/v2/viewed/7.json")
     Call<NYTArticles> loadMostPopular(@Query("api-key") String apiKey);
 
@@ -58,7 +57,7 @@ public interface NYTimesAPIInterface {
     Call<NYTArticles> loadTravel(@Query("api-key") String apiKey);
 
     // Top Stories Sport
-    @GET("svc/topstories/v2/sport.json")
+    @GET("svc/topstories/v2/sports.json")
     Call<NYTArticles> loadSport(@Query("api-key") String apiKey);
 
     // Top Stories World
