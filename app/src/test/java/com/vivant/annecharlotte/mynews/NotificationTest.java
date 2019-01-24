@@ -8,6 +8,11 @@ import com.vivant.annecharlotte.mynews.Controller.NotificationWindowActivity;
 import com.vivant.annecharlotte.mynews.Views.TextNotif;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.shadows.ShadowApplication;
 
 import static android.content.Context.MODE_PRIVATE;
 import static org.junit.Assert.assertEquals;
@@ -17,18 +22,15 @@ import static org.mockito.Mockito.when;
 /**
  * Created by Anne-Charlotte Vivant on 10/01/2019.
  */
+@RunWith(RobolectricTestRunner.class)
 public class NotificationTest {
 
- /*   @Test
+    private Context context = RuntimeEnvironment.application.getApplicationContext();
+
+    @Test
     public void formatFQuery_fromcheckbox() {
 
-        // Je voudrais bien savoir où est le problème avec ce test...
-        // Pourquoi le set ne fonctionne pas?
-        // Pourquoi l'appel ) formatTextQuery() renvoie null
-        // Expected :news_desk:("sport" "travel" )
-        // Actual   :null
-
-        NotificationResults res = mock(NotificationResults.class);
+        NotificationResults res = new NotificationResults(context);
         res.setTravelOnOff(true);
         res.setSportOnOff(true);
 
@@ -45,20 +47,24 @@ public class NotificationTest {
         System.out.println("Sport " +res.isSportOnOff());
 
         assertEquals("news_desk:(\"sport\" \"travel\" )", res.formatTextFQuery());
-    }*/
+    }
 
-/*
+
     @Test
     public void message_notification_newarticles() {
-        // Comment je m'en sors pour récupérer le context?
         TextNotif alertTest = new TextNotif();
-        //TextNotif alertTest = mock(TextNotif.class);
-        assertEquals("Vous avez 3 nouveaux articles à découvrir aujourd'hui!", alertTest.createMessage(, 3));
+        assertEquals("Vous avez 3 nouveaux articles à découvrir aujourd'hui!", alertTest.createMessage(context, 3));
+    }
+
+    @Test
+    public void message_notification_onenewarticles() {
+        TextNotif alertTest = new TextNotif();
+        assertEquals("Vous avez un nouvel article à découvrir aujourd'hui!", alertTest.createMessage(context,1));
     }
 
     @Test
     public void message_notification_nonewarticles() {
         TextNotif alertTest = new TextNotif();
-        assertEquals("Vous n'avez aucun article à découvrir aujourd'hui!", alertTest.createMessage(0));
-    }*/
+        assertEquals("Vous n'avez aucun article à découvrir aujourd'hui!", alertTest.createMessage(context,0));
+    }
 }

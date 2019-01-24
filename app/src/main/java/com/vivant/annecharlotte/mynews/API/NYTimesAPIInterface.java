@@ -5,64 +5,21 @@ import com.vivant.annecharlotte.mynews.Models.NYTSearchArticles;
 
 import retrofit2.Call;
         import retrofit2.http.GET;
-        import retrofit2.http.Query;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Anne-Charlotte Vivant on 17/12/2018.
  */
 public interface NYTimesAPIInterface {
 
+    //Top Stories
+    @GET("svc/topstories/v2/{id}")
+    Call<NYTArticles> loadTopStoriesAll(@Path("id") String group, @Query("api-key") String apiKey);
+
     // Most Popular
     @GET("svc/mostpopular/v2/viewed/7.json")
     Call<NYTArticles> loadMostPopular(@Query("api-key") String apiKey);
-
-    // Top Stories
-    @GET("svc/topstories/v2/home.json")
-    Call<NYTArticles> loadTopStories(@Query("api-key") String apiKey);
-
-    // Top Stories Arts
-    @GET("svc/topstories/v2/arts.json")
-    Call<NYTArticles> loadArts(@Query("api-key") String apiKey);
-
-    // Top Stories Food
-    @GET("svc/topstories/v2/food.json")
-    Call<NYTArticles> loadFood(@Query("api-key") String apiKey);
-
-    // Top Stories Health
-    @GET("svc/topstories/v2/health.json")
-    Call<NYTArticles> loadHealth(@Query("api-key") String apiKey);
-
-    // Top Stories Science
-    @GET("svc/topstories/v2/science.json")
-    Call<NYTArticles> loadScience(@Query("api-key") String apiKey);
-
-    // Top Stories Technology
-    @GET("svc/topstories/v2/technology.json")
-    Call<NYTArticles> loadTechnology(@Query("api-key") String apiKey);
-
-    // Top Stories Business
-    @GET("svc/topstories/v2/business.json")
-    Call<NYTArticles> loadBusiness(@Query("api-key") String apiKey);
-
-    // Top Stories Politics
-    @GET("svc/topstories/v2/politics.json")
-    Call<NYTArticles> loadPolitics(@Query("api-key") String apiKey);
-
-    // Top Stories Fashion
-    @GET("svc/topstories/v2/fashion.json")
-    Call<NYTArticles> loadFashion(@Query("api-key") String apiKey);
-
-    // Top Stories Travel
-    @GET("svc/topstories/v2/travel.json")
-    Call<NYTArticles> loadTravel(@Query("api-key") String apiKey);
-
-    // Top Stories Sport
-    @GET("svc/topstories/v2/sports.json")
-    Call<NYTArticles> loadSport(@Query("api-key") String apiKey);
-
-    // Top Stories World
-    @GET("svc/topstories/v2/world.json")
-    Call<NYTArticles> loadWorld(@Query("api-key") String apiKey);
 
     // Search API
     @GET("svc/search/v2/articlesearch.json")

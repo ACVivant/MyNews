@@ -84,7 +84,7 @@ public class NYTPageFragment extends Fragment {
         switch (indexAPI) {
             case 0:
             TAG_API = "TOPSTORIES";
-            call = apiService.loadTopStories(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("home.json", ApiKey.NYT_API_KEY);
             break;
 
             case 1:
@@ -94,57 +94,57 @@ public class NYTPageFragment extends Fragment {
 
             case 2:
                 TAG_API = "ARTS";
-                call = apiService.loadArts(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("arts.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 3:
                 TAG_API = "HEALTH";
-                call = apiService.loadHealth(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("health.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 4:
                 TAG_API = "FOOD";
-                call = apiService.loadFood(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("food.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 5:
                 TAG_API = "TECHNOLOGY";
-                call = apiService.loadTechnology(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("technology.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 6:
                 TAG_API = "SCIENCE";
-                call = apiService.loadScience(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("science.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 7:
                 TAG_API = "BUSINESS";
-                call = apiService.loadBusiness(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("business.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 8:
                 TAG_API = "FASHION";
-                call = apiService.loadFashion(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("fashion.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 9:
                 TAG_API = "POLITICS";
-                call = apiService.loadPolitics(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("politics.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 10:
                 TAG_API = "TRAVEL";
-                call = apiService.loadTravel(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("travel.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 11:
                 TAG_API = "SPORT";
-                call = apiService.loadSport(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("sport.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 12:
                 TAG_API = "WORLD";
-                call = apiService.loadWorld(ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("world.json", ApiKey.NYT_API_KEY);
                 break;
 
         }

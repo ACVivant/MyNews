@@ -41,7 +41,7 @@ public class MainActivityRobotTest {
     public void when_MenuItemNotificationClicked_then_StartNotificationWindowActivity() {
         //User click on notification in menu starts notification activity
         shadowOf(activity).clickMenuItem(R.id.action_notifications);
-        Intent startedIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent startedIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Intent expectedIntent = new Intent(activity, NotificationWindowActivity.class);
         assertEquals(expectedIntent.getComponent(), startedIntent.getComponent());
     }
@@ -50,7 +50,7 @@ public class MainActivityRobotTest {
     public void when_SearchbarClicked_then_StartSearchWindowActivity() {
         //User click on search bar in toolbar
         shadowOf(activity).clickMenuItem(R.id.menu_activity_main_search);
-        Intent startedIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent startedIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Intent expectedIntent = new Intent(activity, SearchWindowActivity.class);
         assertEquals(expectedIntent.getComponent(), startedIntent.getComponent());
     }

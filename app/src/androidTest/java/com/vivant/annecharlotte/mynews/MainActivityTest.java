@@ -1,7 +1,10 @@
 package com.vivant.annecharlotte.mynews;
 
+import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.Gravity;
 
 import com.vivant.annecharlotte.mynews.Controller.MainActivity;
 
@@ -10,8 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.DrawerMatchers.isClosed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -38,20 +43,43 @@ public class MainActivityTest {
         onView(withId(R.id.search_query_edittext)).check(matches(isDisplayed()));
     }
 
-   /* @Test
-   // Comment simuler le click sur le menu? (lancé via onCreateOptionsMenu de MainActivity)?
-   // idem pour ND
-    public void clickMenuButton_opensMenuWindow()throws Exception {
-        onView(withId(R.id.???????)).perform(click());
-        onView(withId(R.id.action_help)).check(matches(isDisplayed()));
-    }*/
+    @Test
+            public void openHelp_when_clickOnHelpItem() {
+        // Show the contextual action bar.
+        onView(withId(R.id.toolbar_resultssearch))
+                .perform(click());
 
-    /*@Test
-    // Comment simuer un clic sur des élement sdu menu ou du ND?
-    public void clickPersoButton_opensPersonalizationActivity()throws Exception {
-        onView(withId(R.id.nav_perso_ND)).perform(click());
-        onView(withId(R.id.personalization_textview1)).check(matches(isDisplayed()));
-    }*/
+        // Open the overflow menu from contextual action mode.
+        openContextualActionModeOverflowMenu();
+
+        // Click on the item.
+        onView(withText("Help"))
+                .perform(click());
+
+        // Verify that we have really clicked on the item by
+        // checking the TextView content.
+        onView(withText(R.string.helpmenu_text))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void openAbout_when_clickOnAboutItem() {
+        // Show the contextual action bar.
+        onView(withId(R.id.toolbar_resultssearch))
+                .perform(click());
+
+        // Open the overflow menu from contextual action mode.
+        openContextualActionModeOverflowMenu();
+
+        // Click on the item.
+        onView(withText("About"))
+                .perform(click());
+
+        // Verify that we have really clicked on the item by
+        // checking the TextView content.
+        onView(withText(R.string.aboutmenu_text))
+                .check(matches(isDisplayed()));
+    }
 
 }
 

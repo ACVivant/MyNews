@@ -56,7 +56,7 @@
 
     <!-- informations for notification dialog -->
     <string name="notificationdialog_checkbox_error">"Il faut saisir au moins un mot clé"</string>
-    <string name="notification_newarticles21">" Vous avez un nouvel article à découvrir aujourd'hui!"</string>
+    <string name="notification_newarticles21">"Vous avez un nouvel article à découvrir aujourd'hui!"</string>
     <string name="notification_noarticles">"Vous n'avez aucun article à découvrir aujourd'hui!"</string>
     <string name="notification_newarticles1">"Vous avez "</string>
     <string name="notification_newarticles2">" nouveaux articles à découvrir aujourd'hui!"</string>
