@@ -7,21 +7,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.vivant.annecharlotte.mynews.Controller.NYTPageFragment;
-import com.vivant.annecharlotte.mynews.Controller.NYTSearchPageFragment;
 import com.vivant.annecharlotte.mynews.R;
 
 /**
- * Link between main tab position and content
+ * Link between main tab position and content (Most Popular, Top Stories, World)
  */
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context ctx;
-    private int key;
 
-    public TabPagerAdapter(FragmentManager fm, Context context, int key) {
+    public TabPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         ctx = context;
-        this.key = key;
     }
 
     @Nullable

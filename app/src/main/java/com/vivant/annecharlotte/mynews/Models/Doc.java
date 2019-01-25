@@ -12,15 +12,9 @@ public class Doc {
     @SerializedName("snippet")
     @Expose
     private String snippet;
-    @SerializedName("source")
-    @Expose
-    private String source;
     @SerializedName("pub_date")
     @Expose
     private String pubDate;
-    @SerializedName("document_type")
-    @Expose
-    private String documentType;
     @SerializedName("news_desK")
     @Expose
     private String newsDesK;
@@ -49,16 +43,8 @@ public class Doc {
         return pubDate;
     }
 
-    public String getNewsDesK() {
-        return newsDesK;
-    }
-
     public String getSectionName() {
         return sectionName;
-    }
-
-    public String getSubsectionName() {
-        return subsectionName;
     }
 
     public String getId() {

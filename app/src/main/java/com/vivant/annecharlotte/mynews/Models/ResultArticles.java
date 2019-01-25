@@ -16,9 +16,6 @@ public class ResultArticles {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("abstract")
-    @Expose
-    private String _abstract;
     @SerializedName("url")
     @Expose
     private String url;
@@ -54,14 +51,6 @@ public class ResultArticles {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAbstract() {
-        return _abstract;
-    }
-
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
     }
 
     public String getUrl() {

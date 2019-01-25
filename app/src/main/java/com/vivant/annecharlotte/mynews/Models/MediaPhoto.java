@@ -3,8 +3,6 @@ package com.vivant.annecharlotte.mynews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class MediaPhoto {
 
     @SerializedName("url")

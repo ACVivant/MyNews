@@ -111,7 +111,7 @@ public class NotificationWindowActivity extends AppCompatActivity {
                     } else {
                         cancelAlarm();
                     }
-                finish();
+                    finish();
                 }
             }
         });
@@ -139,7 +139,7 @@ public class NotificationWindowActivity extends AppCompatActivity {
         switchButton = findViewById(R.id.switch_notification);
 
         textNotif = findViewById(R.id.search_query_edittext);
-        }
+    }
 
     //--------------------------------------------------------------------------------------------------------------
     // about Alarm Manager

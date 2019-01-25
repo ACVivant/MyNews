@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 
 /**
- * Generate call for search demand
+ * Generate call for search API
  */
 public class NYTSearchPageFragment extends Fragment {
 
@@ -49,8 +49,6 @@ public class NYTSearchPageFragment extends Fragment {
     private String mQuery;
     private String mBeginDate ;
     private String mEndDate ;
-
-    private int index;
 
     private  Call<NYTSearchArticles> call;
 
@@ -74,40 +72,45 @@ public class NYTSearchPageFragment extends Fragment {
         super.onDestroy();
     }
 
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-            if (getArguments() != null) {
-                        mQuery = getArguments().getString("q");
-                        mFQuery = getArguments().getString("fq");
-                        mBeginDate = getArguments().getString("begin_date");
-                        mEndDate = getArguments().getString("end_date");
-            }
+        // load what user wants to search
+        if (getArguments() != null) {
+            mQuery = getArguments().getString("q");
+            mFQuery = getArguments().getString("fq");
+            mBeginDate = getArguments().getString("begin_date");
+            mEndDate = getArguments().getString("end_date");
+        }
 
+        // make the request
         NYTimesAPIInterface apiService = NYTimesAPIClient.getClient().create(NYTimesAPIInterface.class);
-                call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery, getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
+        call = apiService.loadSearch(ApiKey.NYT_API_KEY, mQuery, mFQuery, getContext().getString(R.string.sort_by_newest), mBeginDate, mEndDate);
 
         call.enqueue(new Callback<NYTSearchArticles>() {
             @Override
             public void onResponse(Call<NYTSearchArticles> call, Response<NYTSearchArticles> response) {
-                    if (!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), "Code: " + response.code(), Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 NYTSearchArticles posts = response.body();
                 mListArticles = posts.getResponse().getDocs();
-                if (mListArticles.isEmpty()) {
 
+                // show a popup when there is no article to show
+                if (mListArticles.isEmpty()) {
                     Popup mPopup = new Popup(getContext(), R.string.searchdialog_title, R.string.searchdialog_text, R.drawable.baseline_sentiment_very_dissatisfied_24);
                     mPopup.personnaliseAndLaunchPopup();
                 }
 
+                //fill the view
                 adapter = new ListOfSearchedArticlesAdapter(mListArticles, Glide.with(mRecyclerView), TAG_API);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(adapter);
 
+                // makes the link with URL for WebView
                 adapter.setOnItemClickedListener(new ListOfSearchedArticlesAdapter.OnItemClickedListener() {
                     @Override
                     public void OnItemClicked(int position) {
@@ -122,20 +125,9 @@ public class NYTSearchPageFragment extends Fragment {
             @Override
             public void onFailure(Call<NYTSearchArticles> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
                 Log.e(TAG_API, t.toString());
             }
         });
-    }
-
-    // save the position on the main tab to know which API should be called
-    public static NYTSearchPageFragment newInstance(int position) {
-        NYTSearchPageFragment f = new NYTSearchPageFragment();
-        Bundle bTransfert = new Bundle();
-
-        bTransfert.putInt("pos", position);
-        f.setArguments(bTransfert);
-        return f;
     }
 }
 

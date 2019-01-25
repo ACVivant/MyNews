@@ -10,9 +10,9 @@
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
 
-    <string name="tabs_title_1">Top Stories</string>
-    <string name="tabs_title_2">Most Popular</string>
-    <string name="tabs_title_3">Monde</string>
+    <string name="tabs_title_1">Titre1</string>
+    <string name="tabs_title_2">Titre2</string>
+    <string name="tabs_title_3">Titre3</string>
 
     <!-- Entries of navigation drawer -->
     <string name="drawer_title">Thèmes</string>

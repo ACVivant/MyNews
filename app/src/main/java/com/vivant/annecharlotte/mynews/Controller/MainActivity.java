@@ -1,22 +1,22 @@
 package com.vivant.annecharlotte.mynews.Controller;
 
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.support.design.widget.TabLayout;
-        import android.support.v4.view.ViewPager;
-        import android.support.design.widget.NavigationView;
-        import android.support.v4.view.GravityCompat;
-        import android.support.v4.widget.DrawerLayout;
-        import android.support.v7.app.ActionBarDrawerToggle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.Menu;
-        import android.view.MenuItem;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-        import com.vivant.annecharlotte.mynews.R;
-        import com.vivant.annecharlotte.mynews.Views.Popup;
-        import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
+import com.vivant.annecharlotte.mynews.R;
+import com.vivant.annecharlotte.mynews.Views.Popup;
+import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewpager);
 
-        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), this, keyWelcome);
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(tabPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -106,9 +106,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item (top-right menu) clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as a parent activity is specified  in AndroidManifest.xml.
+        // Handle action bar item (top-right menu) clicks here.
+
         int id = item.getItemId();
 
         //launch NotificationWindowActivity
@@ -223,11 +222,11 @@ public class MainActivity extends AppCompatActivity
     // Personalization
     //--------------------------------------------------------------------------------------------------------------
 
+    // recovers keys data from personalization activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // check that it is the SecondActivity with an OK result
         if (requestCode == PERSO_ACTIVITY_REQUEST_CODE ) {
             // get keys data from Intent
             artsIndex = data.getIntExtra("keyArts", 0);
@@ -246,14 +245,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    // Put right Title and icon according to users preferences
     public void myNDView(MenuItem nav) {
         sharedPreferences = getSharedPreferences(SHARED_PREFS_ND, MODE_PRIVATE);
         nav.setTitle(sharedPreferences.getInt("Title"+nav.getItemId(),R.string.perso_firsttime));
         nav.setIcon(sharedPreferences.getInt("Icon" +nav.getItemId(),R.drawable.baseline_face_24));
     }
 
+    // update navigation drawer when users saves new personalisation keys
     public void updateNDView() {
-        // mise à jour de l'affichage
         int sumIndex = artsIndex + businessIndex + politicsIndex + sportIndex + travelIndex + fashionIndex + foodIndex + scienceIndex + technologyIndex+ worldIndex +healthIndex;
 
         nav1.setVisible(false);
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
+    // characteristic of each item according to themes
     public void personalization(MenuItem nav) {
         sharedPreferences = getSharedPreferences(SHARED_PREFS_ND, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -356,6 +356,8 @@ public class MainActivity extends AppCompatActivity
             k+=1;
         }
     }
+
+    // prepare data to save them in SharedPreferences
     public void editAndSaveKeys(MenuItem nav, int title, int icon) {
         nav.setTitle(title);
         nav.setIcon(icon);

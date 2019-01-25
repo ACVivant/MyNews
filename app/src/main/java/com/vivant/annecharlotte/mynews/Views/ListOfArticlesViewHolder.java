@@ -36,10 +36,6 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
                     if (position!= RecyclerView.NO_POSITION) {
                         listener.OnItemClicked(position);
                     }
-                    // change the color when click on item is intercepted
-                 /*   dateTextView.setTextColor(dateTextView.getResources().getColor(R.color.colorPrimaryDark));
-                    sectionTextView.setTextColor(sectionTextView.getResources().getColor(R.color.colorPrimaryDark));
-                    titleTextView.setTextColor(titleTextView.getResources().getColor(R.color.colorPrimaryDark));*/
                 }
             }
         });
@@ -68,7 +64,7 @@ public class ListOfArticlesViewHolder extends RecyclerView.ViewHolder{
         // Images
 
         if (apiTag.equals("MOSTPOPULAR")) {
-            if (NYTArticle.getMedia().size()>0){  // ici il faut gérer les cas où Media est un tableau vide
+            if (NYTArticle.getMedia().size()>0){  // here we have to deal with the cases where Media is an empty array
                 glide.load(NYTArticle.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(imageView);}
             else
                 this.imageView.setImageResource(R.drawable.ic_menu_camera);

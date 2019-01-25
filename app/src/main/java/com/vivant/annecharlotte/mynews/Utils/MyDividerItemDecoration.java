@@ -51,7 +51,6 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-
      // Return the dimension outRect for itemPosition and parent (Offset)
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.vivant.annecharlotte.mynews.R;
 
 /**
- * Created by Anne-Charlotte Vivant on 15/01/2019.
+ * Check if datas are ok for research (is the a text? is ate least one box checked?)
  */
 public class SearchKeysValidation {
     private EditText mEditText_keywords;
@@ -49,11 +49,11 @@ public class SearchKeysValidation {
     }
 
     public SearchKeysValidation(String keys) {
-         mKeywords = keys;
+        mKeywords = keys;
     }
 
     public SearchKeysValidation() {
-            }
+    }
 
     //----------------------------------------------------------------------------------------------------
     // Validation or not of keywords
@@ -73,15 +73,15 @@ public class SearchKeysValidation {
     }
 
     public String keywordFormat(String key) {
-            keywordsResults = "(";
-            String[] splitArray = null;
-            String str = key;
-            splitArray = str.split(" ");
+        keywordsResults = "(";
+        String[] splitArray = null;
+        String str = key;
+        splitArray = str.split(" ");
 
-            for (int i = 0; i < splitArray.length; i++) {
-                keywordsResults += "\"" + splitArray[i] + "\" ";
-            }
-            keywordsResults += ")";
+        for (int i = 0; i < splitArray.length; i++) {
+            keywordsResults += "\"" + splitArray[i] + "\" ";
+        }
+        keywordsResults += ")";
         return keywordsResults;
     }
 

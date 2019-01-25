@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 
 /**
- * Created by Anne-Charlotte Vivant on 11/01/2019.
+ * Generates Popup with adapted text.
  */
 public class Popup {
     private int title;

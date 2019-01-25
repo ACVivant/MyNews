@@ -6,19 +6,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.R;
 
+/**
+ * Display a window for personalization of Navigation Drawer and save data
+ */
 public class PersonalizationActivity extends AppCompatActivity {
-    private Switch switchButton;
+
     private CheckBox artsCheckbox,
             businessCheckbox,
             politicsCheckbox,
@@ -29,21 +27,19 @@ public class PersonalizationActivity extends AppCompatActivity {
             scienceCheckbox,
             technologyCheckbox,
             worldCheckbox,
-    healthCheckbox;
-
-    private EditText textNotif;
+            healthCheckbox;
 
     private int artsIndex,
-    businessIndex,
+            businessIndex,
             politicsIndex,
-    sportIndex,
-    travelIndex,
-    fashionIndex,
-    foodIndex,
-    scienceIndex,
-    technologyIndex,
-    worldIndex,
-    healthIndex;
+            sportIndex,
+            travelIndex,
+            fashionIndex,
+            foodIndex,
+            scienceIndex,
+            technologyIndex,
+            worldIndex,
+            healthIndex;
 
     private boolean launch;
 
@@ -52,17 +48,17 @@ public class PersonalizationActivity extends AppCompatActivity {
     private String TAG = "PERSO";
     public static final String SHARED_PREFS = "SharedPrefsPerso";
 
-    public static final String ARTS = "ArtsND";
-    public static final String HEALTH = "HealthND";
-    public static final String FOOD = "FOodND";
-    public static final String TECH = "TechnologyND";
-    public static final String SCIENCES = "SciencesND";
-    public static final String BUSINESS = "BusinessND";
-    public static final String FASHION = "FashionND";
-    public static final String POLITICS = "PoliticsND";
-    public static final String SPORT = "SportND";
-    public static final String TRAVEL = "TravelND";
-    public static final String WORLD = "WorldND";
+    private static final String ARTS = "ArtsND";
+    private static final String HEALTH = "HealthND";
+    private static final String FOOD = "FOodND";
+    private static final String TECH = "TechnologyND";
+    private static final String SCIENCES = "SciencesND";
+    private static final String BUSINESS = "BusinessND";
+    private static final String FASHION = "FashionND";
+    private static final String POLITICS = "PoliticsND";
+    private static final String SPORT = "SportND";
+    private static final String TRAVEL = "TravelND";
+    private static final String WORLD = "WorldND";
 
     private boolean artsOnOff;
     private boolean healthOnOff;
@@ -86,6 +82,7 @@ public class PersonalizationActivity extends AppCompatActivity {
         updateView();
     }
 
+    // Links between activity and layout
     private void configureLayoutLinks() {
         artsCheckbox = findViewById(R.id.art_checkBox);
         sportCheckbox = findViewById(R.id.sport_checkBox);
@@ -101,6 +98,7 @@ public class PersonalizationActivity extends AppCompatActivity {
         healthCheckbox = findViewById(R.id.health_checkBox);
     }
 
+    // Toolbar
     private void configureNotificationToolbar() {
         Toolbar notificationToolbar;
         //Get the toolbar (Serialise)
@@ -116,7 +114,8 @@ public class PersonalizationActivity extends AppCompatActivity {
         notificationToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validation();
+                index = indexAccounting();
+                validation(index);
 
                 // Save data only if values are ok (launch == true)
                 if (launch) {
@@ -140,66 +139,70 @@ public class PersonalizationActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validation() {
-        index = indexComptabilization();
-        launch = true;
-        Log.d(TAG, "validation: index " + index);
+    //-------------------------------------------------------------------------------------------------------
+    // Validate and save the user preferences
+    //-------------------------------------------------------------------------------------------------------
 
-        if (index == 0) {
+    // Generate toasts if user has not choosen the good number of themes
+    private boolean validation(int ind) {
+        launch = true;
+
+        if (ind == 0) {
             launch = false;
             Toast.makeText(this, R.string.personalization_error0, Toast.LENGTH_LONG).show();
-                   }
+        }
 
-            if (index > 4) {
-                launch = false;
-                Toast.makeText(this, R.string.personalization_error4, Toast.LENGTH_LONG).show();
-            }
+        if (ind > 4) {
+            launch = false;
+            Toast.makeText(this, R.string.personalization_error4, Toast.LENGTH_LONG).show();
+        }
         return launch;
     }
 
-    public int indexComptabilization() {
+    // Count the number of selected themes
+    public int indexAccounting() {
         artsIndex = businessIndex= politicsIndex= sportIndex= travelIndex= fashionIndex= foodIndex= scienceIndex = technologyIndex= worldIndex= healthIndex =0;
-        index=0;
+        int ind=0;
 
         if (politicsCheckbox.isChecked()) {
-            index += 1;
+            ind += 1;
             politicsIndex =1; }
         if (artsCheckbox.isChecked()) {
-            index += 1;
+            ind += 1;
             artsIndex = 1;}
         if (healthCheckbox.isChecked()) {
-            index += 1;
+            ind += 1;
             healthIndex = 1;}
         if (businessCheckbox.isChecked()) {
-            index += 1;
-        businessIndex = 1;}
+            ind += 1;
+            businessIndex = 1;}
         if (sportCheckbox.isChecked()) {
-            index += 1;
-        sportIndex = 1; }
+            ind += 1;
+            sportIndex = 1; }
         if (fashionCheckbox.isChecked()) {
-            index += 1;
-        fashionIndex = 1;}
+            ind += 1;
+            fashionIndex = 1;}
         if (foodCheckbox.isChecked()) {
-            index += 1;
-        foodIndex = 1;}
+            ind += 1;
+            foodIndex = 1;}
         if (scienceCheckbox.isChecked()) {
-            index += 1;
-        scienceIndex = 1;}
+            ind += 1;
+            scienceIndex = 1;}
         if (technologyCheckbox.isChecked()) {
-            index += 1;
-        technologyIndex = 1;}
+            ind += 1;
+            technologyIndex = 1;}
         if (worldCheckbox.isChecked()) {
-            index += 1;
-        worldIndex = 1;}
+            ind += 1;
+            worldIndex = 1;}
         if (travelCheckbox.isChecked()) {
-            index += 1;
-        travelIndex = 1;}
+            ind += 1;
+            travelIndex = 1;}
 
-        return index;
+        return ind;
     }
 
+    // save data in SharedPreferences
     public void saveData() {
-
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -218,8 +221,12 @@ public class PersonalizationActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void loadData() {
+    //----------------------------------------------------------------------------------------------
+    // update the personalization window with user preferences
+    //----------------------------------------------------------------------------------------------
 
+    // load SharedPreferences
+    public void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
         artsOnOff = sharedPreferences.getBoolean(ARTS, false);
@@ -233,11 +240,10 @@ public class PersonalizationActivity extends AppCompatActivity {
         fashionOnOff = sharedPreferences.getBoolean(FASHION, false);
         travelOnOff = sharedPreferences.getBoolean(TRAVEL, false);
         worldOnOff = sharedPreferences.getBoolean(WORLD, false);
-
     }
 
+    // update view with saved preferences
     public void updateView() {
-
         artsCheckbox.setChecked(artsOnOff);
         healthCheckbox.setChecked(healthOnOff);
         foodCheckbox.setChecked(foodOnOff);

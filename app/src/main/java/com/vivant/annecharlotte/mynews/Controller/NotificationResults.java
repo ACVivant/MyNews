@@ -132,6 +132,7 @@ public class NotificationResults {
         formatDate();
     }
 
+    // loas SharedPreferences (which keywords and themes user as choosen)
     public void loadSharedPreferences(SharedPreferences prefs) {
         mQuery = prefs.getString(QUERY, "");
         artsOnOff = prefs.getBoolean(ARTS, false);
@@ -142,6 +143,7 @@ public class NotificationResults {
         politicsOnOff = prefs.getBoolean(POLITICS, false);
     }
 
+    // put the text query on the good format for request
     public String formatTextFQuery() {
         String query =  "news_desk:(";
         if (artsOnOff) {query += "\"arts\" ";}
@@ -155,6 +157,7 @@ public class NotificationResults {
         return query;
     }
 
+    // put the date in the good format for request
     public void formatDate() {
         // format date (today and yesterday)
         Date day = new Date();

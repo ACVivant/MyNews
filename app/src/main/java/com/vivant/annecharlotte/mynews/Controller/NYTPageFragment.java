@@ -25,19 +25,18 @@ import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
 
 import java.util.List;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
- * Generate Top Stories and Most Popular pages
+ * Generate Top Stories and Most Popular fragments
  */
 public class NYTPageFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private LinearLayout mArticleItem;
     private String articleUrl;
 
     public String TAG_API ;
@@ -52,14 +51,13 @@ public class NYTPageFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_articles_page, container, false);
         mRecyclerView = view.findViewById(R.id.fragment_articles_recyclerview);
-        mArticleItem = view.findViewById(R.id.article_item);
 
         // Add horizontal separators
         MyDividerItemDecoration mDividerItemDecoration = new MyDividerItemDecoration(mRecyclerView.getContext());
@@ -73,7 +71,6 @@ public class NYTPageFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Call to the New-York Times API
-
         // read the position on the main tab to know which API should be called
         if (getArguments() != null) {
             indexAPI = getArguments().getInt("pos");
@@ -83,14 +80,14 @@ public class NYTPageFragment extends Fragment {
 
         switch (indexAPI) {
             case 0:
-            TAG_API = "TOPSTORIES";
+                TAG_API = "TOPSTORIES";
                 call = apiService.loadTopStoriesAll("home.json", ApiKey.NYT_API_KEY);
-            break;
+                break;
 
             case 1:
-            TAG_API = "MOSTPOPULAR";
-            call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
-            break;
+                TAG_API = "MOSTPOPULAR";
+                call = apiService.loadMostPopular(ApiKey.NYT_API_KEY);
+                break;
 
             case 2:
                 TAG_API = "ARTS";
@@ -192,8 +189,8 @@ public class NYTPageFragment extends Fragment {
 
         bTransfert.putInt("pos", position);
         f.setArguments(bTransfert);
-            return f;
-        }
+        return f;
+    }
 
 }
 

@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,20 +30,20 @@ import java.util.Locale;
 public class SearchWindowActivity extends AppCompatActivity {
 
     private EditText mEditText_keywords,
-                     mEditText_beginDate,
-                     mEditText_endDate;
+            mEditText_beginDate,
+            mEditText_endDate;
 
     private Calendar mCalendar;
 
     private String mBeginDate="",
-                    mEndDate="";
+            mEndDate="";
 
     private CheckBox mArts,
-                        mBusiness,
-                        mEntrepreneurs,
-                        mPolitics,
-                        mSport,
-                        mTravel;
+            mBusiness,
+            mEntrepreneurs,
+            mPolitics,
+            mSport,
+            mTravel;
 
     private String checkboxResults;
     private String keywordsResults;
@@ -117,7 +116,7 @@ public class SearchWindowActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-}
+    }
 
     private void configureWindow() {
         Switch notificationSwitch;
