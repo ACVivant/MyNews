@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -21,11 +20,9 @@ import com.vivant.annecharlotte.mynews.Models.ResultArticles;
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfArticlesAdapter;
-import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
 
 import java.util.List;
 
-import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import retrofit2.Call;
 import retrofit2.Callback;

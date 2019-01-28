@@ -23,27 +23,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Generate search window
  * launch SearchResultsActivity for results
  */
 public class SearchWindowActivity extends AppCompatActivity {
 
-    private EditText mEditText_keywords,
-            mEditText_beginDate,
-            mEditText_endDate;
-
     private Calendar mCalendar;
 
     private String mBeginDate="",
             mEndDate="";
-
-    private CheckBox mArts,
-            mBusiness,
-            mEntrepreneurs,
-            mPolitics,
-            mSport,
-            mTravel;
 
     private String checkboxResults;
     private String keywordsResults;
@@ -51,10 +43,25 @@ public class SearchWindowActivity extends AppCompatActivity {
     boolean launch;
     boolean launchDate;
 
+    @BindView(R.id.switch_notification) Switch notificationSwitch;
+    @BindView(R.id.search_toolbar) Toolbar searchToolbar;
+    @BindView(R.id.search_query_edittext) EditText mEditText_keywords;
+    @BindView(R.id.begin_date_edittext) EditText mEditText_beginDate;
+    @BindView(R.id.end_date_edittext) EditText mEditText_endDate;
+    @BindView(R.id.search_button) Button mSearchButton;
+
+    @BindView(R.id.art_checkBox) CheckBox mArts;
+    @BindView(R.id.sport_checkBox) CheckBox mSport;
+    @BindView(R.id.business_checkBox) CheckBox mBusiness;
+    @BindView(R.id.entrepreneurs_checkBox) CheckBox mEntrepreneurs;
+    @BindView(R.id.travel_checkBox) CheckBox mTravel;
+    @BindView(R.id.politics_checkBox) CheckBox mPolitics;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_notif_window);
+        ButterKnife.bind(this);
         configureLayoutLinks();
         this.configureSearchToolbar();
         this.configureWindow();
@@ -64,22 +71,6 @@ public class SearchWindowActivity extends AppCompatActivity {
     }
 
     private void configureLayoutLinks() {
-
-        Button mSearchButton;
-
-        mEditText_keywords = findViewById(R.id.search_query_edittext);
-
-        mEditText_beginDate = findViewById(R.id.begin_date_edittext);
-        mEditText_endDate = findViewById(R.id.end_date_edittext);
-
-        mArts = findViewById(R.id.art_checkBox);
-        mSport = findViewById(R.id.sport_checkBox);
-        mBusiness = findViewById(R.id.business_checkBox);
-        mEntrepreneurs = findViewById(R.id.entrepreneurs_checkBox);
-        mTravel = findViewById(R.id.travel_checkBox);
-        mPolitics = findViewById(R.id.politics_checkBox);
-
-        mSearchButton = findViewById(R.id.search_button);
 
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,10 +96,7 @@ public class SearchWindowActivity extends AppCompatActivity {
     }
 
     private void configureSearchToolbar() {
-        Toolbar searchToolbar;
 
-        //Get the toolbar (Serialise)
-        searchToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         searchToolbar.setTitle(R.string.search_results_title);
         //Set the toolbar
         setSupportActionBar(searchToolbar);
@@ -118,9 +106,8 @@ public class SearchWindowActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
+    // no switch for the search window
     private void configureWindow() {
-        Switch notificationSwitch;
-        notificationSwitch = (Switch) findViewById(R.id.switch_notification);
         notificationSwitch.setVisibility(View.GONE);
     }
 

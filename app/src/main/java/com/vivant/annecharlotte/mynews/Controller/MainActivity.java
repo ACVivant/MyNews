@@ -18,6 +18,9 @@ import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Views.Popup;
 import com.vivant.annecharlotte.mynews.Views.TabPagerAdapter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,31 +52,32 @@ public class MainActivity extends AppCompatActivity
     private String titleId;
     private String iconId;
 
+    @BindView(R.id.toolbar_resultssearch) Toolbar toolbar;
+    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.viewpager) ViewPager viewPager;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_resultssearch);
         setSupportActionBar(toolbar);
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager viewPager = findViewById(R.id.viewpager);
 
         TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(tabPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // adapt NavigationView with users perferences
+        // adapt NavigationView with users preferences
         nav1 = navigationView.getMenu().findItem(R.id.nav_1);
         nav2 = navigationView.getMenu().findItem(R.id.nav_2);
         nav3 = navigationView.getMenu().findItem(R.id.nav_3);
@@ -87,7 +91,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -107,7 +110,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item (top-right menu) clicks here.
-
         int id = item.getItemId();
 
         //launch NotificationWindowActivity
@@ -207,7 +209,6 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(myIntent,PERSO_ACTIVITY_REQUEST_CODE );
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -12,22 +12,26 @@ import android.widget.Toast;
 
 import com.vivant.annecharlotte.mynews.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Display a window for personalization of Navigation Drawer and save data
  */
 public class PersonalizationActivity extends AppCompatActivity {
 
-    private CheckBox artsCheckbox,
-            businessCheckbox,
-            politicsCheckbox,
-            sportCheckbox,
-            travelCheckbox,
-            fashionCheckbox,
-            foodCheckbox,
-            scienceCheckbox,
-            technologyCheckbox,
-            worldCheckbox,
-            healthCheckbox;
+    @BindView(R.id.art_checkBox) CheckBox artsCheckbox;
+    @BindView(R.id.sport_checkBox) CheckBox sportCheckbox;
+    @BindView(R.id.business_checkBox) CheckBox businessCheckbox;
+    @BindView(R.id.travel_checkBox) CheckBox travelCheckbox;
+    @BindView(R.id.politics_checkBox) CheckBox politicsCheckbox;
+    @BindView(R.id.fashion_checkBox) CheckBox fashionCheckbox;
+    @BindView(R.id.food_checkBox) CheckBox foodCheckbox;
+    @BindView(R.id.science_checkBox) CheckBox scienceCheckbox;
+    @BindView(R.id.technology_checkBox) CheckBox technologyCheckbox;
+    @BindView(R.id.world_checkBox) CheckBox worldCheckbox;
+    @BindView(R.id.health_checkBox) CheckBox healthCheckbox;
+    @BindView(R.id.search_toolbar) Toolbar notificationToolbar;
 
     private int artsIndex,
             businessIndex,
@@ -76,33 +80,14 @@ public class PersonalizationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personalization);
-        configureLayoutLinks();
+        ButterKnife.bind(this);
         configureNotificationToolbar();
         loadData();
         updateView();
     }
 
-    // Links between activity and layout
-    private void configureLayoutLinks() {
-        artsCheckbox = findViewById(R.id.art_checkBox);
-        sportCheckbox = findViewById(R.id.sport_checkBox);
-        businessCheckbox = findViewById(R.id.business_checkBox);
-        travelCheckbox = findViewById(R.id.travel_checkBox);
-        politicsCheckbox = findViewById(R.id.politics_checkBox);
-        fashionCheckbox = findViewById(R.id.fashion_checkBox);
-        foodCheckbox = findViewById(R.id.food_checkBox);
-        travelCheckbox = findViewById(R.id.travel_checkBox);
-        scienceCheckbox = findViewById(R.id.science_checkBox);
-        technologyCheckbox = findViewById(R.id.technology_checkBox);
-        worldCheckbox = findViewById(R.id.world_checkBox);
-        healthCheckbox = findViewById(R.id.health_checkBox);
-    }
-
     // Toolbar
     private void configureNotificationToolbar() {
-        Toolbar notificationToolbar;
-        //Get the toolbar (Serialise)
-        notificationToolbar = findViewById(R.id.search_toolbar);
         notificationToolbar.setTitle(R.string.personalization_window_title);
         //Set the toolbar
         setSupportActionBar(notificationToolbar);

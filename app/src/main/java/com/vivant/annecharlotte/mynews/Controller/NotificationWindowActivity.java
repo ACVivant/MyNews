@@ -23,20 +23,27 @@ import com.vivant.annecharlotte.mynews.Utils.AlertReceiver;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Generate notification window
  * Save and load notification keys
  */
 public class NotificationWindowActivity extends AppCompatActivity {
 
-    private Switch switchButton;
-    private CheckBox artsCheckbox,
-            businessCheckbox,
-            entrepreneursCheckbox,
-            politicsCheckbox,
-            sportCheckbox,
-            travelCheckbox;
-    private EditText textNotif;
+    @BindView(R.id.art_checkBox) CheckBox artsCheckbox;
+    @BindView(R.id.business_checkBox) CheckBox businessCheckbox;
+    @BindView(R.id.entrepreneurs_checkBox) CheckBox entrepreneursCheckbox;
+    @BindView(R.id.politics_checkBox) CheckBox politicsCheckbox;
+    @BindView(R.id.sport_checkBox) CheckBox sportCheckbox;
+    @BindView(R.id.travel_checkBox) CheckBox travelCheckbox;
+
+    @BindView(R.id.search_button) Button searchButton;
+    @BindView(R.id.begin_date) LinearLayout beginDate;
+    @BindView(R.id.end_date) LinearLayout endDate;
+    @BindView(R.id.switch_notification) Switch switchButton;
+    @BindView(R.id.search_query_edittext) EditText textNotif;
 
     public static final String SHARED_PREFS = "SharedPrefs";
     public static final String SWITCH_NOTIF = "SwitchNotif";
@@ -60,13 +67,12 @@ public class NotificationWindowActivity extends AppCompatActivity {
     private boolean travelOnOff;
 
     private boolean launch;
-    private String checkboxResults;
-    private String keywordsResults;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_notif_window);
+        ButterKnife.bind(this);
         this.configureNotificationToolbar();
         this.configureWindow();
         loadData();
@@ -98,8 +104,8 @@ public class NotificationWindowActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SearchKeysValidation keywordsValidation = new SearchKeysValidation(getBaseContext(), textNotif, artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportCheckbox, travelCheckbox);
-                keywordsResults = keywordsValidation.keywordResult();
-                checkboxResults = keywordsValidation.checkboxResult();
+                keywordsValidation.keywordResult();
+                keywordsValidation.checkboxResult();
 
                 launch = keywordsValidation.isLaunch();
 
@@ -117,28 +123,13 @@ public class NotificationWindowActivity extends AppCompatActivity {
         });
     }
 
+
+    // no calendar and validation button for notification window
     private void configureWindow() {
-        Button searchButton;
-        searchButton = findViewById(R.id.search_button);
         searchButton.setVisibility(View.GONE);
 
-        LinearLayout beginDate,endDate;
-        beginDate = findViewById(R.id.begin_date);
         beginDate.setVisibility(View.GONE);
-
-        endDate = findViewById(R.id.end_date);
         endDate.setVisibility(View.GONE);
-
-        artsCheckbox = findViewById(R.id.art_checkBox);
-        sportCheckbox = findViewById(R.id.sport_checkBox);
-        businessCheckbox = findViewById(R.id.business_checkBox);
-        entrepreneursCheckbox = findViewById(R.id.entrepreneurs_checkBox);
-        travelCheckbox = findViewById(R.id.travel_checkBox);
-        politicsCheckbox = findViewById(R.id.politics_checkBox);
-
-        switchButton = findViewById(R.id.switch_notification);
-
-        textNotif = findViewById(R.id.search_query_edittext);
     }
 
     //--------------------------------------------------------------------------------------------------------------

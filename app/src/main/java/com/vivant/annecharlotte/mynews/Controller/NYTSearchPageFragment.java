@@ -22,7 +22,6 @@ import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.Utils.MyDividerItemDecoration;
 import com.vivant.annecharlotte.mynews.Views.ListOfSearchedArticlesAdapter;
 import com.vivant.annecharlotte.mynews.Views.Popup;
-import com.vivant.annecharlotte.mynews.Views.WebViewActivity;
 
 import java.util.List;
 
