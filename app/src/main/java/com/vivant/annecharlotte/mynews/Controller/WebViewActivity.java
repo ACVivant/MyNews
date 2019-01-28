@@ -1,4 +1,4 @@
-package com.vivant.annecharlotte.mynews.Views;
+package com.vivant.annecharlotte.mynews.Controller;
 
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;

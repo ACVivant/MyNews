@@ -45,7 +45,7 @@
                 android:value=".Controller.MainActivity" />
         </activity>
         <activity
-            android:name=".Views.WebViewActivity"
+            android:name=".Controller.WebViewActivity"
             android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme" />
         <activity
