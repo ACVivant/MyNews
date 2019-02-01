@@ -1,17 +1,12 @@
 package com.vivant.annecharlotte.mynews;
 
-import com.vivant.annecharlotte.mynews.Utils.SearchKeysValidation;
+import com.vivant.annecharlotte.mynews.utils.SearchKeysValidation;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Anne-Charlotte Vivant on 17/01/2019.

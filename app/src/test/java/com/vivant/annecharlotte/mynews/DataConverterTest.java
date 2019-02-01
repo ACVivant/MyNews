@@ -1,6 +1,6 @@
 package com.vivant.annecharlotte.mynews;
 
-import com.vivant.annecharlotte.mynews.Utils.DateConverter;
+import com.vivant.annecharlotte.mynews.utils.DateConverter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

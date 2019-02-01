@@ -3,9 +3,9 @@ package com.vivant.annecharlotte.mynews;
 import android.app.AlertDialog;
 import android.content.Intent;
 
-import com.vivant.annecharlotte.mynews.Controller.MainActivity;
-import com.vivant.annecharlotte.mynews.Controller.NotificationWindowActivity;
-import com.vivant.annecharlotte.mynews.Controller.SearchWindowActivity;
+import com.vivant.annecharlotte.mynews.controller.MainActivity;
+import com.vivant.annecharlotte.mynews.controller.NotificationWindowActivity;
+import com.vivant.annecharlotte.mynews.controller.SearchWindowActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.ShadowApplication;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;

@@ -3,7 +3,7 @@ package com.vivant.annecharlotte.mynews;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.vivant.annecharlotte.mynews.Controller.NotificationWindowActivity;
+import com.vivant.annecharlotte.mynews.controller.NotificationWindowActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

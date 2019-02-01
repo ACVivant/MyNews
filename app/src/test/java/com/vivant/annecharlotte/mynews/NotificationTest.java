@@ -1,23 +1,17 @@
 package com.vivant.annecharlotte.mynews;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.vivant.annecharlotte.mynews.Controller.NotificationResults;
-import com.vivant.annecharlotte.mynews.Controller.NotificationWindowActivity;
-import com.vivant.annecharlotte.mynews.Views.TextNotif;
+import com.vivant.annecharlotte.mynews.controller.NotificationResults;
+import com.vivant.annecharlotte.mynews.views.TextNotif;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowApplication;
 
-import static android.content.Context.MODE_PRIVATE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Anne-Charlotte Vivant on 10/01/2019.

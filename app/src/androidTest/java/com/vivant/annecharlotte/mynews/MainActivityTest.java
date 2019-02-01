@@ -1,12 +1,9 @@
 package com.vivant.annecharlotte.mynews;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.Gravity;
 
-import com.vivant.annecharlotte.mynews.Controller.MainActivity;
+import com.vivant.annecharlotte.mynews.controller.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
