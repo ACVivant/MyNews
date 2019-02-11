@@ -17,14 +17,14 @@ import java.util.List;
  */
 public class ListOfArticlesAdapter extends RecyclerView.Adapter<ListOfArticlesViewHolder> {
 
-    private List<ResultArticles> listOfArticles;
-    private RequestManager glide;
-    private OnItemClickedListener mListener;
-    private String apiTag;
+private List<ResultArticles> listOfArticles;
+private RequestManager glide;
+private OnItemClickedListener mListener;
+private String apiTag;
 
-    public interface OnItemClickedListener{
-        void OnItemClicked(int position);
-    }
+public interface OnItemClickedListener{
+    void OnItemClicked(int position);
+}
 
     public void setOnItemClickedListener(OnItemClickedListener listener) {
         mListener = listener;
