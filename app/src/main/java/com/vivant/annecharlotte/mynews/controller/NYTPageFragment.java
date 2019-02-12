@@ -136,7 +136,7 @@ public class NYTPageFragment extends Fragment {
 
             case 11:
                 TAG_API = "SPORT";
-                call = apiService.loadTopStoriesAll("sport.json", ApiKey.NYT_API_KEY);
+                call = apiService.loadTopStoriesAll("sports.json", ApiKey.NYT_API_KEY);
                 break;
 
             case 12:
