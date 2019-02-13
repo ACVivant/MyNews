@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,8 +20,10 @@ import android.widget.Toast;
 import com.vivant.annecharlotte.mynews.R;
 import com.vivant.annecharlotte.mynews.utils.SearchKeysValidation;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -65,9 +68,9 @@ public class SearchWindowActivity extends AppCompatActivity {
         configureLayoutLinks();
         this.configureSearchToolbar();
         this.configureWindow();
+        initializeDate();
         initializeOnClickBeginDateListener();
         initializeOnClickEndDateListener();
-        configureLayoutLinks();
     }
 
     private void configureLayoutLinks() {
@@ -81,9 +84,10 @@ public class SearchWindowActivity extends AppCompatActivity {
                 checkboxResults = keywordsValidation.checkboxResult();
 
                 launch = keywordsValidation.isLaunch();
-                launchDate = checkDate();
+               // launchDate = checkDate();
 
-                if (launch && launchDate) {
+                //if (launch && launchDate) {
+                    if (launch) {
                     Intent myIntent = new Intent(SearchWindowActivity.this, SearchResultsActivity.class);
                     myIntent.putExtra("q", keywordsResults);
                     myIntent.putExtra("fq", checkboxResults);
@@ -143,18 +147,6 @@ public class SearchWindowActivity extends AppCompatActivity {
 
     }
 
-    // Update text field value with the chosen Date, date displayed should be: dd/MM/yyyy, for example 10/03/2018 for 10th March 2018
-    private void updateBeginDateLabel() {
-        String mFormat = "dd/MM/yyyy";
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
-
-        mEditText_beginDate.setText(sdf.format(mCalendar.getTime()));
-        mBeginDate = sdf2.format(mCalendar.getTime());
-    }
-
-
-
     // Attach listener to TextView that calls a DatePickerDialog when clicked on
     private void initializeOnClickEndDateListener() {
 
@@ -184,6 +176,21 @@ public class SearchWindowActivity extends AppCompatActivity {
     }
 
     // Update text field value with the chosen Date, date displayed should be: dd/MM/yyyy, for example 10/03/2018 for 10th March 2018
+    private void updateBeginDateLabel() {
+        String mFormat = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
+
+        mEditText_beginDate.setText(sdf.format(mCalendar.getTime()));
+        mBeginDate = sdf2.format(mCalendar.getTime());
+
+        //We consider the case where user has not selected a date
+        if (mBeginDate==null) {
+
+        }
+    }
+
+    // Update text field value with the chosen Date, date displayed should be: dd/MM/yyyy, for example 10/03/2018 for 10th March 2018
     private void updateEndDateLabel() {
         String dateFormat = "MM/dd/yyyy";
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
@@ -191,11 +198,21 @@ public class SearchWindowActivity extends AppCompatActivity {
 
         mEditText_endDate.setText(sdf.format(mCalendar.getTime()));
         mEndDate = sdf2.format(mCalendar.getTime());
-
     }
 
+    private void initializeDate(){
+        mBeginDate="19000101";
+        Date today = new Date();
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
+        mEndDate= sdf2.format(today);
+        Log.d("Date", "updateEndDateLabel: " + mBeginDate);
+        Log.d("Date", "updateEndDateLabel: " + mEndDate);
+    }
+
+
+
     // Verify if there is a begin et and end date
-    private boolean checkDate() {
+  /*  private boolean checkDate() {
         boolean testDate;
         if (mBeginDate.length()<1 || mEndDate.length()<1) {
             Toast.makeText(this, R.string.date_error, Toast.LENGTH_LONG).show();
@@ -206,5 +223,5 @@ public class SearchWindowActivity extends AppCompatActivity {
             testDate = true;
         }
         return testDate;
-    }
+    }*/
 }
